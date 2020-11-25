@@ -14,4 +14,13 @@ router.get('/theater-manage',(req,res)=>{
   res.render('admin/theater-manage')
 })
 
+router.get('/theater-details',(req,res)=>{
+  res.render('admin/theater-details')
+})
+
+router.get('/edit-theater',(req,res)=>{
+  res.render('admin/edit-theater')
+})
+
+
 module.exports = router;
