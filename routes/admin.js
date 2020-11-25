@@ -30,5 +30,9 @@ router.get('/user-management',(req,res)=>{
   res.render('admin/users-management')
 })
 
+router.get('/users-activity',(req,res)=>{
+  res.render('admin/users-activity')
+})
+
 
 module.exports = router;
