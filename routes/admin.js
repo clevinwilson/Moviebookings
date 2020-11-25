@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 var router = express.Router();
 var adminHelpers=require('../helpers/admin-helpers')
@@ -34,5 +35,14 @@ router.get('/users-activity',(req,res)=>{
   res.render('admin/users-activity')
 })
 
+router.post('/login',(req,res)=>{
+  adminHelpers.doLogin(req.body).then((response)=>{
+    if(response.status){
+      res.redirect('/admin//dashboard')
+    }else{
+      res.redirect('/admin')
+    }
+  })
+})
 
 module.exports = router;
