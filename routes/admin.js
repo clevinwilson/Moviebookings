@@ -22,5 +22,13 @@ router.get('/edit-theater',(req,res)=>{
   res.render('admin/edit-theater')
 })
 
+router.get('/add-owner',(req,res)=>{
+  res.render('admin/add-owner')
+})
+
+router.get('/user-management',(req,res)=>{
+  res.render('admin/users-management')
+})
+
 
 module.exports = router;
