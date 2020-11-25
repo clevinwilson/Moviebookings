@@ -10,4 +10,8 @@ router.get('/dashboard',(req,res)=>{
   res.render('admin/dashboard')
 })
 
+router.get('/theater-manage',(req,res)=>{
+  res.render('admin/theater-manage')
+})
+
 module.exports = router;
