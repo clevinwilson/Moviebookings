@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var adminHelpers=require('../helpers/admin-helpers')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('admin/login');
