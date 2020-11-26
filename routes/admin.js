@@ -8,7 +8,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard',(req,res)=>{
-  res.render('admin/dashboard')
+  let admin = req.session.admin
+  res.render('admin/dashboard',{admin})
 })
 
 router.get('/theater-manage',(req,res)=>{
@@ -38,11 +39,20 @@ router.get('/users-activity',(req,res)=>{
 router.post('/login',(req,res)=>{
   adminHelpers.doLogin(req.body).then((response)=>{
     if(response.status){
-      res.redirect('/admin//dashboard')
+      req.session.admin= response.admin
+      req.session.admin.loggedIn=true
+      console.log(req.session.admin);
+      res.redirect('/admin/dashboard')
     }else{
       res.redirect('/admin')
     }
   })
+})
+
+router.get('/logout',(req,res)=>{
+  req.session.admin.loggedIn=false
+  res.redirect('/admin')
+
 })
 
 module.exports = router;
