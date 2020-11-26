@@ -11,7 +11,8 @@ const verifyLogin =(req,res,next)=>{
   }
 }
 router.get('/', function(req, res, next) {
-  res.render('admin/login');
+  res.render('admin/login',{"adminLoginError":req.session.adminLoginError});
+  req.session.adminLoginError=false
 });
 
 router.get('/dashboard',verifyLogin,(req,res)=>{
@@ -51,13 +52,14 @@ router.post('/login',(req,res)=>{
       console.log(req.session.admin);
       res.redirect('/admin/dashboard')
     }else{
+      req.session.adminLoginError="Incorrect username or password "
       res.redirect('/admin')
     }
   })
 })
 
 router.get('/logout',(req,res)=>{
-  req.session.loggedIn=false
+  req.session.destroy()
   res.redirect('/admin')
 
 })
