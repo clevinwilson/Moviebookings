@@ -4,7 +4,7 @@ var router = express.Router();
 var adminHelpers=require('../helpers/admin-helpers')
 /* GET home page. */
 const verifyLogin =(req,res,next)=>{
-  if(req.session.admin.loggedIn){
+  if(req.session.loggedIn){
     next()
   }else{
     res.redirect('/admin')
@@ -14,32 +14,32 @@ router.get('/', function(req, res, next) {
   res.render('admin/login');
 });
 
-router.get('/dashboard',(req,res)=>{
+router.get('/dashboard',verifyLogin,(req,res)=>{
   let admin = req.session.admin
   res.render('admin/dashboard',{admin})
 })
 
-router.get('/theater-manage',(req,res)=>{
+router.get('/theater-manage',verifyLogin,(req,res)=>{
   res.render('admin/theater-manage')
 })
 
-router.get('/theater-details',(req,res)=>{
+router.get('/theater-details',verifyLogin,(req,res)=>{
   res.render('admin/theater-details')
 })
 
-router.get('/edit-theater',(req,res)=>{
+router.get('/edit-theater',verifyLogin,(req,res)=>{
   res.render('admin/edit-theater')
 })
 
-router.get('/add-owner',(req,res)=>{
+router.get('/add-owner',verifyLogin,(req,res)=>{
   res.render('admin/add-owner')
 })
 
-router.get('/user-management',(req,res)=>{
+router.get('/user-management',verifyLogin,(req,res)=>{
   res.render('admin/users-management')
 })
 
-router.get('/users-activity',(req,res)=>{
+router.get('/users-activity',verifyLogin,(req,res)=>{
   res.render('admin/users-activity')
 })
 
@@ -47,7 +47,7 @@ router.post('/login',(req,res)=>{
   adminHelpers.doLogin(req.body).then((response)=>{
     if(response.status){
       req.session.admin= response.admin
-      req.session.admin.loggedIn=true
+      req.session.loggedIn=true
       console.log(req.session.admin);
       res.redirect('/admin/dashboard')
     }else{
@@ -57,7 +57,7 @@ router.post('/login',(req,res)=>{
 })
 
 router.get('/logout',(req,res)=>{
-  req.session.admin.loggedIn=false
+  req.session.loggedIn=false
   res.redirect('/admin')
 
 })
