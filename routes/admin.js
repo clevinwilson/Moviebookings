@@ -3,6 +3,13 @@ var express = require('express');
 var router = express.Router();
 var adminHelpers=require('../helpers/admin-helpers')
 /* GET home page. */
+const verifyLogin =(req,res,next)=>{
+  if(req.session.admin.loggedIn){
+    next()
+  }else{
+    res.redirect('/admin')
+  }
+}
 router.get('/', function(req, res, next) {
   res.render('admin/login');
 });
