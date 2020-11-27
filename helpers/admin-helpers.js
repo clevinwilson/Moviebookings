@@ -50,5 +50,27 @@ module.exports={
                 resolve({status:false,"message":"Something Went Wrong"})
             }
         })
+    },
+    changeUsername:(details,adminId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let admin=await db.get().collection(collection.ADMIN_COLLECTION).findOne({_id:objectId(adminId)})
+            if(admin){
+                let oldPassword =await bcrypt.compare(details.oldpassword, admin.password)
+                if(oldPassword){
+                    db.get().collection(collection.ADMIN_COLLECTION)
+                    .updateOne({_id:ObjectId(adminId)},{
+                        $set:{
+                            username:details.newusername
+                        }
+                    }).then((response)=>{
+                        resolve({status:true})
+                    })
+                }else{
+                    resolve({status:false,"message":"Incorrect old password. please retry"})
+                }
+            }else{
+                resolve({status:false,"message":"Something Went Wrong"})
+            }
+        })
     }
 }

@@ -99,4 +99,30 @@ router.post('/changePassword',verifyLogin,(req,res)=>{
     }
   })
 })
+
+//change username
+router.get('/change-username',verifyLogin,(req,res)=>{
+  let admin=req.session.admin
+  res.render('admin/change-username',{admin,"usernamemessage":req.session.usernamemessage})
+  req.session.usernamemessage=false
+})
+
+router.post('/changeusername',verifyLogin,(req,res)=>{
+  let admin=req.session.admin
+  adminHelpers.changeUsername(req.body,req.session.admin._id).then((response)=>{
+    if(response.status){
+      req.session.usernamemessage={
+        message:"User Name Updated Successfully",
+        color:"green"
+      }
+      res.redirect('/admin/change-username',{admin})
+    }else{
+      req.session.usernamemessage={
+        message:response.message,
+        color:"red"
+      }
+      res.redirect('/admin/change-username')
+    }
+  })
+})
 module.exports = router;

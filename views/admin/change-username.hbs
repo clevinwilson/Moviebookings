@@ -36,8 +36,7 @@
                             <!-- Card Content - Collapse -->
                             <div class="collapse show" id="collapseCardExample">
                                 <div class="text-danger card-body">
-                                    Choose a strong password and don't reuse it for other accounts.
-                                    Changing your password will sign you out
+                                    Change User Name for login.
                                 </div>
                             </div>
                         </div>
@@ -50,33 +49,21 @@
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Password</h6>
                             </div>
-                            {{#if passwordmessage}}
-                            <p class="text-center mt-4" style=" color: {{passwordmessage.color}}; ">{{passwordmessage.message}}</p>
+                            {{#if usernamemessage}}
+                            <p class="text-center mt-4" style=" color: {{usernamemessage.color}}; ">{{usernamemessage.message}}</p>
                             {{/if}}
-                            <form action="/admin/changePassword" id="submit-form" method="post">
+                            <form action="/admin/changeusername" id="submit-form" method="post">
                                 <div class="card-body">
                                     <div class="form-group mt-3 col-md-12">
                                         <label for="oldpassword">Old Password</label>
                                         <input style="border-color:#b4e3eb;" type="password"
                                             class="form-control col-md-12 mt-2" id="oldpassword" name="oldpassword" required>
                                     </div>
-                                    <p class="p-2">Don’t use a password from another site, <br>or something too obvious
-                                        like
-                                        your pet’s name.</p>
-                                    <div class="text-center registrationFormAlert" style="color:green;"
-                                        id="SuccessPasswordMatch"></div>
-                                    <div class=" text-center registrationFormAlert" style="color:red;"
-                                        id="ErrorPasswordMatch"></div>
                                     <div class="form-group mt-3 col-md-12">
-                                        <label for="newpassword">New Password</label>
-                                        <input style="border-color:#b4e3eb;" type="password"
-                                            class="form-control col-md-12 mt-2" id="newpassword" name="newpassword" required>
-                                    </div>
-                                    <div class="form-group mt-3 col-md-12">
-                                        <label for="confirmpassword">Confirm password</label>
-                                        <input style="border-color:#b4e3eb;" type="password"
-                                            class="form-control col-md-12 mt-2" id="confirmpassword"
-                                            name="confirmpassword" required>
+                                        <label for="confirmpassword">New User Name</label>
+                                        <input style="border-color:#b4e3eb;" type="text"
+                                            class="form-control col-md-12 mt-2" id="newusername"
+                                            name="newusername" required>
                                     </div>
 
                                     <center>
@@ -93,23 +80,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function checkPasswordMatch() {
-            var password = $("#newpassword").val();
-            var confirmPassword = $("#confirmpassword").val();
-            if (password != confirmPassword) {
-                $("#ErrorPasswordMatch").html("Passwords does not match!");
-                $("#SuccessPasswordMatch").html(" ");
-                $("#changePasswordSubmit").prop("disabled", true);
-            }
-            else {
-                $("#SuccessPasswordMatch").html("Passwords match.");
-                $("#ErrorPasswordMatch").html(" ");
-                $("#changePasswordSubmit").prop("disabled", false);
-            }
-        }
-        $(document).ready(function () {
-            $("#confirmpassword").keyup(checkPasswordMatch);
-        });
-    </script>
     
