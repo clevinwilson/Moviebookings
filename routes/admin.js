@@ -73,4 +73,30 @@ router.get('/settings',verifyLogin,(req,res)=>{
   res.render('admin/settings',{"admin":req.session.admin})
 })
 
+// admin change passwor router
+router.get('/change-password',verifyLogin,(req,res)=>{
+  let admin=req.session.admin
+  res.render('admin/change-password',{admin,"passwordmessage":req.session.passwordmessage})
+  req.session.passwordmessage=false
+})
+
+//change password
+router.post('/changePassword',verifyLogin,(req,res)=>{
+  let admin=req.session.admin._id
+  adminHelpers.changePassword(req.body,admin).then((response)=>{
+    if(response.status){
+      req.session.passwordmessage={
+        message:"Password Updated Successfully",
+        color:"green"
+      }
+      res.redirect('/admin/change-password')
+    }else{
+      req.session.passwordmessage={
+        message:response.message,
+        color:"red"
+      }
+      res.redirect('/admin/change-password')
+    }
+  })
+})
 module.exports = router;
