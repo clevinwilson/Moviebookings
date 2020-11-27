@@ -67,7 +67,10 @@ router.post('/login',(req,res)=>{
 router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/admin')
+})
 
+router.get('/settings',verifyLogin,(req,res)=>{
+  res.render('admin/settings',{"admin":req.session.admin})
 })
 
 module.exports = router;
