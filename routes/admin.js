@@ -21,27 +21,33 @@ router.get('/dashboard',verifyLogin,(req,res)=>{
 })
 
 router.get('/theater-manage',verifyLogin,(req,res)=>{
-  res.render('admin/theater-manage')
+  let admin = req.session.admin
+  res.render('admin/theater-manage',{admin})
 })
 
 router.get('/theater-details',verifyLogin,(req,res)=>{
-  res.render('admin/theater-details')
+  let admin = req.session.admin
+  res.render('admin/theater-details',{admin})
 })
 
 router.get('/edit-theater',verifyLogin,(req,res)=>{
-  res.render('admin/edit-theater')
+  let admin = req.session.admin
+  res.render('admin/edit-theater',{admin})
 })
 
 router.get('/add-owner',verifyLogin,(req,res)=>{
-  res.render('admin/add-owner')
+  let admin = req.session.admin
+  res.render('admin/add-owner',{admin})
 })
 
 router.get('/user-management',verifyLogin,(req,res)=>{
-  res.render('admin/users-management')
+  let admin = req.session.admin
+  res.render('admin/users-management',{admin})
 })
 
 router.get('/users-activity',verifyLogin,(req,res)=>{
-  res.render('admin/users-activity')
+  let admin = req.session.admin
+  res.render('admin/users-activity',{admin})
 })
 
 router.post('/login',(req,res)=>{
