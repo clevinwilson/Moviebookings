@@ -2,7 +2,12 @@
 <body
   style="background-image: url(images/adminbanner.jpg);"
   class="bg-gradient-primary">
-
+<script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        } 
+    </script>
   <div class="container">
 
     <!-- Outer Row -->
@@ -15,7 +20,7 @@
             <!-- Nested Row within Card Body -->
             <div style="height: 386px; background-color: #f7f7f7;" class="row">
               <div
-                style="background-image: url(https://www.pngitem.com/pimgs/m/114-1146384_movie-theatre-png-download-transparent-movie-night-png.png);"
+                style="background-image: url(images/loginsideimage.png);"
                 class="col-lg-6 d-none d-lg-block bg-login-image"></div>
               <div class="col-lg-6">
                 <div class="p-5">
@@ -23,9 +28,6 @@
                     <h1 class="h4 text-gray-900 mb-4 mt-3">Admin login</h1>
                   </div>
                   <form class="user" action="/admin/login" method="POST">
-                  {{#if adminLoginError}}
-                  <center><p style="background-color: #f5e4e7;" class="text-danger">{{adminLoginError}}</p></center>
-                  {{/if}}
                     <div class="form-group">
                       <input type="text" class="form-control form-control-user" id="username" name="username"
                         aria-describedby="emailHelp" placeholder="User name">
@@ -48,7 +50,22 @@
       </div>
 
     </div>
-
+     <!-- Login Worning-->
+     {{#if adminLoginError}}
+    <div  class="modal fade show" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style=" margin-top: 220px;display: block;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                        </div>
+                        <div class="modal-body text-danger" >{{adminLoginError}}</div>
+                        <div class="modal-footer">
+                            <center><a class="btn btn-dark" href="/admin/logout">OK</a></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{{/if}}
 
 
 </body>
