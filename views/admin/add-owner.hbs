@@ -34,42 +34,53 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="username">User Name</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="username" name="username"
-                                            placeholder="User Name">
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="theatername">Theater Name</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="theatername" name="theatername"
-                                            placeholder="Theater Name">
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="phonenumber">Phone Number</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="phonenumber" name="phonenumber"
-                                            placeholder="Phone Number">
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="changepassword">Change Password</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="changepassword"
-                                            name="changepassword" placeholder="Change Password">
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="confirmpassword">Confirm password</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="confirmpassword"
-                                            name="confirmpassword" placeholder="Confirm password">
-                                    </div>
-                                    <center>
-                                        <a href="/admin/theater-manage" class="btn btn-danger  mt-3 mr-2 ">Cancel</a >
-                                        <button type="submit" class="btn btn-success  mt-3">Change Details</button>
-                                    </center>
+                                <div class="message p-3">
+                                {{#if createOwnersuccess}}
+                                <div class="alert alert-success" role="alert">
+                                    {{createOwnersuccess}}
                                 </div>
+                                {{/if}}
+                                {{#if createOwnerError}}
+                                <div class="alert alert-danger" role="alert">
+                                    {{createOwnerError}}
+                                </div>
+                                </div>
+                                {{/if}}
+                                <form action="/admin/add-owner" id="submit-form" method="post">
+                                    <div class="card-body">
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="username">User Name</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="username" name="username"
+                                                placeholder="User Name" onBlur="isUserExist()" required >
+                                        </div>
+                                        <span style="color: green;" id="check_availability_username" style="font-size:12px;"></span>
+                                        <span style="color:red;" id="check_not_username" style="font-size:12px;"></span>
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="theatername">Theater Name</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="theatername" name="theatername"
+                                                placeholder="Theater Name" required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="phonenumber">Email</label>
+                                            <input style="border-color:#b4e3eb;" type="email"
+                                                class="form-control col-md-12 mt-2" id="email" name="email"
+                                                placeholder="Email" required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="phonenumber">Phone Number</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="phonenumber" name="phonenumber"
+                                                placeholder="Phone Number" required>
+                                        </div>
+                                        <center>
+                                            <a href="/admin/theater-manage"
+                                                class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
+                                            <button type="submit" class="btn btn-success  mt-3">Submit</button>
+                                        </center>
+                                    </div>
+                                </form>
                             </div>
 
 
@@ -81,9 +92,30 @@
             </div>
         </div>
 
-
-
-
 </body>
-
+<script>
+    function isUserExist(){
+            let username=document.getElementById('username').value
+            $.ajax({
+                url:'/isuserexist/'+username,
+                method:'get',
+                success:(response)=>{
+                    
+                    if(response){
+                        document.getElementById('check_availability_username').innerHTML=' '
+                        document.getElementById('signupsubmit').disabled = true
+                        document.getElementById('check_not_username').innerHTML=' User name already exists'
+                      
+                        $('#submit').prop('disabled',false)
+                        
+                    }else{
+                        document.getElementById('check_not_username').innerHTML=''
+                        document.getElementById('signupsubmit').disabled = false
+                        document.getElementById('check_availability_username').innerHTML=' Name available for Registration'
+                    }
+                    
+                }
+            })
+        }
+</script>
 </html>
