@@ -347,5 +347,16 @@ module.exports={
                 }
             })
         })
+    },
+    isUserExist:(userName)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user=await db.get().collection(collection.OWNER_COLLECTION).findOne({username:userName})
+            if(user){
+                console.log(user,"dddddddd");
+                resolve({status:true})
+            }else{
+                resolve({status:false})
+            }
+        })
     }
 }

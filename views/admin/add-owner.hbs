@@ -54,8 +54,8 @@
                                                 class="form-control col-md-12 mt-2" id="username" name="username"
                                                 placeholder="User Name" onBlur="isUserExist()" required >
                                         </div>
-                                        <span style="color: green;" id="check_availability_username" style="font-size:12px;"></span>
-                                        <span style="color:red;" id="check_not_username" style="font-size:12px;"></span>
+                                        <span style="margin-left: 13px; color: green;" id="check_availability_username" style="font-size:12px;"></span>
+                                        <span style="margin-left: 13px; color:red;" id="check_not_username" style="font-size:12px;"></span>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="theatername">Theater Name</label>
                                             <input style="border-color:#b4e3eb;" type="text"
@@ -77,7 +77,7 @@
                                         <center>
                                             <a href="/admin/theater-manage"
                                                 class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
-                                            <button type="submit" class="btn btn-success  mt-3">Submit</button>
+                                            <button type="submit" id="submit" class="btn btn-success  mt-3">Submit</button>
                                         </center>
                                     </div>
                                 </form>
@@ -97,20 +97,20 @@
     function isUserExist(){
             let username=document.getElementById('username').value
             $.ajax({
-                url:'/isuserexist/'+username,
+                url:'/admin/isuserexist/'+username,
                 method:'get',
                 success:(response)=>{
                     
                     if(response){
                         document.getElementById('check_availability_username').innerHTML=' '
-                        document.getElementById('signupsubmit').disabled = true
+                        document.getElementById('submit').disabled = true
                         document.getElementById('check_not_username').innerHTML=' User name already exists'
                       
-                        $('#submit').prop('disabled',false)
+                       
                         
                     }else{
                         document.getElementById('check_not_username').innerHTML=''
-                        document.getElementById('signupsubmit').disabled = false
+                        document.getElementById('submit').disabled = false
                         document.getElementById('check_availability_username').innerHTML=' Name available for Registration'
                     }
                     

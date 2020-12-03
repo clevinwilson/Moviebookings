@@ -161,7 +161,9 @@ router.post("/changeusername", verifyLogin, (req, res) => {
     });
 });
 
-router.get('/isuserexist',(req,res)=>{
-  console.log(req.body);
+router.get('/isuserexist/:user',(req,res)=>{
+  adminHelpers.isUserExist(req.params.user).then((response)=>{
+    res.json(response.status)
+  })
 })
 module.exports = router;
