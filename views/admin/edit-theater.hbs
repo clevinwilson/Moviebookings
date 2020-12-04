@@ -34,42 +34,37 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="username">User Name</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="username" name="username"
-                                            placeholder="User Name" required>
+                               
+                                <form action="/admin/edit-theater-details" id="submit-form" method="post">
+                                    <div class="card-body">
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="username">User Name</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" value="{{response.username}}"
+                                                id="username" name="username" placeholder="User Name" required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="theatername">Theater Name</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" value="{{response.theatername}}"
+                                                id="theatername" name="theatername" placeholder="Theater Name" required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="phonenumber">Phone Number</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" value="{{response.phonenumber}}"
+                                                id="phonenumber" name="phonenumber" placeholder="Phone Number" required>
+                                        </div>
+
+                                        <input type="text" class="form-control col-md-12 mt-2" value="{{response._id}}"
+                                            id="id" name="id" style="display: none;">
+                                        <center>
+                                            <a href="/admin/theater-manage"
+                                                class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
+                                            <button type="submit" class="btn btn-success  mt-3">Submit</button>
+                                        </center>
                                     </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="theatername">Theater Name</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="theatername" name="theatername"
-                                            placeholder="Theater Name" required>
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="phonenumber">Phone Number</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="phonenumber" name="phonenumber"
-                                            placeholder="Phone Number" required>
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="changepassword">Change Password</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="changepassword"
-                                            name="changepassword" placeholder="Change Password" required>
-                                    </div>
-                                    <div class="form-group mt-3 col-md-10">
-                                        <label for="confirmpassword">Confirm password</label>
-                                        <input style="border-color:#b4e3eb;" type="text"
-                                            class="form-control col-md-12 mt-2" id="confirmpassword"
-                                            name="confirmpassword" placeholder="Confirm password" required>
-                                    </div>
-                                    <center>
-                                        <a href="/admin/theater-manage" class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
-                                        <button type="submit" class="btn btn-success  mt-3">Change Details</button>
-                                    </center>
-                                </div>
+                                </form>
                             </div>
 
 

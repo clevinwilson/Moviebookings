@@ -21,34 +21,50 @@ router.get("/dashboard", verifyLogin, (req, res) => {
   let admin = req.session.admin;
   res.render("admin/dashboard", { admin });
 });
-
+//manage theater
 router.get("/theater-manage", verifyLogin, (req, res) => {
   let admin = req.session.admin;
   adminHelpers.getOwnerDetails().then((details)=>{
-    res.render("admin/theater-manage", { admin,details });
+    res.render("admin/theater-manage", { admin,details,"editTheateSucc":req.session.editTheateSucc,"editTheateError":req.session.editTheateError });
+    req.session.editTheateSucc=false;
+    req.session.editTheateError=false;
   })
 });
 
-router.get("/theater-details", verifyLogin, (req, res) => {
+router.get("/theater-details/:id", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/theater-details", { admin });
+  adminHelpers.theaterDetails(req.params.id).then((details)=>{
+    res.render("admin/theater-details", { admin,details });
+  })
 });
 
-router.get("/edit-theater", verifyLogin, (req, res) => {
+//edit theater
+router.get("/edit-theater/:id", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/edit-theater", { admin });
+  adminHelpers.editTheate(req.params.id).then((response)=>{
+    res.render("admin/edit-theater", { response,admin  });
+  })
+
 });
+
+router.post('/edit-theater-details',(req,res)=>{
+  adminHelpers.editTheateDetails(req.body).then((response)=>{
+    if(response){
+      req.session.editTheateSucc = "Edited successfully";
+      res.redirect('/admin/theater-manage')
+    }else{
+      req.session.editTheateError="Something went wrong try again"
+      res.redirect('/admin/theater-manage')
+    }
+  })
+})
 
 //add Owner
 router.get("/add-owner", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/add-owner", {
-    admin,
-    createOwnersuccess: req.session.createOwnersuccess,
-    createOwnerError: req.session.createOwnerError,
-  });
-  req.session.createOwnersuccess = null;
-  req.session.createOwnerError=null
+  res.render("admin/add-owner", {admin,createOwnersuccess: req.session.createOwnersuccess, createOwnerError: req.session.createOwnerError});
+  req.session.createOwnersuccess = false;
+  req.session.createOwnerError=false;
   
 });
 

@@ -81,6 +81,7 @@ module.exports={
                 length: 10,
                 numbers: true
             });
+            ownerDetails.createDate=new Date()
             ownerDetails.password=password
             db.get().collection(collection.OWNER_COLLECTION).insertOne(ownerDetails).then((details)=>{
                 if (details) {
@@ -362,6 +363,40 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let theaterList=await db.get().collection(collection.OWNER_COLLECTION).find().toArray()
             resolve(theaterList)
+        })
+    },
+    theaterDetails:(theaterId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let theater=await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:ObjectId(theaterId)})
+            console.log(theater);
+            resolve(theater)
+        })
+    },
+    editTheate:(theaterId)=>{
+        return new Promise(async(resolve,reject)=>{
+            db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(theaterId)}).then((response)=>{
+                resolve(response)
+            })
+        })
+    },
+    editTheateDetails:(details)=>{
+        return new Promise(async(resolve,reject)=>{
+            let theater =await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:ObjectId(details.id)})
+            if(theater){
+                db.get().collection(collection.OWNER_COLLECTION)
+                  .updateOne({_id:objectId(details.id)},{
+                     $set:{
+                       username:details.username,
+                       theatername:details.theatername,
+                       phonenumber:details.phonenumber
+                         }
+                    }).then((response)=>{
+                        resolve(response)
+                })
+            }else{
+                console.log('error');
+                resolve(theater)
+            }
         })
     }
 }
