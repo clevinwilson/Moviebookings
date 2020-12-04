@@ -231,7 +231,7 @@ module.exports={
                                                                                                       </tr>
                                                                                                       <tr>
                                                                                                           <td style="padding:12px;" class="esd-block-text es-p15t" align="left">
-                                                                                                              <p><span class="product-description" style="color: red;">We recommend that you change your  Password and Username</span></p>
+                                                                                                              <p><span class="product-description" style="color: red;">We recommend that you change your Password and Username after login .</span></p>
                                                                                                           </td>
                                                                                                       </tr>
                                                                                                   </tbody>
