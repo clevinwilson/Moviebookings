@@ -24,7 +24,9 @@ router.get("/dashboard", verifyLogin, (req, res) => {
 
 router.get("/theater-manage", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/theater-manage", { admin });
+  adminHelpers.getOwnerDetails().then((details)=>{
+    res.render("admin/theater-manage", { admin,details });
+  })
 });
 
 router.get("/theater-details", verifyLogin, (req, res) => {

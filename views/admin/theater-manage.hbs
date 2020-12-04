@@ -52,27 +52,15 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        {{#each details}}
                                         <tr>
-                                            <td>1</td>
-                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">  System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <td>{{this._id}}</td>
+                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">    {{this.username}}</td>
+                                            <td>{{this.theatername}}</td>
                                             <td align="center"><a  type="button" href="/admin/theater-details" style="background-color: red; border-radius: 21px;" class="text-white mt-3 btn btn-danger">VIEW</a></td>
                                             <td align="center"><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">EDIT</a><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger">DELETE</a></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">  Accountant</td>
-                                            <td>Tokyo</td>
-                                             <td align="center"><a  type="button" style="background-color: red; border-radius: 21px;" class="text-white mt-3 btn btn-danger">VIEW</a></td>
-                                            <td align="center"><a type="button" href="/admin/edit-theater" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">EDIT</a><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger">DELETE</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">  Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                             <td align="center"><a  type="button" style="background-color: red; border-radius: 21px;" class="text-white mt-3 btn btn-danger">VIEW</a></td>
-                                            <td align="center"><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">EDIT</a><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger">DELETE</a></td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
