@@ -38,6 +38,16 @@ router.get("/theater-details/:id", verifyLogin, (req, res) => {
   })
 });
 
+router.get('/delete-theater/:id',(req,res)=>{
+  adminHelpers.deleteTheater(req.params.id).then((response)=>{
+    if(response){
+      res.json({status:true})
+    }else{
+      res.json({status:false})
+    }
+  })
+})
+
 //edit theater
 router.get("/edit-theater/:id", verifyLogin, (req, res) => {
   let admin = req.session.admin;

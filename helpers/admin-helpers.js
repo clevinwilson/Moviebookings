@@ -232,7 +232,7 @@ module.exports={
                                                                                                       </tr>
                                                                                                       <tr>
                                                                                                           <td style="padding:12px;" class="esd-block-text es-p15t" align="left">
-                                                                                                              <p><span class="product-description" style="color: red;">We recommend that you change your Password and Username after login .</span></p>
+                                                                                                              <p><span class="product-description" style="color: red;">We recommend that  change your Password and Username after login .</span></p>
                                                                                                           </td>
                                                                                                       </tr>
                                                                                                   </tbody>
@@ -395,6 +395,18 @@ module.exports={
                 })
             }else{
                 console.log('error');
+                resolve(theater)
+            }
+        })
+    },
+    deleteTheater:(theaterId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let theater =await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:ObjectId(theaterId)})
+            if(theater){
+                db.get().collection(collection.OWNER_COLLECTION).removeOne({_id:objectId(theaterId)}).then((response)=>{
+                    resolve(response)
+                })
+            }else{
                 resolve(theater)
             }
         })

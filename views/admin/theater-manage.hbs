@@ -31,16 +31,22 @@
                             <h6 class="m-0 font-weight-bold text-primary">Owners lis</h6>
                         </div>
                         <div class="message p-3">
-                        {{#if editTheateSucc}}
-                        <div class="alert alert-success" role="alert">
-                            {{editTheateSucc}}
-                        </div>
-                        {{/if}}
-                        {{#if editTheateError}}
-                        <div class="alert alert-danger" role="alert">
-                            {{editTheateError}}
-                        </div>
-                        {{/if}}
+                            {{#if editTheateSucc}}
+                            <div class="alert alert-success" role="alert">
+                                {{editTheateSucc}}
+                            </div>
+                            {{/if}}
+                            {{#if editTheateError}}
+                            <div class="alert alert-danger" role="alert">
+                                {{editTheateError}}
+                            </div>
+                            {{/if}}
+                            <div style="display: none;" class="alert alert-success" id="success" role="alert">
+                                Theater deleted successfully'
+                            </div>
+                            <div style="display: none;" class="alert alert-danger" id="error" role="alert">
+                                Something went wrong please try again
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -80,7 +86,7 @@
                                                     class="text-white m-2 btn btn-primary">EDIT</a><a
                                                     style=" border-radius: 21px;" type="button" href="#"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                    onclick=" deleteTheater({{this._id}})"
+                                                    onclick=" confirmDelete('{{this._id}}')"
                                                     class="text-white ml-2 btn btn-danger">DELETE</a></td>
                                         </tr>
                                         {{/each}}
@@ -124,7 +130,7 @@
                 <div class="modal-body">Are you sure you want to delete ?</div>
                 <div class="modal-footer">
                     <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="#" onclick="deleteTheater({{details._id}})">Delete</a>
+                    <a class="btn btn-danger" href="#" onclick="deleteTheater()">Delete</a>
                 </div>
             </div>
         </div>
@@ -141,16 +147,29 @@
 
     }
 </style>
+
+
 <script>
-    function deleteTheater(categoryId) {
-        alert(categoryId)
+    function confirmDelete(theaterId) {
+        id = theaterId
+        $(document).ready(function () {
+            $("#deleteModal").modal('show')
+        })
+
+    }
+    function deleteTheater() {
+        $(document).ready(function () {
+            $("#deleteModal").modal('hide')
+        })
         $.ajax({
-            url: '/admin/deleteTheater/' + categoryId,
+            url: '/admin/delete-theater/' + id,
             method: 'get',
             success: (response) => {
                 if (response.status) {
-                    alert('Category deleted successfully')
-                    location.reload()
+                    window.location.reload()
+                    document.getElementById("success").style.display="block"
+                } else {
+                    document.getElementById("error").style.display="block"
                 }
             }
         })
