@@ -410,5 +410,12 @@ module.exports={
                 resolve(theater)
             }
         })
+    },
+    getTheaterCount:()=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.OWNER_COLLECTION).count().then((count)=>{
+                resolve(count)
+            })
+        })
     }
 }

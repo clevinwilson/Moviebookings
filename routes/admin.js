@@ -17,10 +17,15 @@ router.get("/", function (req, res, next) {
   req.session.adminLoginError = false;
 });
 
+//dashboard 
 router.get("/dashboard", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/dashboard", { admin });
+  adminHelpers.getTheaterCount().then((theaterCount)=>{
+    res.render("admin/dashboard", { admin,theaterCount });
+  })
 });
+
+
 //manage theater
 router.get("/theater-manage", verifyLogin, (req, res) => {
   let admin = req.session.admin;
@@ -170,15 +175,13 @@ router.get("/change-username", verifyLogin, (req, res) => {
 
 router.post("/changeusername", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  adminHelpers
-    .changeUsername(req.body, req.session.admin._id)
-    .then((response) => {
+  adminHelpers.changeUsername(req.body, req.session.admin._id).then((response) => {
       if (response.status) {
         req.session.usernamemessage = {
           message: "User Name Updated Successfully",
           color: "green",
         };
-        res.redirect("/admin/change-username", { admin });
+        res.redirect("/admin/change-username");
       } else {
         req.session.usernamemessage = {
           message: response.message,
@@ -189,6 +192,7 @@ router.post("/changeusername", verifyLogin, (req, res) => {
     });
 });
 
+// theater user name checking
 router.get('/isuserexist/:user',(req,res)=>{
   adminHelpers.isUserExist(req.params.user).then((response)=>{
     res.json(response.status)
