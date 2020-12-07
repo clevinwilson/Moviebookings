@@ -9,7 +9,7 @@ var session = require('express-session')
 const mongoose = require('mongoose');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
-
+var fileUpload=require('express-fileupload')
 
 var app = express();
 
@@ -22,6 +22,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(fileUpload())
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret:"Key",cookie:{maxAge:600000}}))
 db.connect((err)=>{

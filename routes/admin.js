@@ -137,8 +137,7 @@ router.get("/settings", verifyLogin, (req, res) => {
 router.get("/change-password", verifyLogin, (req, res) => {
   let admin = req.session.admin;
   res.render("admin/change-password", {
-    admin,
-    passwordmessage: req.session.passwordmessage,
+    admin,passwordmessage: req.session.passwordmessage,
   });
   req.session.passwordmessage = false;
 });
@@ -193,9 +192,33 @@ router.post("/changeusername", verifyLogin, (req, res) => {
 });
 
 // theater user name checking
-router.get('/isuserexist/:user',(req,res)=>{
+router.get('/isuserexist/:user',verifyLogin,(req,res)=>{
   adminHelpers.isUserExist(req.params.user).then((response)=>{
     res.json(response.status)
   })
+})
+
+//Admin profile
+router.get('/profile',verifyLogin,(req,res)=>{
+  let admin = req.session.admin;
+  res.render('admin/profile',{admin,"imagesucc":req.session.imagesucc,"imgerror":req.session.imgerror})
+  req.session.imagesucc=false
+  req.session.imgerror=false
+})
+
+router.post('/profile/:id',verifyLogin,(req,res)=>{
+  if(req.files.Image){
+    let image=req.files.Image
+    image.mv('./public/admin-photo/' + req.params.id + '.jpg',(err)=>{
+      if(!err){
+        req.session.imagesucc="Photo Updated successfully"
+        res.redirect('/admin/profile')
+      }else{
+        req.session.imgerror="Something went wrong try again"
+        res.redirect('/admin/profile')
+      }
+    })
+    
+  }
 })
 module.exports = router;
