@@ -51,16 +51,16 @@
 
     </div>
      <!-- Login Worning-->
-     {{#if adminLoginError}}
+     {{#if ownerLoginError}}
     <div  class="modal fade show" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style=" margin-top: 220px;display: block;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
                         </div>
-                        <div class="modal-body text-danger" >{{adminLoginError}}</div>
+                        <div class="modal-body text-danger" >{{ownerLoginError}}</div>
                         <div class="modal-footer">
-                            <center><a class="btn btn-dark" href="/admin/logout">OK</a></center>
+                            <center><a class="btn btn-dark" href="/owner">OK</a></center>
                         </div>
                     </div>
                 </div>

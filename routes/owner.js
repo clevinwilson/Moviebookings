@@ -5,7 +5,8 @@ var ownerHelper = require('../helpers/owner-helpers')
 
 
 router.get('/',(req,res)=>{
-    res.render('owner/login')
+    res.render('owner/login',{"ownerLoginError":req.session.ownerLoginError})
+    req.session.ownerLoginError=false
 })
 router.get('/dashboard',(req,res)=>{
     res.render('owner/dashboard')
@@ -14,13 +15,13 @@ router.get('/dashboard',(req,res)=>{
 router.post('/login',(req,res)=>{
     ownerHelper.doLogin(req.body).then((response)=>{
         if (response.status) {
-            req.session.admin = response.admin;
+            req.session.owner = response.owner;
             req.session.loggedIn = true;
-            console.log(req.session.admin);
+            console.log(req.session.owner);
             res.redirect("/owner/dashboard");
           } else {
-            req.session.adminLoginError = "Incorrect username or password ";
-            res.redirect("/admin");
+            req.session.ownerLoginError = "Incorrect username or password ";
+            res.redirect("/owner");
           }
     })
 })
