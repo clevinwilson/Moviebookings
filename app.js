@@ -9,6 +9,7 @@ var session = require('express-session')
 const mongoose = require('mongoose');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
+var OwnerRouter = require('./routes/owner')
 var fileUpload=require('express-fileupload')
 
 var app = express();
@@ -31,6 +32,7 @@ db.connect((err)=>{
 })
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
+app.use('/owner',OwnerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

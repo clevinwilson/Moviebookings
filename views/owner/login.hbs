@@ -1,0 +1,73 @@
+ <title>Admin Login</title>
+<body
+  style="background-image: url(images/sellerbanner.jpg);"
+  class="bg-gradient-primary">
+<script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        } 
+    </script>
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div style=" margin-top: 107px;" class="row justify-content-center">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div style="height: 386px; background-color: #f7f7f7;" class="row">
+              <div
+                style="background-image: url(images/loginsideimage.png);"
+                class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4 mt-3">Theatre owner  login</h1>
+                  </div>
+                  <form class="user" action="/owner/login" method="POST">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="username" name="username"
+                        aria-describedby="emailHelp" placeholder="User name">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="password"class="form-control form-control-user" id="exampleInputPassword"
+                        placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-user btn-block">
+                      Login
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+     <!-- Login Worning-->
+     {{#if adminLoginError}}
+    <div  class="modal fade show" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style=" margin-top: 220px;display: block;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                        </div>
+                        <div class="modal-body text-danger" >{{adminLoginError}}</div>
+                        <div class="modal-footer">
+                            <center><a class="btn btn-dark" href="/admin/logout">OK</a></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{{/if}}
+
+
+</body>
+
+</html>

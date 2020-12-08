@@ -76,13 +76,13 @@ module.exports={
         })
     },
     addOwner:(ownerDetails)=>{
-        return new Promise((resolve,reject)=>{
+        return new Promise(async(resolve,reject)=>{
             var password = generator.generate({
                 length: 10,
                 numbers: true
             });
             ownerDetails.createDate=new Date()
-            ownerDetails.password=password
+            ownerDetails.password=await bcrypt.hash(password, 10)
             db.get().collection(collection.OWNER_COLLECTION).insertOne(ownerDetails).then((details)=>{
                 if (details) {
                     var transporter = nodemailer.createTransport({
@@ -226,7 +226,7 @@ module.exports={
                                                                                                       <tr>
                                                                                                           <td style="padding:12px;" class="esd-block-text es-p25t es-p10b" align="left">
                                                                                                               <p>User name: ${details.ops[0].username}</p>
-                                                                                                              <p >Password: <input type="text" value="${details.ops[0].password}" id="password" readonly> </p>
+                                                                                                              <p >Password: <input type="text" value="${password}" id="password" readonly> </p>
                                                                                                               
                                                                                                           </td>
                                                                                                       </tr>
