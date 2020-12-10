@@ -1,0 +1,175 @@
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {{>owner-sidebar}}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-2 text-gray-800">Screens</h1>
+                        <a href="/owner/add-screen" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-user-friends fa-sm text-white-50"></i> ADD SCREEN</a>
+                    </div>
+
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Details</h6>
+                        </div>
+                        <div class="message p-3">
+                            {{#if editTheateSucc}}
+                            <div class="alert alert-success" role="alert">
+                                {{editTheateSucc}}
+                            </div>
+                            {{/if}}
+                            {{#if editTheateError}}
+                            <div class="alert alert-danger" role="alert">
+                                {{editTheateError}}
+                            </div>
+                            {{/if}}
+                            <div style="display: none;" class="alert alert-success" id="success" role="alert">
+                                Theater deleted successfully'
+                            </div>
+                            <div style="display: none;" class="alert alert-danger" id="error" role="alert">
+                                Something went wrong please try again
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.no</th>
+                                            <th>Screen Name</th>
+                                            <th>Total seats</th>
+                                            <th>Schedule</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Sr.no</th>
+                                            <th>Screen Name</th>
+                                            <th>Total seats</th>
+                                            <th>Schedule</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                       
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Audi1</td>
+                                            <td>60</td>
+                                            <td align="center"><a type="button"
+                                                    href="/admin/theater-details/{{this._id}}"
+                                                     
+                                                    class="text-white mt-2 btn btn-primary">VIEW SCHEDULE</a></td>
+                                            <td align="center"><a type="button" href="/owner/edit-screen"
+                                                    style=" border-radius: 21px;"
+                                                    class="text-white m-2 btn btn-success">EDIT</a><a
+                                                    style=" border-radius: 21px;" type="button" href="#"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                    onclick=" confirmDelete('{{this._id}}')"
+                                                    class="text-white ml-2 btn btn-danger">DELETE</a></td>
+                                        </tr>
+                                     
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+
+    <!-- Delete Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div style="    margin-top: 242px;" class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Confirm to delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete ?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="#" onclick="deleteTheater()">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
+<style>
+    tr:hover {
+        box-shadow: 1px 0px 22px -1px #888888;
+
+    }
+</style>
+
+
+<script>
+    function confirmDelete(theaterId) {
+        id = theaterId
+        $(document).ready(function () {
+            $("#deleteModal").modal('show')
+        })
+
+    }
+    function deleteTheater() {
+        $(document).ready(function () {
+            $("#deleteModal").modal('hide')
+        })
+        $.ajax({
+            url: '/admin/delete-theater/' + id,
+            method: 'get',
+            success: (response) => {
+                if (response.status) {
+                    window.location.reload()
+                    document.getElementById("success").style.display="block"
+                } else {
+                    document.getElementById("error").style.display="block"
+                }
+            }
+        })
+    }
+</script>

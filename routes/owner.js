@@ -25,4 +25,17 @@ router.post('/login',(req,res)=>{
           }
     })
 })
+
+//screen
+router.get('/screen',(req,res)=>{
+    res.render('owner/screen')
+})
+
+router.get('/add-screen',(req,res)=>{
+    res.render('owner/add-screen')
+})
+
+router.get('/edit-screen',(req,res)=>{
+    res.render('owner/edit-screen')
+})
 module.exports = router;
