@@ -87,5 +87,12 @@ module.exports={
                 resolve({status:false})
             }
         })
+    },
+    addMovie:(details)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.MOVIE_COLLECTION).insertOne(details).then((response)=>{
+                resolve(response.ops[0]._id)
+            })
+        })
     }
 }
