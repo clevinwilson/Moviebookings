@@ -3,13 +3,21 @@ var express = require("express");
 var router = express.Router();
 var ownerHelper = require('../helpers/owner-helpers')
 
+const verifyLogin = (req, res, next) => {
+    if (req.session.loggedIn) {
+      next();
+    } else {
+      res.redirect("/owner");
+    }
+  };
 
 router.get('/',(req,res)=>{
     res.render('owner/login',{"ownerLoginError":req.session.ownerLoginError})
     req.session.ownerLoginError=false
 })
-router.get('/dashboard',(req,res)=>{
-    res.render('owner/dashboard')
+router.get('/dashboard',verifyLogin,(req,res)=>{
+    owner=req.session.owner
+    res.render('owner/dashboard',{owner})
 })
 //login 
 router.post('/login',(req,res)=>{
@@ -66,5 +74,11 @@ router.get('/upcoming-movies',(req,res)=>{
 
 router.get('/edit-movie',(req,res)=>{
     res.render('owner/edit-movie')
+})
+
+//Owner Users acrivity
+
+router.get('/users-activity',(req,res)=>{
+    res.render('owner/users-activity')
 })
 module.exports = router;

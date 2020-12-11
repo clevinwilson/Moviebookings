@@ -11,6 +11,7 @@ var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var OwnerRouter = require('./routes/owner')
 var fileUpload=require('express-fileupload')
+var MongoDBStore = require('connect-mongodb-session')(session);
 
 var app = express();
 
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:"Key",cookie:{maxAge:600000}}))
+app.use(session({secret:"Key",cookie:{maxAge:600000},store:new MongoDBStore({mongoConnection:db.connection,databaseName:"moviebooking"}),}))
 db.connect((err)=>{
   if(err) console.log("Connection Error"+err);
   else console.log("Database connected to port 27017");
