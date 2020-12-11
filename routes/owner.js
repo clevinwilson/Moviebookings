@@ -47,4 +47,8 @@ router.get('/movie-management',(req,res)=>{
 router.get('/add-movie',(req,res)=>{
     res.render('owner/add-movie')
 })
+
+router.get('/upcoming-movies',(req,res)=>{
+    res.render('owner/upcoming-movies')
+})
 module.exports = router;
