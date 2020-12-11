@@ -50,9 +50,9 @@ router.get('/screen',verifyLogin,(req,res)=>{
 })
 router.get('/add-screen',verifyLogin,(req,res)=>{
     owner = req.session.owner
-    res.render('owner/add-screen',{owner,"editScreenSucc":req.session.editScreenSucc,"addScreenErr":req.session.editScreenErr})
-    req.session.editScreenSucc=false
-    req.session.editScreenErr=false
+    res.render('owner/add-screen',{owner,"addScreenSucc":req.session.addScreenSucc,"addScreenErr":req.session.addScreenErr})
+    req.session.addScreenSucc=false
+    req.session.addScreenErr=false
 })
 
 router.post('/add-screen',verifyLogin,(req,res)=>{
@@ -77,7 +77,7 @@ router.get('/edit-screen/:id',verifyLogin,(req,res)=>{
 
 router.post('/edit-screen/:id',verifyLogin,(req,res)=>{
     ownerHelper.editScreen(req.body,req.params.id).then((response)=>{
-        if(response){
+        if(response.status){
             req.session.editScreenSucc="Screen edited Successfully "
             res.redirect('/owner/screen')
         }else{
@@ -88,7 +88,14 @@ router.post('/edit-screen/:id',verifyLogin,(req,res)=>{
 })
 
 router.get('/delete-screen/:id',(req,res)=>{
-    ow
+    console.log(req.params.id);
+    ownerHelper.deleteScreen(req.params.id).then((response)=>{
+        if(response.status){
+            res.json({status:true})
+        }else{
+            res.json({status:false})
+        }
+    })
 })
 
 router.get('/view-schedule',(req,res)=>{

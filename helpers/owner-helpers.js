@@ -6,6 +6,7 @@ const { response } = require("express")
 var objectId = require('mongodb').ObjectID
 var nodemailer = require('nodemailer');
 var generator = require('generate-password');
+const { template } = require("handlebars")
 module.exports={
     doLogin:(details)=>{
         let loginStatus = true
@@ -60,8 +61,30 @@ module.exports={
                         seatno:details.seatno
                     }
                 }).then((response)=>{
-                    resolve(response)
+                    if(response){
+                        resolve({status:true})
+                    }else{
+                        resolve({status:false})
+                    }
                 })
+            }else{
+                resolve({status:false})
+            }
+        })
+    },
+    deleteScreen:(screenId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let screen=await db.get().collection(collection.SCREEN_COLLECTION).findOne({_id:objectId(screenId)})
+            if(screen){
+                db.get().collection(collection.SCREEN_COLLECTION).removeOne({_id:objectId(screenId)}).then((response)=>{
+                    if(response){
+                        resolve({status:true})
+                    }else{
+                        resolve({status:false})
+                    }
+                })
+            }else{
+                resolve({status:false})
             }
         })
     }

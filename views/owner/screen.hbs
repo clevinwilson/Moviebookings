@@ -42,7 +42,7 @@
                             </div>
                             {{/if}}
                             <div style="display: none;" class="alert alert-success" id="success" role="alert">
-                                Theater deleted successfully'
+                                '
                             </div>
                             <div style="display: none;" class="alert alert-danger" id="error" role="alert">
                                 Something went wrong please try again
@@ -161,14 +161,15 @@
             $("#deleteModal").modal('hide')
         })
         $.ajax({
-            url: '/admin/delete-screen/' + id,
+            url: '/owner/delete-screen/' + id,
             method: 'get',
             success: (response) => {
                 if (response.status) {
+                    alert('Theater deleted successfully')
                     window.location.reload()
-                    document.getElementById("success").style.display="block"
                 } else {
-                    document.getElementById("error").style.display="block"
+                    alert('Something went wrong please try again')
+                    window.location.reload()
                 }
             }
         })
