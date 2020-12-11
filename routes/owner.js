@@ -34,14 +34,33 @@ router.post('/login',(req,res)=>{
     })
 })
 
+router.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+});
+
 //owner screen
-router.get('/screen',(req,res)=>{
+router.get('/screen',verifyLogin,(req,res)=>{
     res.render('owner/screen')
 })
-
-router.get('/add-screen',(req,res)=>{
-    res.render('owner/add-screen')
+router.get('/add-screen',verifyLogin,(req,res)=>{
+    res.render('owner/add-screen',{"addScreenSucc":req.session.addScreenSucc,"addScreenErr":req.session.addScreenErr})
+    req.session.addScreenSucc=false
+    req.session.addScreenErr=false
 })
+
+router.post('/add-screen',verifyLogin,(req,res)=>{
+    ownerHelper.addScreen(req.body).then((response)=>{
+        if(response){
+            req.session.addScreenSucc="Screen added Successfully"
+            res.redirect('/owner/add-screen')
+        }else{
+            req.session.addScreenErr="Something went wrong try again"
+            res.redirect('/owner/add-screen')
+        }
+    })
+})
+
 
 router.get('/edit-screen',(req,res)=>{
     res.render('owner/edit-screen')

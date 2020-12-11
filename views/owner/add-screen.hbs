@@ -35,18 +35,18 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
                                 <div class="message p-3">
-                                {{#if createOwnersuccess}}
+                                {{#if addScreenSucc}}
                                 <div class="alert alert-success" role="alert">
-                                    {{createOwnersuccess}}
+                                    {{addScreenSucc}}
                                 </div>
                                 {{/if}}
-                                {{#if createOwnerError}}
+                                {{#if addScreenErr}}
                                 <div class="alert alert-danger" role="alert">
-                                    {{createOwnerError}}
+                                    {{addScreenErr}}
                                 </div>
                                 </div>
                                 {{/if}}
-                                <form action="/admin/add-owner" id="submit-form" method="post">
+                                <form action="/owner/add-screen" id="submit-form" method="post">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="screenname">Screen Name</label>

@@ -29,5 +29,12 @@ module.exports={
                 resolve({status:false})
             }
         })
+    },
+    addScreen:(details)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.SCREEN_COLLECTION).insertOne(details).then((response)=>{
+                resolve(response)
+            })
+        })
     }
 }
