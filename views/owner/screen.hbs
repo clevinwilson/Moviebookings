@@ -31,14 +31,14 @@
                             <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                         </div>
                         <div class="message p-3">
-                            {{#if editTheateSucc}}
+                            {{#if editScreenSucc}}
                             <div class="alert alert-success" role="alert">
-                                {{editTheateSucc}}
+                                {{editScreenSucc}}
                             </div>
                             {{/if}}
-                            {{#if editTheateError}}
+                            {{#if editScreenErr}}
                             <div class="alert alert-danger" role="alert">
-                                {{editTheateError}}
+                                {{editScreenErr}}
                             </div>
                             {{/if}}
                             <div style="display: none;" class="alert alert-success" id="success" role="alert">
@@ -161,7 +161,7 @@
             $("#deleteModal").modal('hide')
         })
         $.ajax({
-            url: '/admin/delete-theater/' + id,
+            url: '/admin/delete-screen/' + id,
             method: 'get',
             success: (response) => {
                 if (response.status) {

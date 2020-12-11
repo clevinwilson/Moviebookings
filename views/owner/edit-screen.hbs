@@ -46,19 +46,19 @@
                                 </div>
                                 </div>
                                 {{/if}}
-                                <form action="/admin/add-owner" id="submit-form" method="post">
+                                <form action="/owner/edit-screen/{{screen._id}}" id="submit-form" method="post">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="screenname">Screen Name</label>
                                             <input style="border-color:#b4e3eb;" type="text"
                                                 class="form-control col-md-12 mt-2" id="screenname" name="screenname"
-                                                placeholder="Screen Name"  required >
+                                                placeholder="Screen Name" value="{{screen.screenname}}"  required >
                                         </div>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Seats">Seats</label>
                                             <input style="border-color:#b4e3eb;" type="text"
                                                 class="form-control col-md-12 mt-2" id="seatno" name="seatno"
-                                                placeholder="Seats" required>
+                                                placeholder="Seats" value="{{screen.seatno}}" required>
                                         </div>
                                         <center>
                                             <a href="/owner/screen"

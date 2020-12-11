@@ -42,5 +42,27 @@ module.exports={
            let screens=await db.get().collection(collection.SCREEN_COLLECTION).find().toArray()
            resolve(screens)
         })
+    },
+    getScreen:(ScreenId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let screen=await db.get().collection(collection.SCREEN_COLLECTION).findOne({_id:objectId(ScreenId)})
+            resolve(screen)
+        })
+    },
+    editScreen:(details,id)=>{
+        return new Promise(async(resolve,reject)=>{
+            let screen=await db.get().collection(collection.SCREEN_COLLECTION).findOne({_id:objectId(id)})
+            if(screen){
+                db.get().collection(collection.SCREEN_COLLECTION)
+                .updateOne({_id:objectId(id)},{
+                    $set:{
+                        screenname:details.screenname,
+                        seatno:details.seatno
+                    }
+                }).then((response)=>{
+                    resolve(response)
+                })
+            }
+        })
     }
 }
