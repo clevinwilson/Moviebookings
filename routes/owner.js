@@ -26,7 +26,7 @@ router.post('/login',(req,res)=>{
     })
 })
 
-//screen
+//owner screen
 router.get('/screen',(req,res)=>{
     res.render('owner/screen')
 })
@@ -37,5 +37,10 @@ router.get('/add-screen',(req,res)=>{
 
 router.get('/edit-screen',(req,res)=>{
     res.render('owner/edit-screen')
+})
+
+// owner movie management
+router.get('/movie-management',(req,res)=>{
+    res.render('owner/movie-management')
 })
 module.exports = router;
