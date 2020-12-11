@@ -33,14 +33,14 @@
                             <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                         </div>
                         <div class="message p-3">
-                            {{#if editTheateSucc}}
+                            {{#if editMovieSucc}}
                             <div class="alert alert-success" role="alert">
-                                {{editTheateSucc}}
+                                {{editMovieSucc}}
                             </div>
                             {{/if}}
-                            {{#if editTheateError}}
+                            {{#if editMovieErr}}
                             <div class="alert alert-danger" role="alert">
-                                {{editTheateError}}
+                                {{editMovieErr}}
                             </div>
                             {{/if}}
                             <div style="display: none;" class="alert alert-success" id="success" role="alert">
@@ -72,13 +72,13 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                       
+                                       {{#each movies}}
                                         <tr>
-                                            <td>1</td>
-                                            <td>Audi1</td>
-                                            <td>60</td>
-                                            <td>2020-12-03</td>
-                                            <td align="center"><a type="button" href="/owner/edit-movie"
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.movietitle}}</td>
+                                            <td>{{this.releasedate}}</td>
+                                            <td>{{this.hour}}Hr {{this.minute}}min</td>
+                                            <td align="center"><a type="button" href="/owner/edit-movie/{{this._id}}"
                                                     style=" border-radius: 21px;"
                                                     class="text-white m-2 btn btn-success">EDIT</a><a
                                                     style=" border-radius: 21px;" type="button" href="#"
@@ -86,7 +86,7 @@
                                                     onclick=" confirmDelete('{{this._id}}')"
                                                     class="text-white ml-2 btn btn-danger">DELETE</a></td>
                                         </tr>
-                                     
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>

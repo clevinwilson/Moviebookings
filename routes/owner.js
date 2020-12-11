@@ -98,54 +98,85 @@ router.get('/delete-screen/:id', verifyLogin, (req, res) => {
     })
 })
 
-router.get('/view-schedule',verifyLogin,(req, res) => {
+router.get('/view-schedule', verifyLogin, (req, res) => {
     res.render('owner/view-schedule')
 })
 
 //show routers
-router.get('/add-show',verifyLogin,(req, res) => {
+router.get('/add-show', verifyLogin, (req, res) => {
     res.render('owner/add-show')
 })
 
-router.get('/edit-show',verifyLogin,(req, res) => {
+router.get('/edit-show', verifyLogin, (req, res) => {
     res.render('owner/edit-show')
 })
 
 // owner movie management
-router.get('/movie-management',verifyLogin,(req, res) => {
+router.get('/movie-management', verifyLogin, (req, res) => {
     let owner = req.session.owner
-    res.render('owner/movie-management', { owner })
+    ownerHelper.getMovies().then((movies) => {
+        res.render('owner/movie-management', { owner, movies, "editMovieSucc": req.session.editMovieSucc, "editMovieErr": req.session.editMovieErr })
+        req.session.editMovieSucc = false
+        req.session.editMovieErr = false
+    })
 })
 
-router.get('/add-movie',verifyLogin,(req, res) => {
-    let owner=req.session.owner
-    res.render('owner/add-movie',{owner,"addMovieSucc":req.session.addMovieSucc,"addMovieErr":req.session.addMovieErr,})
-    req.session.addMovieSucc=false
-    req.session.addMovieErr=false
+router.get('/add-movie', verifyLogin, (req, res) => {
+    let owner = req.session.owner
+    res.render('owner/add-movie', { owner, "addMovieSucc": req.session.addMovieSucc, "addMovieErr": req.session.addMovieErr, })
+    req.session.addMovieSucc = false
+    req.session.addMovieErr = false
 })
 
-router.post('/add-movie',verifyLogin,(req, res) => {
+router.post('/add-movie', verifyLogin, (req, res) => {
     console.log(req.body);
     ownerHelper.addMovie(req.body).then((id) => {
         let image = req.files.Image
         image.mv('./public/movie-images/' + id + '.jpg', (err, done) => {
             if (!err) {
-                req.session.addMovieSucc="Movie added Successfully"
+                req.session.addMovieSucc = "Movie added Successfully"
                 res.redirect('/owner/add-movie')
             } else {
-                req.session.addMovieErr="Something went wrong try again"
+                req.session.addMovieErr = "Something went wrong try again"
                 res.redirect('/owner/add-movie')
             }
         })
     })
 })
 
-router.get('/upcoming-movies', (req, res) => {
+router.get('/upcoming-movies', verifyLogin, (req, res) => {
     res.render('owner/upcoming-movies')
 })
 
-router.get('/edit-movie', (req, res) => {
-    res.render('owner/edit-movie')
+router.get('/edit-movie/:id', verifyLogin, (req, res) => {
+    ownerHelper.getMovieDetails(req.params.id).then((movieDetails) => {
+        console.log(movieDetails);
+        res.render('owner/edit-movie', { movieDetails })
+    })
+})
+
+router.post('/edit-movie/:id', (req, res) => {
+    ownerHelper.editMovie(req.body, req.params.id).then((response) => {
+        if (req.files.Image) {
+            let image = req.files.Image
+            image.mv('./public/movie-images/' + req.params.id + '.jpg', (err) => {
+                if (!err) {
+                    if (response.status) {
+                        req.session.editMovieSucc = "Movie Edited Successfully"
+                        res.redirect('/owner/movie-management')
+                    } else {
+                        req.session.editMovieErr = "Something went wrong try again"
+                        res.redirect('/owner/movie-management')
+                    }
+                } else {
+                    req.session.editMovieErr = "Something went wrong try again"
+                    res.redirect('/owner/movie-management')
+                }
+            })
+
+        }
+
+    })
 })
 
 //Owner Users acrivity

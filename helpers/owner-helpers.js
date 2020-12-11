@@ -94,5 +94,48 @@ module.exports={
                 resolve(response.ops[0]._id)
             })
         })
+    },
+    getMovies:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let movies=await db.get().collection(collection.MOVIE_COLLECTION).find().toArray()
+            resolve(movies)
+        })
+    },
+    getMovieDetails:(id)=>{
+        return new Promise(async(resolve,reject)=>{
+            let Moviedetails =await db.get().collection(collection.MOVIE_COLLECTION).findOne({_id:objectId(id)})
+            resolve(Moviedetails)
+        })
+    },
+    editMovie:(details,movieId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let movie =await db.get().collection(collection.MOVIE_COLLECTION).findOne({_id:objectId(movieId)})
+            if(movie){
+                db.get().collection(collection.MOVIE_COLLECTION)
+                .updateOne({_id:objectId(movieId)},{
+                    $set:{
+                        movietitle:details.movietitle,
+                        cast:details.cast,
+                        director:details.director,
+                        releasedate:details.releasedate,
+                        hour:details.hour,
+                        minute:details.minute,
+                        trailerlink:details.trailerlink,
+                        language:details.language,
+                        type:details.type
+                    }
+                }).then((response)=>{
+                    if(response){
+                        resolve({status:true})
+                    }else{
+                        resolve({status:false})
+                    }
+
+                })
+            }else{
+                resolve({status:false})
+            }
+           
+        })
     }
 }
