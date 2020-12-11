@@ -43,12 +43,6 @@
                                 {{editMovieErr}}
                             </div>
                             {{/if}}
-                            <div style="display: none;" class="alert alert-success" id="success" role="alert">
-                                Theater deleted successfully'
-                            </div>
-                            <div style="display: none;" class="alert alert-danger" id="error" role="alert">
-                                Something went wrong please try again
-                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -159,14 +153,15 @@
             $("#deleteModal").modal('hide')
         })
         $.ajax({
-            url: '/admin/delete-theater/' + id,
+            url: '/owner/delete-movie/' + id,
             method: 'get',
             success: (response) => {
                 if (response.status) {
+                    alert("Theater deleted successfully")
                     window.location.reload()
-                    document.getElementById("success").style.display="block"
                 } else {
-                    document.getElementById("error").style.display="block"
+                    alert("Something went wrong please try again")
+                    window.location.reload()
                 }
             }
         })

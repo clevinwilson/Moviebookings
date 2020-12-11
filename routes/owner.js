@@ -179,6 +179,16 @@ router.post('/edit-movie/:id', (req, res) => {
     })
 })
 
+router.get('/delete-movie/:id',(req,res)=>{
+    ownerHelper.deleteMovie(req.params.id).then((response)=>{
+        if(response.status){
+            res.json({status:true})
+        }else{
+            res.json({status:false})
+        }
+    })
+})
+
 //Owner Users acrivity
 
 router.get('/users-activity', (req, res) => {

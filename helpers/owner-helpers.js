@@ -137,5 +137,21 @@ module.exports={
             }
            
         })
+    },
+    deleteMovie:(movieId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let movie=await db.get().collection(collection.MOVIE_COLLECTION).removeOne({_id:objectId(movieId)})
+            if(movie){
+                db.get().collection(collection.MOVIE_COLLECTION).removeOne({_id:objectId(movieId)}).then((response)=>{
+                    if(response){
+                        resolve({status:true})
+                    }else{
+                        resolve({status:false})
+                    }
+                })
+            }else{
+                resolve({status:true})
+            }
+        })
     }
 }
