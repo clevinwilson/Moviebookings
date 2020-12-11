@@ -51,4 +51,8 @@ router.get('/add-movie',(req,res)=>{
 router.get('/upcoming-movies',(req,res)=>{
     res.render('owner/upcoming-movies')
 })
+
+router.get('/edit-movie',(req,res)=>{
+    res.render('owner/edit-movie')
+})
 module.exports = router;
