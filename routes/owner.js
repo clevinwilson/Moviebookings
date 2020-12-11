@@ -42,9 +42,15 @@ router.get('/edit-screen',(req,res)=>{
 router.get('/view-schedule',(req,res)=>{
     res.render('owner/view-schedule')
 })
+//show routers
 router.get('/add-show',(req,res)=>{
     res.render('owner/add-show')
 })
+
+router.get('/edit-show',(req,res)=>{
+    res.render('owner/edit-show')
+})
+
 // owner movie management
 router.get('/movie-management',(req,res)=>{
     res.render('owner/movie-management')

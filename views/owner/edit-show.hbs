@@ -1,0 +1,125 @@
+<title> Owner</title>
+
+
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {{>owner-sidebar}}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Edit Show</h1>
+
+                    <div class="row">
+
+                        <div class="col-lg-11">
+
+                            <!-- Circle Buttons -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Details</h6>
+                                </div>
+                                <div class="message p-3">
+                                    {{#if createOwnersuccess}}
+                                    <div class="alert alert-success" role="alert">
+                                        {{createOwnersuccess}}
+                                    </div>
+                                    {{/if}}
+                                    {{#if createOwnerError}}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{createOwnerError}}
+                                    </div>
+                                </div>
+                                {{/if}}
+                                <form action="/owner/add-owner" id="submit-form" method="post">
+                                    <div class="card-body">
+                                        <div class="form-group mt-3 col-md-12">
+                                            <div class="form-group">
+                                                <label for="movietitle">Select Movie</label>
+                                                <select class="form-control" id="sel1">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-12">
+                                            <label for="Date">Date</label>
+                                            <input style="border-color:#b4e3eb;" type="date"
+                                                class="form-control col-md-12 mt-2" id="date" name="date" required>
+                                        </div>
+                                        <div class="row m-1">
+                                            <div class="form-group mt-3 col-md-6">
+                                                <label for="Run Time">Show Time</label>
+                                                <input style="border-color:#b4e3eb;" type="number"
+                                                    class="form-control col-md-12 mt-2" id="hours" name="hours"
+                                                    placeholder="Hours" required>
+                                            </div>
+                                            <div class="form-group mt-5 col-md-6">
+                                                <input style="border-color:#b4e3eb;" type="number"
+                                                    class="form-control col-md-12 mt-2" id="minutes" name="minutes"
+                                                    placeholder="Minutes" required>
+                                            </div>
+                                        </div>
+                                        <div class="head text-center mt-4" style=" color: black; font-size: 22px;"><label>CLASS RATES</label></div>
+                                        <div class="form-group mt-3 col-md-12">
+                                            <label for="VIP">VIP</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="vip" name="vip"
+                                                required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-12">
+                                            <label for="PREMIUM">PREMIUM</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="premium" name="premium" required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-12">
+                                            <label for="EXECUTIVE">EXECUTIVE</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="executive" name="executive"
+                                                required>
+                                        </div>
+                                        <div class="form-group mt-3 col-md-12">
+                                            <label for="NORMAl">NORMAl</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="normal" name="normal"
+                                                required>
+                                        </div>
+                                        <center>
+                                            <a href="/owner/view-schedule"
+                                                class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
+                                            <button type="submit" id="submit"
+                                                class="btn btn-success  mt-3">Submit</button>
+                                        </center>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>
