@@ -41,7 +41,9 @@ router.get("/logout", (req, res) => {
 
 //owner screen
 router.get('/screen',verifyLogin,(req,res)=>{
-    res.render('owner/screen')
+    ownerHelper.getScreens().then((screens)=>{
+        res.render('owner/screen',{screens})
+    })
 })
 router.get('/add-screen',verifyLogin,(req,res)=>{
     res.render('owner/add-screen',{"addScreenSucc":req.session.addScreenSucc,"addScreenErr":req.session.addScreenErr})

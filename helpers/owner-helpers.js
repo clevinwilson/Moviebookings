@@ -36,5 +36,11 @@ module.exports={
                 resolve(response)
             })
         })
+    },
+    getScreens:()=>{
+        return new Promise(async(resolve,reject)=>{
+           let screens=await db.get().collection(collection.SCREEN_COLLECTION).find().toArray()
+           resolve(screens)
+        })
     }
 }

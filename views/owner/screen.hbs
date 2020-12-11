@@ -70,24 +70,25 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                       
+                                        {{#each screens}}
                                         <tr>
-                                            <td>1</td>
-                                            <td>Audi1</td>
-                                            <td>60</td>
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.screenname}}</td>
+                                            <td>{{this.seatno}}</td>
                                             <td align="center"><a type="button"
-                                                    href="/owner/view-schedule"
+                                                    href="/owner/view-schedule/{{this._id}}"
                                                      
                                                     class="text-white mt-2 btn btn-primary">VIEW SCHEDULE</a></td>
-                                            <td align="center"><a type="button" href="/owner/edit-screen"
+                                            <td align="center"><a type="button" href="/owner/edit-screen/{{this._id}}"
                                                     style=" border-radius: 21px;"
                                                     class="text-white m-2 btn btn-success">EDIT</a><a
                                                     style=" border-radius: 21px;" type="button" href="#"
                                                     data-toggle="modal" data-target="#deleteModal"
                                                     onclick=" confirmDelete('{{this._id}}')"
                                                     class="text-white ml-2 btn btn-danger">DELETE</a></td>
+                                                   
                                         </tr>
-                                     
+                                         {{/each}}
                                     </tbody>
                                 </table>
                             </div>
