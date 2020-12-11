@@ -19,8 +19,10 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-2 text-gray-800">Movie Management</h1>
-                        <a href="/owner/add-screen" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <h1 class="h3 mb-2 text-gray-800">Now Showing Movies</h1>
+                        <a href="/owner/add-screen" class="d-none d-sm-inline-block m-2 ml-auto btn btn-sm btn-success shadow-sm"><i
+                                class=" fa-sm text-white-50"></i>  UP COMING MOVIES</a>
+                        <a href="/owner/add-movie" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-file-video fa-sm text-white-50"></i>  ADD MOVIE</a>
                     </div>
 
@@ -54,9 +56,9 @@
                                     <thead>
                                         <tr>
                                             <th>Sr.no</th>
-                                            <th>Screen Name</th>
-                                            <th>Total seats</th>
-                                            <th>Schedule</th>
+                                            <th>Movie Name</th>
+                                            <th>Release Date</th>
+                                            <th>Run Time</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -75,10 +77,7 @@
                                             <td>1</td>
                                             <td>Audi1</td>
                                             <td>60</td>
-                                            <td align="center"><a type="button"
-                                                    href="/admin/theater-details/{{this._id}}"
-                                                     
-                                                    class="text-white mt-2 btn btn-primary">VIEW SCHEDULE</a></td>
+                                            <td>2020-12-03</td>
                                             <td align="center"><a type="button" href="/owner/edit-screen"
                                                     style=" border-radius: 21px;"
                                                     class="text-white m-2 btn btn-success">EDIT</a><a

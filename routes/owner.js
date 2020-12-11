@@ -43,4 +43,8 @@ router.get('/edit-screen',(req,res)=>{
 router.get('/movie-management',(req,res)=>{
     res.render('owner/movie-management')
 })
+
+router.get('/add-movie',(req,res)=>{
+    res.render('owner/add-movie')
+})
 module.exports = router;
