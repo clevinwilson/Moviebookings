@@ -31,7 +31,8 @@ module.exports={
             }
         })
     },
-    addScreen:(details)=>{
+    addScreen:(details,ownerId)=>{
+        details.owner=objectId(ownerId)
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.SCREEN_COLLECTION).insertOne(details).then((response)=>{
                 resolve(response)

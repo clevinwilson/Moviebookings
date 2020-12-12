@@ -56,7 +56,8 @@ router.get('/add-screen', verifyLogin, (req, res) => {
 })
 
 router.post('/add-screen', verifyLogin, (req, res) => {
-    ownerHelper.addScreen(req.body).then((response) => {
+    let owner=req.session.owner._id
+    ownerHelper.addScreen(req.body,owner).then((response) => {
         if (response) {
             req.session.addScreenSucc = "Screen added Successfully"
             res.redirect('/owner/add-screen')
@@ -129,7 +130,6 @@ router.get('/add-movie', verifyLogin, (req, res) => {
 })
 
 router.post('/add-movie', verifyLogin, (req, res) => {
-    console.log(req.body);
     ownerHelper.addMovie(req.body).then((id) => {
         let image = req.files.Image
         image.mv('./public/movie-images/' + id + '.jpg', (err, done) => {
