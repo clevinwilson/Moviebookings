@@ -39,9 +39,9 @@ module.exports={
             })
         })
     },
-    getScreens:()=>{
+    getAllScreens:(ownerId)=>{
         return new Promise(async(resolve,reject)=>{
-           let screens=await db.get().collection(collection.SCREEN_COLLECTION).find().toArray()
+           let screens=await db.get().collection(collection.SCREEN_COLLECTION).find({owner:objectId(ownerId)}).toArray()
            resolve(screens)
         })
     },

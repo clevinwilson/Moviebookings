@@ -42,7 +42,7 @@ router.get("/logout", (req, res) => {
 //owner screen
 router.get('/screen', verifyLogin, (req, res) => {
     owner = req.session.owner
-    ownerHelper.getScreens().then((screens) => {
+    ownerHelper.getAllScreens(req.session.owner._id).then((screens) => {
         res.render('owner/screen', { screens, owner, "editScreenSucc": req.session.editScreenSucc, "editScreenEr": req.session.editScreenEr })
         req.session.editScreenSucc = false
         req.session.editScreenEr = false
