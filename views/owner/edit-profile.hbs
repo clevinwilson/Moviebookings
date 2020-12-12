@@ -35,44 +35,50 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
                                 <div class="message p-3">
-                                    {{#if editProfileSucc}}
+                                    {{#if imagesucc}}
                                     <div class="alert alert-success" role="alert">
-                                        {{editProfileSucc}}
+                                        {{imagesucc}}
                                     </div>
                                     {{/if}}
-                                    {{#if editProfileErr}}
+                                    {{#if imgerror}}
                                     <div class="alert alert-danger" role="alert">
-                                        {{editProfileErr}}
+                                        {{imgerror}}
                                     </div>
                                 </div>
                                 {{/if}}
-                                <form action="#"  >
+                                <form action="/owner/profile/{{response._id}}" class="text-center" id="submit-form" method="post" >
                                     <div class="card-body">
-                                        <div class="text-center form-group mt-3 col-md-12">
-                                            
-                                            <img src="/admin-photo/5fbe533102533a1d6c2dc7a0.jpg" class="m-2" id="imgView"
+                                        <div class="form-group mt-3 col-md-12">
+                                            <label for="photo">Profile Photo</label><br>
+                                            <img src="/owner-photo/{{response._id}}.jpg" class="mt-2" id="imgView"
                                                 style=" border-radius: 125px;" width="150px" height="150px"
                                                 alt="Photo ">
-                                            
+                                            <a href="/owner/edit-photo" style="  border-radius: 26px;margin-left: -33px;margin-bottom: -54px;"
+                                                class="far fa-edit  btn btn-success  mt-3 mr-2 "></a>
                                         </div>
                                        
                                         <div class="form-group mt-3 col-md-12">
-                                            <label class="text-dark" for="theatername">Theater Name</label>
-                                            
-                                               <h4 style="color: black;">{{profile.theatername}}</h4>
+                                            <label for="theatername">Theater Name</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="theatername" name="theatername"
+                                               value="{{response.theatername}}"  required>
                                         </div>
                                         <div class="form-group mt-3 col-md-12">
-                                            <label class="text-dark" for="email">Email</label>
-                                            <h5 style="color: black;">{{profile.email}}</h5>
+                                            <label for="email">Email</label>
+                                            <input style="border-color:#b4e3eb;" type="email"
+                                                class="form-control col-md-12 mt-2" id="email" name="email"
+                                                value="{{response.email}}" required>
                                         </div>
                                         <div class="form-group mt-3 col-md-12">
-                                            <label class="text-dark" for="phonenumber">Phone Number</label>
-                                            <h5 style="color: black;">{{profile.phonenumber}}</h5>
+                                            <label for="phonenumber">Phone Number</label>
+                                            <input style="border-color:#b4e3eb;" type="text"
+                                                class="form-control col-md-12 mt-2" id="phonenumber" name="phonenumber"
+                                                value="{{response.phonenumber}}"  required>
                                         </div>
-                                        <center><a href="/owner/dashboard"
+                                        <center><a href="/owner/profile"
                                                 class="btn btn-danger  mt-3 mr-2 ">Back</a>
-                                            <a href="/owner/edit-profile"
-                                                class="fas fa-edit btn btn-success  mt-3 mr-2 "> Edit</a></center>
+                                            <button type="submit" id="submit"
+                                                class="btn btn-success  mt-3">Submit</button></center>
                                     </div>
                                 </form>
                             </div>

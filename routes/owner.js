@@ -239,10 +239,52 @@ router.post('/changeusername',verifyLogin,(req,res)=>{
 })
 
 //owner profile
-router.get('/profile',(req,res)=>{
+router.get('/profile',verifyLogin,(req,res)=>{
     let owner=req.session.owner
     ownerHelper.getProfile(req.session.owner._id).then((profile)=>{
-        res.render('owner/profile',{owner,profile})
+        res.render('owner/profile',{owner,profile,"editProfileSucc":req.session.editProfileSucc,"editProfileErr":req.session.editProfileErr})
+        req.session.editProfileSucc=false
+        req.session.editProfileErr=false
     })
 })
+router.get('/edit-profile',verifyLogin,(req,res)=>{
+    let owner=req.session.owner._id
+    ownerHelper.getOwnerDetails(req.session.owner._id).then((response)=>{
+        res.render('owner/edit-profile',{response})
+    })
+})
+router.post('/profile/:id',verifyLogin,(req,res)=>{
+    ownerHelper.editProfile(req.body,req.params.id).then((response)=>{
+        if(response.status){
+            req.session.editProfileSucc="Profile updated successfully"
+            res.redirect('/owner/profile')
+        }else{
+            req.session.editProfileErr= "Something went wrong try again"
+            res.redirect('/owner/profile')
+        }
+    })
+})
+
+//edit photo 
+router.get('/edit-photo',(req,res)=>{
+    let ownerId=req.session.owner._id
+    res.render('owner/edit-photo',{ownerId,"OwnerImagesucc":req.session.OwnerImagesucc,"OwnerImgerror":req.session.OwnerImgerror})
+    req.session.OwnerImagesucc=false
+    req.session.OwnerImgerror=false
+})
+router.post('/changePhoto/:id',verifyLogin,(req,res)=>{
+    if(req.files.Image){
+      let image=req.files.Image
+      image.mv('./public/owner-photo/' + req.params.id + '.jpg',(err)=>{
+        if(!err){
+          req.session.OwnerImagesucc="Photo Updated successfully"
+          res.redirect('/owner/edit-photo')
+        }else{
+          req.session.OwnerImgerror="Something went wrong try again"
+          res.redirect('/owner/edit-photo')
+        }
+      })
+      
+    }
+  })
 module.exports = router;

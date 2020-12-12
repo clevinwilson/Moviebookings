@@ -218,5 +218,39 @@ module.exports={
                 })
             }
         })
+    },
+    getOwnerDetails:(ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let owner=await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)})
+            if(owner){
+                db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)}).then((response)=>{
+                    resolve(response)
+                })
+            }
+        })
+    },
+    editProfile:(details,ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let owner=await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)})
+            if(owner){
+                db.get().collection(collection.OWNER_COLLECTION)
+                .updateOne({_id:objectId(ownerId)},{
+                    $set:{
+                        theatername:details.theatername,
+                        email:details.email,
+                        phonenumber:details.phonenumber,
+
+                    }
+                }).then((response)=>{
+                    if(response){
+                        resolve({status:true})
+                    }else{
+                        resolve({status:false})
+                    }
+                })
+            }else{
+                resolve({status:false})
+            }
+        })
     }
 }
