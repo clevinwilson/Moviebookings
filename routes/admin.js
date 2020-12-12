@@ -126,7 +126,7 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.session.destroy();
-  res.redirect("/admin");
+  res.redirect("/");
 });
 
 router.get("/settings", verifyLogin, (req, res) => {

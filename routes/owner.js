@@ -99,7 +99,7 @@ router.get('/delete-screen/:id', verifyLogin, (req, res) => {
     })
 })
 
-router.get('/view-schedule', verifyLogin, (req, res) => {
+router.get('/view-schedule/:id', verifyLogin, (req, res) => {
     res.render('owner/view-schedule')
 })
 
@@ -155,7 +155,7 @@ router.get('/edit-movie/:id', verifyLogin, (req, res) => {
     })
 })
 
-router.post('/edit-movie/:id', (req, res) => {
+router.post('/edit-movie/:id',verifyLogin,(req, res) => {
     ownerHelper.editMovie(req.body, req.params.id).then((response) => {
         if (req.files.Image) {
             let image = req.files.Image
@@ -179,7 +179,7 @@ router.post('/edit-movie/:id', (req, res) => {
     })
 })
 
-router.get('/delete-movie/:id',(req,res)=>{
+router.get('/delete-movie/:id',verifyLogin,(req,res)=>{
     ownerHelper.deleteMovie(req.params.id).then((response)=>{
         if(response.status){
             res.json({status:true})
@@ -193,5 +193,11 @@ router.get('/delete-movie/:id',(req,res)=>{
 
 router.get('/users-activity', (req, res) => {
     res.render('owner/users-activity')
+})
+
+//owenr settings page
+router.get('/settings',verifyLogin,(req,res)=>{
+    let owner=req.session.owner
+    res.render('owner/settings',{owner})
 })
 module.exports = router;
