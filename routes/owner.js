@@ -221,7 +221,8 @@ router.post('/changePassword',verifyLogin,(req,res)=>{
 })
 //owner change username
 router.get('/change-username',verifyLogin,(req,res)=>{
-    res.render('owner/change-username',{"changeUsernameSucc":req.session.changeUsernameSucc,"changeUsernameError":req.session.changeUsernameError})
+    let owner=req.session.owner
+    res.render('owner/change-username',{owner,"changeUsernameSucc":req.session.changeUsernameSucc,"changeUsernameError":req.session.changeUsernameError})
     req.session.changeUsernameSucc=false
     req.session.changeUsernameError=false
 })
@@ -234,6 +235,14 @@ router.post('/changeusername',verifyLogin,(req,res)=>{
             req.session.changeUsernameError=response.message
             res.redirect('/owner/change-username')
         }
+    })
+})
+
+//owner profile
+router.get('/profile',(req,res)=>{
+    let owner=req.session.owner
+    ownerHelper.getProfile(req.session.owner._id).then((profile)=>{
+        res.render('owner/profile',{owner,profile})
     })
 })
 module.exports = router;

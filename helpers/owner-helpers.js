@@ -208,5 +208,15 @@ module.exports={
                 resolve({status:false,"message":"User not exist"})
             }
         })
+    },
+    getProfile:(ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let owner=await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)})
+            if(owner){
+                db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)}).then((profile)=>{
+                    resolve(profile)
+                })
+            }
+        })
     }
 }
