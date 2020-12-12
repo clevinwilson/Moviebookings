@@ -200,4 +200,23 @@ router.get('/settings',verifyLogin,(req,res)=>{
     let owner=req.session.owner
     res.render('owner/settings',{owner})
 })
+//Owner change password
+router.get('/change-password',verifyLogin,(req,res)=>{
+    let owner=req.session.owner
+    res.render('owner/change-password',{owner,"changePasswordSucc":req.session.changePasswordSucc,"changePasswordError":req.session.changePasswordError})
+    req.session.changePasswordSucc=false
+    req.session.changePasswordError=false
+})
+
+router.post('/changePassword',verifyLogin,(req,res)=>{
+    ownerHelper.changePassword(req.body,req.session.owner._id).then((response)=>{
+        if(response.status){
+            req.session.changePasswordSucc="Password Updated Successfully"
+            res.redirect('/owner/change-password')
+        }else{
+            req.session.changePasswordError=response.message
+            res.redirect('/owner/change-password')
+        }
+    })
+})
 module.exports = router;
