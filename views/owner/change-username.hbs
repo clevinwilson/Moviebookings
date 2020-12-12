@@ -1,0 +1,93 @@
+<title>Owner</title>
+
+
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {{>owner-sidebar}}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800">Change Password</h1>
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!-- Collapsable Card Example -->
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Accordion -->
+                            <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                                <h6 class="m-0 font-weight-bold text-primary">Warning</h6>
+                            </a>
+                            <!-- Card Content - Collapse -->
+                            <div class="collapse show" id="collapseCardExample">
+                                <div class="text-danger card-body">
+                                    Change User Name for login.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <!-- Circle Buttons -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Password</h6>
+                            </div>
+                            <div class="p-2 message">
+                            {{#if changeUsernameSucc}}
+                            <div class="alert alert-success" role="alert">
+                                {{changeUsernameSucc}}
+                            </div>
+                            {{/if}}
+                            {{#if changeUsernameError}}
+                            <div class="alert alert-danger" role="alert">
+                                {{changeUsernameError}}
+                            </div>
+                        
+                           {{/if}}
+                           </div>
+                            <form action="/owner/changeusername" id="submit-form" method="post">
+                                <div class="card-body">
+                                    <div class="form-group mt-3 col-md-12">
+                                        <label for="password">Password</label>
+                                        <input style="border-color:#b4e3eb;" type="password"
+                                            class="form-control col-md-12 mt-2" id="password" name="password" required>
+                                    </div>
+                                    <div class="form-group mt-3 col-md-12">
+                                        <label for="confirmpassword">New User Name</label>
+                                        <input style="border-color:#b4e3eb;" type="text"
+                                            class="form-control col-md-12 mt-2" id="newusername"
+                                            name="newusername" required>
+                                    </div>
+
+                                    <center>
+                                        <a href="/owner/settings" class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
+                                        <button type="submit" id="changePasswordSubmit"
+                                            class="btn btn-success  mt-3">Change
+                                            Details</button>
+                                    </center>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

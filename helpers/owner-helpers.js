@@ -181,5 +181,32 @@ module.exports={
                 resolve({status:false,"message":"Owner not exist"})
             }
         })
+    },
+    changeUsername:(details,ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let owner=await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)})
+            if(owner){
+                let password =await bcrypt.compare(details.password, owner.password)
+                if(password){
+                    db.get().collection(collection.OWNER_COLLECTION)
+                    .updateOne({_id:ObjectId(ownerId)},{
+                        $set:{
+                            username:details.newusername
+                        }
+                    }).then((response)=>{
+                        if(response){
+                            resolve({status:true})
+                        }else{
+                            resolve({status:false,"message":"Something Went Wrong"})
+                        }
+                        
+                    })
+                }else{
+                    resolve({status:false,"message":"Incorrect old password. please retry"})
+                }
+            }else{
+                resolve({status:false,"message":"User not exist"})
+            }
+        })
     }
 }

@@ -219,4 +219,21 @@ router.post('/changePassword',verifyLogin,(req,res)=>{
         }
     })
 })
+//owner change username
+router.get('/change-username',verifyLogin,(req,res)=>{
+    res.render('owner/change-username',{"changeUsernameSucc":req.session.changeUsernameSucc,"changeUsernameError":req.session.changeUsernameError})
+    req.session.changeUsernameSucc=false
+    req.session.changeUsernameError=false
+})
+router.post('/changeusername',verifyLogin,(req,res)=>{
+    ownerHelper.changeUsername(req.body,req.session.owner._id).then((response)=>{
+        if(response.status){
+            req.session.changeUsernameSucc="User name Updated Successfully"
+            res.redirect('/owner/change-username')
+        }else{
+            req.session.changeUsernameError=response.message
+            res.redirect('/owner/change-username')
+        }
+    })
+})
 module.exports = router;
