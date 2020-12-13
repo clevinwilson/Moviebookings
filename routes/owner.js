@@ -56,8 +56,8 @@ router.get('/add-screen', verifyLogin, (req, res) => {
 })
 
 router.post('/add-screen', verifyLogin, (req, res) => {
-    let owner=req.session.owner._id
-    ownerHelper.addScreen(req.body,owner).then((response) => {
+    let owner = req.session.owner._id
+    ownerHelper.addScreen(req.body, owner).then((response) => {
         if (response) {
             req.session.addScreenSucc = "Screen added Successfully"
             res.redirect('/owner/add-screen')
@@ -155,7 +155,7 @@ router.get('/edit-movie/:id', verifyLogin, (req, res) => {
     })
 })
 
-router.post('/edit-movie/:id',verifyLogin,(req, res) => {
+router.post('/edit-movie/:id', verifyLogin, (req, res) => {
     ownerHelper.editMovie(req.body, req.params.id).then((response) => {
         if (req.files.Image) {
             let image = req.files.Image
@@ -179,12 +179,12 @@ router.post('/edit-movie/:id',verifyLogin,(req, res) => {
     })
 })
 
-router.get('/delete-movie/:id',verifyLogin,(req,res)=>{
-    ownerHelper.deleteMovie(req.params.id).then((response)=>{
-        if(response.status){
-            res.json({status:true})
-        }else{
-            res.json({status:false})
+router.get('/delete-movie/:id', verifyLogin, (req, res) => {
+    ownerHelper.deleteMovie(req.params.id).then((response) => {
+        if (response.status) {
+            res.json({ status: true })
+        } else {
+            res.json({ status: false })
         }
     })
 })
@@ -196,95 +196,102 @@ router.get('/users-activity', (req, res) => {
 })
 
 //owenr settings page
-router.get('/settings',verifyLogin,(req,res)=>{
-    let owner=req.session.owner
-    res.render('owner/settings',{owner})
+router.get('/settings', verifyLogin, (req, res) => {
+    let owner = req.session.owner
+    res.render('owner/settings', { owner })
 })
 //Owner change password
-router.get('/change-password',verifyLogin,(req,res)=>{
-    let owner=req.session.owner
-    res.render('owner/change-password',{owner,"changePasswordSucc":req.session.changePasswordSucc,"changePasswordError":req.session.changePasswordError})
-    req.session.changePasswordSucc=false
-    req.session.changePasswordError=false
+router.get('/change-password', verifyLogin, (req, res) => {
+    let owner = req.session.owner
+    res.render('owner/change-password', { owner, "changePasswordSucc": req.session.changePasswordSucc, "changePasswordError": req.session.changePasswordError })
+    req.session.changePasswordSucc = false
+    req.session.changePasswordError = false
 })
 
-router.post('/changePassword',verifyLogin,(req,res)=>{
-    ownerHelper.changePassword(req.body,req.session.owner._id).then((response)=>{
-        if(response.status){
-            req.session.changePasswordSucc="Password Updated Successfully"
+router.post('/changePassword', verifyLogin, (req, res) => {
+    ownerHelper.changePassword(req.body, req.session.owner._id).then((response) => {
+        if (response.status) {
+            req.session.changePasswordSucc = "Password Updated Successfully"
             res.redirect('/owner/change-password')
-        }else{
-            req.session.changePasswordError=response.message
+        } else {
+            req.session.changePasswordError = response.message
             res.redirect('/owner/change-password')
         }
     })
 })
 //owner change username
-router.get('/change-username',verifyLogin,(req,res)=>{
-    let owner=req.session.owner
-    res.render('owner/change-username',{owner,"changeUsernameSucc":req.session.changeUsernameSucc,"changeUsernameError":req.session.changeUsernameError})
-    req.session.changeUsernameSucc=false
-    req.session.changeUsernameError=false
+router.get('/change-username', verifyLogin, (req, res) => {
+    let owner = req.session.owner
+    res.render('owner/change-username', { owner, "changeUsernameSucc": req.session.changeUsernameSucc, "changeUsernameError": req.session.changeUsernameError })
+    req.session.changeUsernameSucc = false
+    req.session.changeUsernameError = false
 })
-router.post('/changeusername',verifyLogin,(req,res)=>{
-    ownerHelper.changeUsername(req.body,req.session.owner._id).then((response)=>{
-        if(response.status){
-            req.session.changeUsernameSucc="User name Updated Successfully"
+router.post('/changeusername', verifyLogin, (req, res) => {
+    ownerHelper.changeUsername(req.body, req.session.owner._id).then((response) => {
+        if (response.status) {
+            req.session.changeUsernameSucc = "User name Updated Successfully"
             res.redirect('/owner/change-username')
-        }else{
-            req.session.changeUsernameError=response.message
+        } else {
+            req.session.changeUsernameError = response.message
             res.redirect('/owner/change-username')
         }
     })
 })
 
 //owner profile
-router.get('/profile',verifyLogin,(req,res)=>{
-    let owner=req.session.owner
-    ownerHelper.getProfile(req.session.owner._id).then((profile)=>{
-        res.render('owner/profile',{owner,profile,"editProfileSucc":req.session.editProfileSucc,"editProfileErr":req.session.editProfileErr})
-        req.session.editProfileSucc=false
-        req.session.editProfileErr=false
+router.get('/profile', verifyLogin, (req, res) => {
+    let owner = req.session.owner
+    ownerHelper.getProfile(req.session.owner._id).then((profile) => {
+        res.render('owner/profile', { owner, profile, "editProfileSucc": req.session.editProfileSucc, "editProfileErr": req.session.editProfileErr })
+        req.session.editProfileSucc = false
+        req.session.editProfileErr = false
     })
 })
-router.get('/edit-profile',verifyLogin,(req,res)=>{
-    let owner=req.session.owner._id
-    ownerHelper.getOwnerDetails(req.session.owner._id).then((response)=>{
-        res.render('owner/edit-profile',{response})
+router.get('/edit-profile', verifyLogin, (req, res) => {
+    let owner = req.session.owner._id
+    ownerHelper.getOwnerDetails(req.session.owner._id).then((response) => {
+        res.render('owner/edit-profile', { response })
     })
 })
-router.post('/profile/:id',verifyLogin,(req,res)=>{
-    ownerHelper.editProfile(req.body,req.params.id).then((response)=>{
-        if(response.status){
-            req.session.editProfileSucc="Profile updated successfully"
+router.post('/profile/:id', verifyLogin, (req, res) => {
+    ownerHelper.editProfile(req.body, req.params.id).then((response) => {
+        if (response.status) {
+            req.session.editProfileSucc = "Profile updated successfully"
             res.redirect('/owner/profile')
-        }else{
-            req.session.editProfileErr= "Something went wrong try again"
+        } else {
+            req.session.editProfileErr = "Something went wrong try again"
             res.redirect('/owner/profile')
         }
     })
 })
 
 //edit photo 
-router.get('/edit-photo',(req,res)=>{
-    let ownerId=req.session.owner._id
-    res.render('owner/edit-photo',{ownerId,"OwnerImagesucc":req.session.OwnerImagesucc,"OwnerImgerror":req.session.OwnerImgerror})
-    req.session.OwnerImagesucc=false
-    req.session.OwnerImgerror=false
+router.get('/edit-photo', (req, res) => {
+    let ownerId = req.session.owner._id
+    res.render('owner/edit-photo', { ownerId, "OwnerImagesucc": req.session.OwnerImagesucc, "OwnerImgerror": req.session.OwnerImgerror })
+    req.session.OwnerImagesucc = false
+    req.session.OwnerImgerror = false
 })
-router.post('/changePhoto/:id',verifyLogin,(req,res)=>{
-    if(req.files.Image){
-      let image=req.files.Image
-      image.mv('./public/owner-photo/' + req.params.id + '.jpg',(err)=>{
-        if(!err){
-          req.session.OwnerImagesucc="Photo Updated successfully"
-          res.redirect('/owner/edit-photo')
-        }else{
-          req.session.OwnerImgerror="Something went wrong try again"
-          res.redirect('/owner/edit-photo')
-        }
-      })
-      
+router.post('/changePhoto/:id', verifyLogin, (req, res) => {
+    if (req.files.Image) {
+        let image = req.files.Image
+        image.mv('./public/owner-photo/' + req.params.id + '.jpg', (err) => {
+            if (!err) {
+                req.session.OwnerImagesucc = "Photo Updated successfully"
+                res.redirect('/owner/edit-photo')
+            } else {
+                req.session.OwnerImgerror = "Something went wrong try again"
+                res.redirect('/owner/edit-photo')
+            }
+        })
+
     }
-  })
+})
+//Owner forgot password
+router.get('/forgot-password', (req, res) => {
+    res.render('owner/forgot-password')
+})
+router.post('/forgot-password',(req,res)=>{
+    ownerHelper.forgotPassword()
+})
 module.exports = router;
