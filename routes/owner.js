@@ -11,13 +11,7 @@ const verifyLogin = (req, res, next) => {
     }
 };
 
-const resetPassword=(req,res,next)=>{
-    if(req.session.resetPassword){
-        next()
-    }else{
-        res.redirect("/owner");
-    }
-}
+
 
 router.get('/', (req, res) => {
     res.render('owner/login', { "ownerLoginError": req.session.ownerLoginError })
@@ -297,18 +291,44 @@ router.post('/changePhoto/:id', verifyLogin, (req, res) => {
 })
 //Owner forgot password
 router.get('/forgot-password', (req, res) => {
-    res.render('owner/forgot-password',{"forgotPasswordSucc":req.session.forgotPasswordSucc})
-    req.session.forgotPasswordSucc=false
+    res.render('owner/forgot-password', { "forgotPasswordSucc": req.session.forgotPasswordSucc, "verifyCodeErr": req.session.verifyCodeErr })
+    req.session.forgotPasswordSucc = false
+    req.session.verifyCodeErr = false
 })
-router.post('/forgot-password',(req,res)=>{
-    ownerHelper.forgotPassword(req.body).then((response)=>{
-        if(response.status){
-            req.session.resetPassword=true
-            res.send('success')
-        }else{
-            req.session.forgotPasswordSucc=response.message
+
+router.post('/forgot-password', (req, res) => {
+    ownerHelper.forgotPassword(req.body).then((response) => {
+        if (response.status) {
+            req.session.resetPassword = true
+            if (req.session.resetPassword) {
+                res.render('owner/verify-code')
+                req.session.resetPassword = false
+            } else {
+                res.redirect("/owner");
+            }
+        } else {
+            req.session.forgotPasswordSucc = response.message
             res.redirect('/owner/forgot-password')
         }
     })
 })
+
+router.post('/submit-code', (req, res) => {
+    ownerHelper.checkCode(req.body).then((response) => {
+        if (response.status) {
+            req.session.resetPassword = true
+            if (req.session.resetPassword) {
+                res.render('owner/new-password')
+                req.session.resetPassword = false
+            } else {
+                res.redirect("/owner");
+            }
+        } else {
+            req.session.verifyCodeErr = "The verification code is not correct"
+            res.redirect('/owner/forgot-password')
+        }
+    })
+})
+
+
 module.exports = router;

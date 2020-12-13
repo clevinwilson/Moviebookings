@@ -390,7 +390,7 @@ module.exports={
                                                                                                       </tr>
                                                                                                         <tr>
                                                                                                             <td class= esd-block-text es-m-txt-l" align="left">
-                                                                                                                <h2 style="padding:12px; font-size: 28px;">HI,</h2>
+                                                                                                                <h2 style="padding:12px; font-size: 28px;">HI,${owner.username}</h2>
                                                                                                             </td>
                                                                                                         </tr>
                                                                                                         <tr>
@@ -523,6 +523,15 @@ module.exports={
                 }
             }else{
                 resolve({status:false,message:"Owner not exist retry"})
+            }
+        })
+    },
+    checkCode:(details)=>{
+        return new Promise((resolve,reject)=>{
+            if(details.code === resetCode){
+                resolve({status:true})
+            }else{
+                resolve({status:false})
             }
         })
     }
