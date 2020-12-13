@@ -221,4 +221,13 @@ router.post('/profile/:id',verifyLogin,(req,res)=>{
     
   }
 })
+
+//check email availability
+router.get('/isemailexist/:email',verifyLogin,(req,res)=>{
+  console.log(req.params.email);
+  adminHelpers.isEmailExist(req.params.email).then((response)=>{
+    res.json(response.status)
+  })
+})
+
 module.exports = router;

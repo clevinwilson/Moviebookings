@@ -359,6 +359,16 @@ module.exports={
             }
         })
     },
+    isEmailExist:(email)=>{
+        return new Promise(async(resolve,reject)=>{
+            let emailExist=await db.get().collection(collection.OWNER_COLLECTION).findOne({email:email})
+            if(emailExist){
+                resolve({status:true})
+            }else{
+                resolve({status:false})
+            }
+        })
+    },
     getOwnerDetails:()=>{
         return new Promise(async(resolve,reject)=>{
             let theaterList=await db.get().collection(collection.OWNER_COLLECTION).find().toArray()

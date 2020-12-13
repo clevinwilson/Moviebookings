@@ -66,8 +66,10 @@
                                             <label for="phonenumber">Email</label>
                                             <input style="border-color:#b4e3eb;" type="email"
                                                 class="form-control col-md-12 mt-2" id="email" name="email"
-                                                placeholder="Email" required>
+                                                placeholder="Email" onBlur="isEmailExist()" required>
                                         </div>
+                                        <span style="margin-left: 13px; color: green;" id="check_availability_email" style="font-size:12px;"></span>
+                                        <span style="margin-left: 13px; color:red;" id="check_not_email" style="font-size:12px;"></span>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="phonenumber">Phone Number</label>
                                             <input style="border-color:#b4e3eb;" type="text"
@@ -94,7 +96,31 @@
 
 </body>
 <script>
-    function isUserExist(){
+    function isEmailExist(){
+            let email=document.getElementById('email').value
+            $.ajax({
+                url:'/admin/isemailexist/'+email,
+                method:'get',
+                success:(response)=>{
+                    
+                    if(response){
+                        document.getElementById('check_availability_email').innerHTML=' '
+                        document.getElementById('submit').disabled = true
+                        document.getElementById('check_not_email').innerHTML=' Email already exists'
+                      
+                       
+                        
+                    }else{
+                        document.getElementById('check_not_email').innerHTML=''
+                        document.getElementById('submit').disabled = false
+                        document.getElementById('check_availability_email').innerHTML=' Email available for Registration'
+                    }
+                    
+                }
+            })
+        }
+
+        function isUserExist(){
             let username=document.getElementById('username').value
             $.ajax({
                 url:'/admin/isuserexist/'+username,
