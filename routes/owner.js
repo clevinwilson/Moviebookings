@@ -11,6 +11,14 @@ const verifyLogin = (req, res, next) => {
     }
 };
 
+const resetPassword=(req,res,next)=>{
+    if(req.session.resetPassword){
+        next()
+    }else{
+        res.redirect("/owner");
+    }
+}
+
 router.get('/', (req, res) => {
     res.render('owner/login', { "ownerLoginError": req.session.ownerLoginError })
     req.session.ownerLoginError = false
@@ -289,9 +297,18 @@ router.post('/changePhoto/:id', verifyLogin, (req, res) => {
 })
 //Owner forgot password
 router.get('/forgot-password', (req, res) => {
-    res.render('owner/forgot-password')
+    res.render('owner/forgot-password',{"forgotPasswordSucc":req.session.forgotPasswordSucc})
+    req.session.forgotPasswordSucc=false
 })
 router.post('/forgot-password',(req,res)=>{
-    ownerHelper.forgotPassword()
+    ownerHelper.forgotPassword(req.body).then((response)=>{
+        if(response.status){
+            req.session.resetPassword=true
+            res.send('success')
+        }else{
+            req.session.forgotPasswordSucc=response.message
+            res.redirect('/owner/forgot-password')
+        }
+    })
 })
 module.exports = router;
