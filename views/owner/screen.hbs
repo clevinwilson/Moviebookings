@@ -1,4 +1,4 @@
-<body id="page-top">
+'<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -41,6 +41,18 @@
                                 {{editScreenErr}}
                             </div>
                             {{/if}}
+                            <div class="message p-3">
+                                {{#if addShowSucc}}
+                                <div class="alert alert-success" role="alert">
+                                    {{addShowSucc}}
+                                </div>
+                                {{/if}}
+                                {{#if addShowErr}}
+                                <div class="alert alert-danger" role="alert">
+                                    {{addShowErr}}
+                                </div>
+                            </div>
+                            {{/if}}
                             <div style="display: none;" class="alert alert-success" id="success" role="alert">
                                 '
                             </div>
@@ -75,9 +87,7 @@
                                             <td>{{this._id}}</td>
                                             <td>{{this.screenname}}</td>
                                             <td>{{this.seatno}}</td>
-                                            <td align="center"><a type="button"
-                                                    href="/owner/view-schedule/{{this._id}}"
-                                                     
+                                            <td align="center"><a type="button" href="/owner/view-schedule/{{this._id}}"
                                                     class="text-white mt-2 btn btn-primary">VIEW SCHEDULE</a></td>
                                             <td align="center"><a type="button" href="/owner/edit-screen/{{this._id}}"
                                                     style=" border-radius: 21px;"
@@ -86,9 +96,9 @@
                                                     data-toggle="modal" data-target="#deleteModal"
                                                     onclick=" confirmDelete('{{this._id}}')"
                                                     class="text-white ml-2 btn btn-danger">DELETE</a></td>
-                                                   
+
                                         </tr>
-                                         {{/each}}
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>

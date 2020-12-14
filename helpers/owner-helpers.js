@@ -582,6 +582,7 @@ module.exports = {
     },
     addShow:(details,ownerId)=>{
         details.owner=ownerId
+        details.screenId=objectId(details.screenId)
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response)=>{
                 if(response){
@@ -590,6 +591,13 @@ module.exports = {
                     resolve({status:false})
                 }
             })
+        })
+    },
+    getShedule:(ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let show = await db.get().collection(collection.SHOW_COLLECTION).find({owner:objectId(ownerId)}).toArray()
+            console.log(show);
+            resolve(show)
         })
     }
 }

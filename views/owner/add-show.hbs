@@ -34,18 +34,7 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
-                                <div class="message p-3">
-                                    {{#if addShowSucc}}
-                                    <div class="alert alert-success" role="alert">
-                                        {{addShowSucc}}
-                                    </div>
-                                    {{/if}}
-                                    {{#if addShowErr}}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{addShowErr}}
-                                    </div>
-                                </div>
-                                {{/if}}
+                               
                                 <form action="/owner/add-show" id="submit-form" method="post">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-12">
@@ -59,6 +48,8 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <input  type="text"
+                                               style="display: none;"  class="form-control col-md-12 mt-2" value="{{screenId}}" id="screenId" name="screenId" required>
                                         <div class="form-group mt-3 col-md-12">
                                             <label for="Date">Date</label>
                                             <input style="border-color:#b4e3eb;" type="date"

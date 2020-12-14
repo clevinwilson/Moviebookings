@@ -20,7 +20,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-2 text-gray-800">Audi 1 Shows</h1>
-                        <a href="/owner/add-show" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="/owner/add-show/{{screenId}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-file-video fa-sm text-white-50"></i>  ADD SHOW</a>
                     </div>
 
@@ -70,12 +70,12 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                       
+                                       {{#each show}}
                                         <tr>
-                                            <td>1</td>
-                                            <td>Audi1</td>
-                                            <td>60</td>
-                                            <td>2020-12-03</td>
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.movietitle}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.hours}} Hr {{this.minutes}}min</td>
                                             <td align="center"><a type="button" href="/owner/edit-show"
                                                     style=" border-radius: 21px;"
                                                     class="text-white m-2 btn btn-success">EDIT</a><a
@@ -84,6 +84,7 @@
                                                     onclick=" confirmDelete('{{this._id}}')"
                                                     class="text-white ml-2 btn btn-danger">DELETE</a></td>
                                         </tr>
+                                        {{/each}}
                                      
                                     </tbody>
                                 </table>

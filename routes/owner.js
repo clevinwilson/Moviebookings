@@ -45,9 +45,11 @@ router.get("/logout", (req, res) => {
 router.get('/screen', verifyLogin, (req, res) => {
     owner = req.session.owner
     ownerHelper.getAllScreens(req.session.owner._id).then((screens) => {
-        res.render('owner/screen', { screens, owner, "editScreenSucc": req.session.editScreenSucc, "editScreenEr": req.session.editScreenEr })
+        res.render('owner/screen', { screens, owner, "editScreenSucc": req.session.editScreenSucc, "editScreenEr": req.session.editScreenEr,"addShowSucc":req.session.addShowSucc,"addShowErr":req.session.addShowErr })
         req.session.editScreenSucc = false
         req.session.editScreenEr = false
+        req.session.addShowSucc=false
+        req.session.addShowErr=false
     })
 })
 router.get('/add-screen', verifyLogin, (req, res) => {
@@ -102,15 +104,17 @@ router.get('/delete-screen/:id', verifyLogin, (req, res) => {
 })
 
 router.get('/view-schedule/:id', verifyLogin, (req, res) => {
-    res.render('owner/view-schedule')
+    ownerHelper.getShedule(req.session.owner._id).then((show)=>{
+        console.log(show);
+        res.render('owner/view-schedule',{screenId:req.params.id,show})  
+    })
 })
 
 //show routers
-router.get('/add-show', verifyLogin, (req, res) => {
+router.get('/add-show/:id', verifyLogin, (req, res) => {
     ownerHelper.getMoviesTitle(req.session.owner._id).then((movies)=>{
-        res.render('owner/add-show',{movies,"addShowSucc":req.session.addShowSucc,"addShowErr":req.session.addShowErr})
-        req.session.addShowSucc=false
-        req.session.addShowErr=false
+        res.render('owner/add-show',{screenId:req.params.id,movies})
+       
     })
    
 })
@@ -119,10 +123,10 @@ router.post('/add-show',verifyLogin,(req,res)=>{
     ownerHelper.addShow(req.body,req.session.owner._id).then((response)=>{
         if(response.status){
             req.session.addShowSucc="Show added successfully"
-            res.redirect('/owner/add-show')
+            res.redirect('/owner/screen')
         }else{
             req.session.addShowErr="Error"
-            res.redirect('/owner/add-show')
+            res.redirect('/owner/screen')
         }
     })
 })
