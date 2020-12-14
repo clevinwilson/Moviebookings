@@ -107,17 +107,21 @@ router.get('/view-schedule/:id', verifyLogin, (req, res) => {
 
 //show routers
 router.get('/add-show', verifyLogin, (req, res) => {
-    res.render('owner/add-show')
+    ownerHelper.getMoviesTitle(req.session.owner._id).then((movies)=>{
+        res.render('owner/add-show',{movies})
+    })
+   
 })
 
 router.get('/edit-show', verifyLogin, (req, res) => {
+    
     res.render('owner/edit-show')
 })
 
 // owner movie management
 router.get('/movie-management', verifyLogin, (req, res) => {
     let owner = req.session.owner
-    ownerHelper.getMovies().then((movies) => {
+    ownerHelper.getMovies(req.session.owner._id).then((movies) => {
         res.render('owner/movie-management', { owner, movies, "editMovieSucc": req.session.editMovieSucc, "editMovieErr": req.session.editMovieErr })
         req.session.editMovieSucc = false
         req.session.editMovieErr = false

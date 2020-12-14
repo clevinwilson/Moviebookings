@@ -98,9 +98,9 @@ module.exports = {
             })
         })
     },
-    getMovies: () => {
+    getMovies: (ownerId) => {
         return new Promise(async (resolve, reject) => {
-            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find().toArray()
+            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find({owner:objectId(ownerId)}).toArray()
             resolve(movies)
         })
     },
@@ -572,6 +572,12 @@ module.exports = {
             } else {
                 resolve({ status: false })
             }
+        })
+    },
+    getMoviesTitle:(ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let movies =await db.get().collection(collection.MOVIE_COLLECTION).find({owner:objectId(ownerId)}).toArray()
+            resolve(movies)
         })
     }
 }

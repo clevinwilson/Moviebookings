@@ -46,16 +46,15 @@
                                     </div>
                                 </div>
                                 {{/if}}
-                                <form action="/owner/add-owner" id="submit-form" method="post">
+                                <form action="/owner/add-show" id="submit-form" method="post">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-12">
                                             <div class="form-group">
                                                 <label for="movietitle">Select Movie</label>
                                                 <select class="form-control" id="sel1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
+                                                    {{#each movies}}
+                                                    <option>{{this.movietitle}}</option>
+                                                    {{/each}}
                                                 </select>
                                             </div>
                                         </div>
