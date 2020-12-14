@@ -132,7 +132,7 @@ router.get('/add-movie', verifyLogin, (req, res) => {
 })
 
 router.post('/add-movie', verifyLogin, (req, res) => {
-    ownerHelper.addMovie(req.body).then((id) => {
+    ownerHelper.addMovie(req.body,req.session.owner._id).then((id) => {
         let image = req.files.Image
         image.mv('./public/movie-images/' + id + '.jpg', (err, done) => {
             if (!err) {
@@ -301,7 +301,7 @@ router.post('/forgot-password', (req, res) => {
         if (response.status) {
             req.session.resetPassword = true
             if (req.session.resetPassword) {
-                res.render('owner/verify-code')
+                res.render('owner/verify-code',{"ownerId":response.ownerId})
                 req.session.resetPassword = false
             } else {
                 res.redirect("/owner");
@@ -313,12 +313,12 @@ router.post('/forgot-password', (req, res) => {
     })
 })
 
-router.post('/submit-code', (req, res) => {
-    ownerHelper.checkCode(req.body).then((response) => {
+router.post('/submit-code/:id', (req, res) => {
+    ownerHelper.checkCode(req.body,req.params.id).then((response) => {
         if (response.status) {
             req.session.resetPassword = true
             if (req.session.resetPassword) {
-                res.render('owner/new-password')
+                res.render('owner/new-password',{ownerId:response.ownerId})
                 req.session.resetPassword = false
             } else {
                 res.redirect("/owner");
@@ -330,5 +330,14 @@ router.post('/submit-code', (req, res) => {
     })
 })
 
+router.post('/changePassword/:id',(req,res)=>{
+    ownerHelper.updatePassword(req.body,req.params.id).then((response)=>{
+        if(response){
+            console.log('succe');
+        }else{
+            console.log('err');
+        }
+    })
+})
 
 module.exports = router;
