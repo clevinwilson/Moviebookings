@@ -579,5 +579,17 @@ module.exports = {
             let movies =await db.get().collection(collection.MOVIE_COLLECTION).find({owner:objectId(ownerId)}).toArray()
             resolve(movies)
         })
+    },
+    addShow:(details,ownerId)=>{
+        details.owner=ownerId
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response)=>{
+                if(response){
+                    resolve({status:true})
+                }else{
+                    resolve({status:false})
+                }
+            })
+        })
     }
 }

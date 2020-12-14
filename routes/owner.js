@@ -108,11 +108,24 @@ router.get('/view-schedule/:id', verifyLogin, (req, res) => {
 //show routers
 router.get('/add-show', verifyLogin, (req, res) => {
     ownerHelper.getMoviesTitle(req.session.owner._id).then((movies)=>{
-        res.render('owner/add-show',{movies})
+        res.render('owner/add-show',{movies,"addShowSucc":req.session.addShowSucc,"addShowErr":req.session.addShowErr})
+        req.session.addShowSucc=false
+        req.session.addShowErr=false
     })
    
 })
 
+router.post('/add-show',verifyLogin,(req,res)=>{
+    ownerHelper.addShow(req.body,req.session.owner._id).then((response)=>{
+        if(response.status){
+            req.session.addShowSucc="Show added successfully"
+            res.redirect('/owner/add-show')
+        }else{
+            req.session.addShowErr="Error"
+            res.redirect('/owner/add-show')
+        }
+    })
+})
 router.get('/edit-show', verifyLogin, (req, res) => {
     
     res.render('owner/edit-show')

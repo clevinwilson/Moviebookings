@@ -35,14 +35,14 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
                                 <div class="message p-3">
-                                    {{#if createOwnersuccess}}
+                                    {{#if addShowSucc}}
                                     <div class="alert alert-success" role="alert">
-                                        {{createOwnersuccess}}
+                                        {{addShowSucc}}
                                     </div>
                                     {{/if}}
-                                    {{#if createOwnerError}}
+                                    {{#if addShowErr}}
                                     <div class="alert alert-danger" role="alert">
-                                        {{createOwnerError}}
+                                        {{addShowErr}}
                                     </div>
                                 </div>
                                 {{/if}}
@@ -51,9 +51,10 @@
                                         <div class="form-group mt-3 col-md-12">
                                             <div class="form-group">
                                                 <label for="movietitle">Select Movie</label>
-                                                <select class="form-control" id="sel1">
+                                                <select name="movietitle" class="form-control" id="sel1">
                                                     {{#each movies}}
-                                                    <option>{{this.movietitle}}</option>
+                                                    <option value="">Select</option>
+                                                    <option name="movietitle" value="{{this.movietitle}}">{{this.movietitle}}</option>
                                                     {{/each}}
                                                 </select>
                                             </div>
@@ -101,7 +102,7 @@
                                                 required>
                                         </div>
                                         <center>
-                                            <a href="/owner/view-schedule"
+                                            <a href="/owner/screen"
                                                 class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
                                             <button type="submit" id="submit"
                                                 class="btn btn-success  mt-3">Submit</button>
