@@ -108,16 +108,18 @@ router.get('/delete-screen/:id', verifyLogin, (req, res) => {
 })
 
 router.get('/view-schedule/:id', verifyLogin, (req, res) => {
-    ownerHelper.getShedule(req.session.owner._id).then((show) => {
+    let owner=req.session.owner
+    ownerHelper.getShedule(req.params.id).then((show) => {
         console.log(show);
-        res.render('owner/view-schedule', { screenId: req.params.id, show })
+        res.render('owner/view-schedule', { screenId: req.params.id, show ,owner})
     })
 })
 
 //show routers
 router.get('/add-show/:id', verifyLogin, (req, res) => {
+    let owner=req.session.owner
     ownerHelper.getMoviesTitle(req.session.owner._id).then((movies) => {
-        res.render('owner/add-show', { screenId: req.params.id, movies })
+        res.render('owner/add-show', { screenId: req.params.id, movies,owner })
 
     })
 
@@ -149,6 +151,16 @@ router.post('/edit-show/:id',verifyLogin,(req,res)=>{
         }else{
             req.session.editShowErr="Error"
             res.redirect('/owner/screen')
+        }
+    })
+})
+
+router.get('/delete-show/:id',verifyLogin,(req,res)=>{
+    ownerHelper.deleteShow(req.params.id).then((response)=>{
+        if(response){
+            res.json({status:true})
+        }else{
+            res.json({status:false})
         }
     })
 })
@@ -289,9 +301,9 @@ router.get('/profile', verifyLogin, (req, res) => {
     })
 })
 router.get('/edit-profile', verifyLogin, (req, res) => {
-    let owner = req.session.owner._id
+    let owner = req.session.owner
     ownerHelper.getOwnerDetails(req.session.owner._id).then((response) => {
-        res.render('owner/edit-profile', { response })
+        res.render('owner/edit-profile', { response ,owner})
     })
 })
 router.post('/profile/:id', verifyLogin, (req, res) => {
@@ -307,9 +319,10 @@ router.post('/profile/:id', verifyLogin, (req, res) => {
 })
 
 //edit photo 
-router.get('/edit-photo', (req, res) => {
+router.get('/edit-photo',verifyLogin,(req, res) => {
     let ownerId = req.session.owner._id
-    res.render('owner/edit-photo', { ownerId, "OwnerImagesucc": req.session.OwnerImagesucc, "OwnerImgerror": req.session.OwnerImgerror })
+    let owner = req.session.owner
+    res.render('owner/edit-photo', { ownerId, "OwnerImagesucc": req.session.OwnerImagesucc, "OwnerImgerror": req.session.OwnerImgerror,owner })
     req.session.OwnerImagesucc = false
     req.session.OwnerImgerror = false
 })

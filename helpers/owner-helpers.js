@@ -605,9 +605,9 @@ module.exports = {
             })
         })
     },
-    getShedule: (ownerId) => {
+    getShedule: (screenId) => {
         return new Promise(async (resolve, reject) => {
-            let show = await db.get().collection(collection.SHOW_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
+            let show = await db.get().collection(collection.SHOW_COLLECTION).find({ screenId:objectId(screenId) }).toArray()
             resolve(show)
         })
     },
@@ -639,6 +639,13 @@ module.exports = {
                         resolve({ status: false })
                     }
                 })
+        })
+    },
+    deleteShow:(showId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.SHOW_COLLECTION).removeOne({_id:objectId(showId)}).then((response)=>{
+                resolve(response)
+            })
         })
     }
 }
