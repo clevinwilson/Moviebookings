@@ -90,8 +90,8 @@ module.exports = {
             }
         })
     },
-    addMovie: (details,ownerId) => {
-        details.owner=objectId(ownerId)
+    addMovie: (details, ownerId) => {
+        details.owner = objectId(ownerId)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.MOVIE_COLLECTION).insertOne(details).then((response) => {
                 resolve(response.ops[0]._id)
@@ -100,7 +100,7 @@ module.exports = {
     },
     getMovies: (ownerId) => {
         return new Promise(async (resolve, reject) => {
-            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find({owner:objectId(ownerId)}).toArray()
+            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
             resolve(movies)
         })
     },
@@ -268,7 +268,7 @@ module.exports = {
                         .updateOne({ _id: objectId(owner._id) }, {
                             $set: {
                                 resetcode: code,
-                               
+
                             }
                         })
                     if (updateDetails) {
@@ -537,22 +537,22 @@ module.exports = {
         })
     },
     checkCode: (details, ownerId) => {
-        return new Promise(async(resolve, reject) => {
-            let owner =await db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
+        return new Promise(async (resolve, reject) => {
+            let owner = await db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
             if (owner) {
                 if (details.code === owner.resetcode) {
                     db.get().collection(collection.OWNER_COLLECTION)
-                    .updateOne({_id:objectId(ownerId)},{
-                        $set:{
-                            passwordReset: true
-                        }
-                    }).then((response)=>{
-                        if(response){
-                            resolve({ status: true, "ownerId": owner._id })
-                        }else{
-                            resolve({status:true})
-                        }
-                    })
+                        .updateOne({ _id: objectId(ownerId) }, {
+                            $set: {
+                                passwordReset: true
+                            }
+                        }).then((response) => {
+                            if (response) {
+                                resolve({ status: true, "ownerId": owner._id })
+                            } else {
+                                resolve({ status: true })
+                            }
+                        })
                 } else {
                     resolve({ status: false })
                 }
@@ -563,8 +563,8 @@ module.exports = {
         })
     },
     updatePassword: (details, ownerId) => {
-        return new Promise(async(resolve, reject) => {
-            let owner =await db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
+        return new Promise(async (resolve, reject) => {
+            let owner = await db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
             if (owner.passwordReset) {
                 details.confirmpassword = await bcrypt.hash(details.confirmpassword, 10)
                 db.get().collection(collection.OWNER_COLLECTION)
@@ -586,30 +586,59 @@ module.exports = {
             }
         })
     },
-    getMoviesTitle:(ownerId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let movies =await db.get().collection(collection.MOVIE_COLLECTION).find({owner:objectId(ownerId)}).toArray()
+    getMoviesTitle: (ownerId) => {
+        return new Promise(async (resolve, reject) => {
+            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
             resolve(movies)
         })
     },
-    addShow:(details,ownerId)=>{
-        details.owner=ownerId
-        details.screenId=objectId(details.screenId)
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response)=>{
-                if(response){
-                    resolve({status:true})
-                }else{
-                    resolve({status:false})
+    addShow: (details, ownerId) => {
+        details.owner = ownerId
+        details.screenId = objectId(details.screenId)
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response) => {
+                if (response) {
+                    resolve({ status: true })
+                } else {
+                    resolve({ status: false })
                 }
             })
         })
     },
-    getShedule:(ownerId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let show = await db.get().collection(collection.SHOW_COLLECTION).find({owner:objectId(ownerId)}).toArray()
-            console.log(show);
+    getShedule: (ownerId) => {
+        return new Promise(async (resolve, reject) => {
+            let show = await db.get().collection(collection.SHOW_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
             resolve(show)
+        })
+    },
+    getShowDetails: (showId) => {
+        return new Promise(async (resolve, reject) => {
+            let show = await db.get().collection(collection.SHOW_COLLECTION).findOne({ _id: objectId(showId) })
+            resolve(show)
+        })
+
+    },
+    updateShow: (details, showId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.SHOW_COLLECTION)
+                .updateOne({ _id: objectId(showId) }, {
+                    $set: {
+                        movietitle: details.movietitle,
+                        date: details.date,
+                        hours: details.hours,
+                        minutes: details.minutes,
+                        vip: details.vip,
+                        premium: details.premium,
+                        executive: details.executive,
+                        normal: details.normal
+                    }
+                }).then((response) => {
+                    if (response) {
+                        resolve({ status: true })
+                    } else {
+                        resolve({ status: false })
+                    }
+                })
         })
     }
 }

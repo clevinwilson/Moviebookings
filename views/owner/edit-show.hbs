@@ -46,59 +46,59 @@
                                     </div>
                                 </div>
                                 {{/if}}
-                                <form action="/owner/add-owner" id="submit-form" method="post">
+                                <form action="/owner/edit-show/{{showDetails._id}}" id="submit-form" method="post">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-12">
                                             <div class="form-group">
                                                 <label for="movietitle">Select Movie</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
+                                                 <select name="movietitle" class="form-control" id="sel1" required>
+                                                    {{#each movieList}}
+                                                    <option value="">Select</option>
+                                                    <option name="movietitle" value="{{this.movietitle}}">{{this.movietitle}}</option>
+                                                    {{/each}}
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group mt-3 col-md-12">
                                             <label for="Date">Date</label>
                                             <input style="border-color:#b4e3eb;" type="date"
-                                                class="form-control col-md-12 mt-2" id="date" name="date" required>
+                                                class="form-control col-md-12 mt-2" value="{{showDetails.date}}" id="date" name="date" required>
                                         </div>
                                         <div class="row m-1">
                                             <div class="form-group mt-3 col-md-6">
                                                 <label for="Run Time">Show Time</label>
                                                 <input style="border-color:#b4e3eb;" type="number"
-                                                    class="form-control col-md-12 mt-2" id="hours" name="hours"
+                                                    class="form-control col-md-12 mt-2" value="{{showDetails.hours}}" id="hours" name="hours"
                                                     placeholder="Hours" required>
                                             </div>
                                             <div class="form-group mt-5 col-md-6">
                                                 <input style="border-color:#b4e3eb;" type="number"
-                                                    class="form-control col-md-12 mt-2" id="minutes" name="minutes"
+                                                    class="form-control col-md-12 mt-2" value="{{showDetails.minutes}}" id="minutes" name="minutes"
                                                     placeholder="Minutes" required>
                                             </div>
                                         </div>
                                         <div class="head text-center mt-4" style=" color: black; font-size: 22px;"><label>CLASS RATES</label></div>
                                         <div class="form-group mt-3 col-md-12">
                                             <label for="VIP">VIP</label>
-                                            <input style="border-color:#b4e3eb;" type="text"
+                                            <input style="border-color:#b4e3eb;" value="{{showDetails.vip}}" type="text"
                                                 class="form-control col-md-12 mt-2" id="vip" name="vip"
                                                 required>
                                         </div>
                                         <div class="form-group mt-3 col-md-12">
                                             <label for="PREMIUM">PREMIUM</label>
                                             <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="premium" name="premium" required>
+                                                class="form-control col-md-12 mt-2" value="{{showDetails.premium}}" id="premium" name="premium" required>
                                         </div>
                                         <div class="form-group mt-3 col-md-12">
                                             <label for="EXECUTIVE">EXECUTIVE</label>
                                             <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="executive" name="executive"
+                                                class="form-control col-md-12 mt-2" id="executive" value="{{showDetails.executive}}" name="executive"
                                                 required>
                                         </div>
                                         <div class="form-group mt-3 col-md-12">
                                             <label for="NORMAl">NORMAl</label>
                                             <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="normal" name="normal"
+                                                class="form-control col-md-12 mt-2" value="{{showDetails.normal}}" id="normal" name="normal"
                                                 required>
                                         </div>
                                         <center>

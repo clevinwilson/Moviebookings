@@ -134,9 +134,23 @@ router.post('/add-show', verifyLogin, (req, res) => {
         }
     })
 })
-router.get('/edit-show', verifyLogin, (req, res) => {
+router.get('/edit-show/:id', verifyLogin,(req, res) => {
+    ownerHelper.getShowDetails(req.params.id).then(async(showDetails)=>{
+        let movieList= await ownerHelper.getMoviesTitle(req.session.owner._id)
+        res.render('owner/edit-show',{showDetails,movieList})   
+    })
+})
 
-    res.render('owner/edit-show')
+router.post('/edit-show/:id',verifyLogin,(req,res)=>{
+    ownerHelper.updateShow(req.body,req.params.id).then((response)=>{
+        if(response.status){
+            req.session.editShowSucc="show updated Successfully"
+            res.redirect('/owner/screen')
+        }else{
+            req.session.editShowErr="Error"
+            res.redirect('/owner/screen')
+        }
+    })
 })
 
 // owner movie management

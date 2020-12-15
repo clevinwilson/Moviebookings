@@ -40,7 +40,7 @@
                                         <div class="form-group mt-3 col-md-12">
                                             <div class="form-group">
                                                 <label for="movietitle">Select Movie</label>
-                                                <select name="movietitle" class="form-control" id="sel1">
+                                                <select name="movietitle" class="form-control" id="sel1" required>
                                                     {{#each movies}}
                                                     <option value="">Select</option>
                                                     <option name="movietitle" value="{{this.movietitle}}">{{this.movietitle}}</option>

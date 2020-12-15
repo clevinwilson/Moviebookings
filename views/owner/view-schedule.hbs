@@ -76,7 +76,7 @@
                                             <td>{{this.movietitle}}</td>
                                             <td>{{this.date}}</td>
                                             <td>{{this.hours}} Hr {{this.minutes}}min</td>
-                                            <td align="center"><a type="button" href="/owner/edit-show"
+                                            <td align="center"><a type="button" href="/owner/edit-show/{{this._id}}"
                                                     style=" border-radius: 21px;"
                                                     class="text-white m-2 btn btn-success">EDIT</a><a
                                                     style=" border-radius: 21px;" type="button" href="#"
@@ -146,8 +146,8 @@
 
 
 <script>
-    function confirmDelete(theaterId) {
-        id = theaterId
+    function confirmDelete(showId) {
+        id = showId
         $(document).ready(function () {
             $("#deleteModal").modal('show')
         })
@@ -158,7 +158,7 @@
             $("#deleteModal").modal('hide')
         })
         $.ajax({
-            url: '/admin/delete-theater/' + id,
+            url: '/owner/delete-show/' + id,
             method: 'get',
             success: (response) => {
                 if (response.status) {
