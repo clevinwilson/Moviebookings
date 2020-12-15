@@ -14,8 +14,12 @@ const verifyLogin = (req, res, next) => {
 
 
 router.get('/', (req, res) => {
-    res.render('owner/login', { "ownerLoginError": req.session.ownerLoginError })
+    res.render('owner/login', { "ownerLoginError": req.session.ownerLoginError,"forgotPasswordSucc":req.session.forgotPasswordSucc,"forgotPassword":req.session.forgotPassword })
     req.session.ownerLoginError = false
+    req.session.forgotPasswordSucc=false
+    req.session.forgotPassword=false
+
+
 })
 router.get('/dashboard', verifyLogin, (req, res) => {
     owner = req.session.owner
@@ -351,12 +355,14 @@ router.post('/submit-code/:id', (req, res) => {
     })
 })
 
-router.post('/changePassword/:id',(req,res)=>{
+router.post('/password-submit/:id',(req,res)=>{
     ownerHelper.updatePassword(req.body,req.params.id).then((response)=>{
         if(response){
-            console.log('succe');
+            req.session.forgotPasswordSucc='Password updated Successfully'
+            res.redirect('/owner')
         }else{
-            console.log('err');
+            req.session.forgotPassword="Something went wrong try again"
+            res.redirect('/owner')
         }
     })
 })

@@ -537,8 +537,8 @@ module.exports = {
         })
     },
     checkCode: (details, ownerId) => {
-        return new Promise((resolve, reject) => {
-            let owner = db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
+        return new Promise(async(resolve, reject) => {
+            let owner =await db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
             if (owner.passwordReset) {
                 if (details.code === owner.resetcode) {
                     resolve({ status: true, "ownerId": owner._id })
@@ -552,9 +552,10 @@ module.exports = {
         })
     },
     updatePassword: (details, ownerId) => {
-        return new Promise((resolve, reject) => {
-            let owner = db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
+        return new Promise(async(resolve, reject) => {
+            let owner =await db.get().collection(collection.OWNER_COLLECTION).findOne({ _id: objectId(ownerId) })
             if (owner) {
+                details.confirmpassword = await bcrypt.hash(details.confirmpassword, 10)
                 db.get().collection(collection.OWNER_COLLECTION)
                     .updateOne({ _id: objectId(ownerId) }, {
                         $set: {

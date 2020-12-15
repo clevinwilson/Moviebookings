@@ -1,7 +1,12 @@
 <title>Owner | forgot password</title>
 
 <body class="bg-gradient-primary">
-
+    <script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        } 
+    </script>
     <div class="container">
 
         <!-- Outer Row -->
@@ -21,12 +26,11 @@
                                         <h1 class="h4 text-gray-900 mb-2">Verify Code</h1>
                                         <p class="mb-4">Enter the code we sent to your email</p>
                                     </div>
-                                    
+
                                     <form class="user" action="/owner/submit-code/{{ownerId}}" method="POST">
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="code" name="code" aria-describedby="code"
-                                                placeholder="Enter code">
+                                            <input type="password" class="form-control form-control-user" id="code"
+                                                name="code" aria-describedby="code" placeholder="Enter code">
                                         </div>
                                         <div class="form-group">
                                             <input class="ml-3" type="checkbox" onclick="myFunction()"> Show Password
@@ -55,12 +59,12 @@
 
 </body>
 <script>
-     function myFunction() {
-            var x = document.getElementById("code");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
+    function myFunction() {
+        var x = document.getElementById("code");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
         }
+    }
 </script>
