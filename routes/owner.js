@@ -14,10 +14,10 @@ const verifyLogin = (req, res, next) => {
 
 
 router.get('/', (req, res) => {
-    res.render('owner/login', { "ownerLoginError": req.session.ownerLoginError,"forgotPasswordSucc":req.session.forgotPasswordSucc,"forgotPassword":req.session.forgotPassword })
+    res.render('owner/login', { "ownerLoginError": req.session.ownerLoginError, "forgotPasswordSucc": req.session.forgotPasswordSucc, "forgotPassword": req.session.forgotPassword })
     req.session.ownerLoginError = false
-    req.session.forgotPasswordSucc=false
-    req.session.forgotPassword=false
+    req.session.forgotPasswordSucc = false
+    req.session.forgotPassword = false
 
 
 })
@@ -49,11 +49,11 @@ router.get("/logout", (req, res) => {
 router.get('/screen', verifyLogin, (req, res) => {
     owner = req.session.owner
     ownerHelper.getAllScreens(req.session.owner._id).then((screens) => {
-        res.render('owner/screen', { screens, owner, "editScreenSucc": req.session.editScreenSucc, "editScreenEr": req.session.editScreenEr,"addShowSucc":req.session.addShowSucc,"addShowErr":req.session.addShowErr })
+        res.render('owner/screen', { screens, owner, "editScreenSucc": req.session.editScreenSucc, "editScreenEr": req.session.editScreenEr, "addShowSucc": req.session.addShowSucc, "addShowErr": req.session.addShowErr })
         req.session.editScreenSucc = false
         req.session.editScreenEr = false
-        req.session.addShowSucc=false
-        req.session.addShowErr=false
+        req.session.addShowSucc = false
+        req.session.addShowErr = false
     })
 })
 router.get('/add-screen', verifyLogin, (req, res) => {
@@ -108,34 +108,34 @@ router.get('/delete-screen/:id', verifyLogin, (req, res) => {
 })
 
 router.get('/view-schedule/:id', verifyLogin, (req, res) => {
-    ownerHelper.getShedule(req.session.owner._id).then((show)=>{
+    ownerHelper.getShedule(req.session.owner._id).then((show) => {
         console.log(show);
-        res.render('owner/view-schedule',{screenId:req.params.id,show})  
+        res.render('owner/view-schedule', { screenId: req.params.id, show })
     })
 })
 
 //show routers
 router.get('/add-show/:id', verifyLogin, (req, res) => {
-    ownerHelper.getMoviesTitle(req.session.owner._id).then((movies)=>{
-        res.render('owner/add-show',{screenId:req.params.id,movies})
-       
+    ownerHelper.getMoviesTitle(req.session.owner._id).then((movies) => {
+        res.render('owner/add-show', { screenId: req.params.id, movies })
+
     })
-   
+
 })
 
-router.post('/add-show',verifyLogin,(req,res)=>{
-    ownerHelper.addShow(req.body,req.session.owner._id).then((response)=>{
-        if(response.status){
-            req.session.addShowSucc="Show added successfully"
+router.post('/add-show', verifyLogin, (req, res) => {
+    ownerHelper.addShow(req.body, req.session.owner._id).then((response) => {
+        if (response.status) {
+            req.session.addShowSucc = "Show added successfully"
             res.redirect('/owner/screen')
-        }else{
-            req.session.addShowErr="Error"
+        } else {
+            req.session.addShowErr = "Error"
             res.redirect('/owner/screen')
         }
     })
 })
 router.get('/edit-show', verifyLogin, (req, res) => {
-    
+
     res.render('owner/edit-show')
 })
 
@@ -157,7 +157,7 @@ router.get('/add-movie', verifyLogin, (req, res) => {
 })
 
 router.post('/add-movie', verifyLogin, (req, res) => {
-    ownerHelper.addMovie(req.body,req.session.owner._id).then((id) => {
+    ownerHelper.addMovie(req.body, req.session.owner._id).then((id) => {
         let image = req.files.Image
         image.mv('./public/movie-images/' + id + '.jpg', (err, done) => {
             if (!err) {
@@ -326,7 +326,7 @@ router.post('/forgot-password', (req, res) => {
         if (response.status) {
             req.session.resetPassword = true
             if (req.session.resetPassword) {
-                res.render('owner/verify-code',{"ownerId":response.ownerId})
+                res.render('owner/verify-code', { "ownerId": response.ownerId })
                 req.session.resetPassword = false
             } else {
                 res.redirect("/owner");
@@ -339,11 +339,11 @@ router.post('/forgot-password', (req, res) => {
 })
 
 router.post('/submit-code/:id', (req, res) => {
-    ownerHelper.checkCode(req.body,req.params.id).then((response) => {
+    ownerHelper.checkCode(req.body, req.params.id).then((response) => {
         if (response.status) {
             req.session.resetPassword = true
             if (req.session.resetPassword) {
-                res.render('owner/new-password',{ownerId:response.ownerId})
+                res.render('owner/new-password', { ownerId: response.ownerId })
                 req.session.resetPassword = false
             } else {
                 res.redirect("/owner");
@@ -355,13 +355,12 @@ router.post('/submit-code/:id', (req, res) => {
     })
 })
 
-router.post('/password-submit/:id',(req,res)=>{
-    ownerHelper.updatePassword(req.body,req.params.id).then((response)=>{
-        if(response){
-            req.session.forgotPasswordSucc='Password updated Successfully'
-            res.redirect('/owner')
-        }else{
-            req.session.forgotPassword="Something went wrong try again"
+router.post('/password-submit/:id', (req, res) => {
+    ownerHelper.updatePassword(req.body, req.params.id).then((response) => {
+        if (response) {
+            res.render('owner/forgot-password-response')
+        } else {
+            req.session.forgotPassword = "Something went wrong try again"
             res.redirect('/owner')
         }
     })
