@@ -23,15 +23,22 @@ Author URL: http://w3layouts.com
 		<div class="overlay">
 			<div class="wrapper">
 				<div class="logo">
-					<a class="brand-logo" href="index.html">Sign in</a>
+					<a class="brand-logo" href="index.html">SignUp</a>
 				</div>
 				<div class="form-section">
 					<h3>Get Started</h3>
 					<h6>To continue with Us</h6>
 					
 					<form action="/singin" method="post" class="signin-form">
+					<div class="form-input">
+							<input type="text" name="fullname" placeholder="Full Name" required="" autofocus>
+						</div>
+						
 						<div class="form-input">
 							<input type="text" name="phonenumber" placeholder="Phone Number" required="" autofocus>
+						</div>
+						<div class="form-input">
+							<input type="password" name="password" placeholder="Password" required="" autofocus>
 						</div>
 						
 						<!-- <label class="check-remaind">
@@ -41,9 +48,9 @@ Author URL: http://w3layouts.com
 						</label> -->
 						
 						<button type="submit" class="btn btn-primary theme-button mt-4">Continue</button>
-						<div class="new-signup">
+						{{!-- <div class="new-signup">
 							<a href="#reload" class="signuplink">Forgot password?</a>
-						</div>
+						</div> --}}
 					</form>
 					<!-- <p class="signup">Don’t have account yet? <a href="#signup.html" class="signuplink">Sign Up</a></p> -->
 				</div>
