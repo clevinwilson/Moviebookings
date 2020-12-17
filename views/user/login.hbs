@@ -23,19 +23,20 @@ Author URL: http://w3layouts.com
 		<div class="overlay">
 			<div class="wrapper">
 				<div class="logo">
-					<a class="brand-logo" href="index.html">SignUp</a>
+					<a class="brand-logo" href="#">Login</a>
 				</div>
 				<div class="form-section">
 					<h3>Get Started</h3>
 					<h6>To continue with Us</h6>
 					
-					<form action="/getcode" method="post" class="signin-form">
-					
+					<form action="/login" method="post" class="signin-form">
 						
 						<div class="form-input">
-							<input type="text" name="phonenumber" placeholder="Phone Number" required="" autofocus>
+							<input type="text"  name="phonenumber" placeholder="Phone Number" required="" autofocus>
 						</div>
-						
+						<div class="form-input">
+							<input type="password" name="password" placeholder="Password" required="" autofocus>
+						</div>
 						
 						<!-- <label class="check-remaind">
 							<input type="checkbox">
@@ -43,10 +44,10 @@ Author URL: http://w3layouts.com
 							<p class="remember">Remember me</p>
 						</label> -->
 						
-						<button type="submit" class="btn btn-primary theme-button mt-4">Continue</button>
-						{{!-- <div class="new-signup">
-							<a href="#reload" class="signuplink">Forgot password?</a>
-						</div> --}}
+						<button type="submit" class="btn btn-primary theme-button mt-4">Login</button>
+						<div class="new-signup">
+							<a href="/signin" class="signuplink">Don't have account?</a>
+						</div>
 					</form>
 					<!-- <p class="signup">Don’t have account yet? <a href="#signup.html" class="signuplink">Sign Up</a></p> -->
 				</div>

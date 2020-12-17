@@ -6,7 +6,7 @@ Author URL: http://w3layouts.com
 <html lang="zxx">
 
 <head>
-	<title>Signup</title>
+	<title>Verify code</title>
 
 	<!-- Meta tags -->
 	<meta charset="UTF-8">
@@ -23,30 +23,31 @@ Author URL: http://w3layouts.com
 		<div class="overlay">
 			<div class="wrapper">
 				<div class="logo">
-					<a class="brand-logo" href="index.html">SignUp</a>
+					<a class="brand-logo" href="index.html">Verify code</a>
 				</div>
 				<div class="form-section">
-					<h3>Get Started</h3>
+					<h3>Enter code</h3>
 					<h6>To continue with Us</h6>
-					
-					<form action="/getcode" method="post" class="signin-form">
-					
-						
+					{{#if error}}
+					<div class="alert alert-danger" role="alert">
+						{{error}}
+					</div>
+					{{/if}}
+					<form action="verify-login/{{phone}}" method="post" class="signin-form">
 						<div class="form-input">
-							<input type="text" name="phonenumber" placeholder="Phone Number" required="" autofocus>
+							<input type="text" name="code" placeholder="Enter Code" required="" autofocus>
 						</div>
-						
-						
+
 						<!-- <label class="check-remaind">
 							<input type="checkbox">
 							<span class="checkmark"></span>
 							<p class="remember">Remember me</p>
 						</label> -->
-						
+
 						<button type="submit" class="btn btn-primary theme-button mt-4">Continue</button>
-						{{!-- <div class="new-signup">
+						<div class="new-signup">
 							<a href="#reload" class="signuplink">Forgot password?</a>
-						</div> --}}
+						</div>
 					</form>
 					<!-- <p class="signup">Don’t have account yet? <a href="#signup.html" class="signuplink">Sign Up</a></p> -->
 				</div>

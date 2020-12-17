@@ -29,13 +29,17 @@ Author URL: http://w3layouts.com
 					<h3>Get Started</h3>
 					<h6>To continue with Us</h6>
 					
-					<form action="/getcode" method="post" class="signin-form">
-					
-						
-						<div class="form-input">
-							<input type="text" name="phonenumber" placeholder="Phone Number" required="" autofocus>
+					<form action="/singup" method="post" class="signin-form">
+					<div class="form-input">
+							<input type="text" name="fullname" placeholder="Full Name" required="" autofocus>
 						</div>
 						
+						<div class="form-input">
+							<input type="text" style="display: none;" name="phonenumber" value="{{phone}}" required="" autofocus>
+						</div>
+						<div class="form-input">
+							<input type="password" name="password" placeholder="Password" required="" autofocus>
+						</div>
 						
 						<!-- <label class="check-remaind">
 							<input type="checkbox">
