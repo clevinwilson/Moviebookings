@@ -461,12 +461,13 @@ Author URL: http://w3layouts.com
 							<div class="albums-content">
 								<div class="row">
 									<!--/set1-->
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
+									{{#each UpComingMoviesList}}
+									 <div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
 										<div class="slider-info">
 											<div class="img-circle">
 												<a href="genre.html">
 
-													<img src="user/images/m6.jpg" class="img-fluid"
+													<img src="/upcoming-movies/{{this._id}}.jpg" class="img-fluid"
 														alt="author image">
 													<div class="overlay-icon">
 
@@ -475,9 +476,9 @@ Author URL: http://w3layouts.com
 												</a>
 											</div>
 											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="genre.html">Long Shot</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
+												<p>{{this.language}}</p>
+												<a class="author-book-title" href="genre.html">{{this.type}}</a>
+												<h4> <span class="post"><span class="fa fa-clock-o"> </span> {{this.hour}} Hr {{this.minute}} min
 
 													</span>
 
@@ -487,6 +488,8 @@ Author URL: http://w3layouts.com
 										</div>
 
 									</div>
+									{{/each}}
+									{{!--
 									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
 										<div class="slider-info">
 											<div class="img-circle">
@@ -608,10 +611,10 @@ Author URL: http://w3layouts.com
 											</div>
 										</div>
 
-									</div>
+									</div> --}}
 									<!--//set1-->
 									<!--/set1-->
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
+									{{!-- <div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
 										<div class="slider-info">
 											<div class="img-circle">
 												<a href="genre.html"><img src="user/images/n1.jpg" class="img-fluid"
@@ -679,7 +682,7 @@ Author URL: http://w3layouts.com
 											</div>
 										</div>
 
-									</div>
+									</div> --}}
 									<!--//set1-->
 								</div>
 							</div>

@@ -1,4 +1,5 @@
 var express = require('express');
+const ownerHelpers = require('../helpers/owner-helpers');
 var router = express.Router();
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063"; // Your Account SID from www.twilio.com/console
@@ -8,9 +9,10 @@ var authToken = "0fcc223c5401d418bfa08799035c0297";
 const client = require('twilio')(accountSid, authToken)
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', async function  (req, res, next) {
+  let UpComingMoviesList =await userHelpers.getUpcomingMovie()
   userHelpers.getMovies().then((moviesList)=>{
-    res.render('user/index',{moviesList})  
+    res.render('user/index',{moviesList,UpComingMoviesList})  
   })
 
 });

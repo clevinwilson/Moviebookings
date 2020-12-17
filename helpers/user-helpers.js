@@ -19,5 +19,12 @@ module.exports={
             let moviesList = db.get().collection(collection.MOVIE_COLLECTION).find().limit(4).toArray()
             resolve(moviesList)
         })
+    },
+    getUpcomingMovie:()=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).find().toArray().then((moviesList)=>{
+                resolve(moviesList)
+            })
+        })
     }
 }
