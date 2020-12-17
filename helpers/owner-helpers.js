@@ -7,6 +7,7 @@ var objectId = require('mongodb').ObjectID
 var nodemailer = require('nodemailer');
 var generator = require('generate-password');
 const { template } = require("handlebars")
+const { UPCOMINGMOVIES_COLLECTION } = require("../config/collection")
 
 module.exports = {
     doLogin: (details) => {
@@ -653,12 +654,30 @@ module.exports = {
         details.owner=objectId(ownerId)
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).insertOne(details).then((response)=>{
-                if(response){
-                    resolve({status:true})
-                }else{
-                    resolve({status:false})
-                }
+                resolve(response.ops[0]._id)
             })
+        })
+    },
+    deleteUpcomingMovies:(movieId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let movie=await  db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).findOne({_id:objectId(movieId)})
+            if(movie){
+                db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).removeOne({_id:objectId(movieId)}).then((response)=>{
+                    if(response){
+                        resolve({status:true})
+                    }else{
+                        resolve({status:false})
+                    }
+                })
+            }else{
+                resolve({status:false})
+            } 
+        })
+    },
+    UpComingMoviesList:(ownerId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let upMovieList=await db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).find({owner:objectId(ownerId)}).toArray()
+            resolve(upMovieList)
         })
     }
 }

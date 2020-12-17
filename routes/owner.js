@@ -166,10 +166,11 @@ router.get('/delete-show/:id', verifyLogin, (req, res) => {
 })
 
 // owner movie management
-router.get('/movie-management', verifyLogin, (req, res) => {
+router.get('/movie-management', verifyLogin, async (req, res) => {
     let owner = req.session.owner
+    let UpComingMoviesList =await ownerHelper.UpComingMoviesList(req.session.owner._id)
     ownerHelper.getMovies(req.session.owner._id).then((movies) => {
-        res.render('owner/movie-management', { owner, movies, "editMovieSucc": req.session.editMovieSucc, "editMovieErr": req.session.editMovieErr })
+        res.render('owner/movie-management', {UpComingMoviesList, owner, movies, "editMovieSucc": req.session.editMovieSucc, "editMovieErr": req.session.editMovieErr })
         req.session.editMovieSucc = false
         req.session.editMovieErr = false
     })
@@ -249,16 +250,32 @@ router.get('/upcoming-movies', verifyLogin, (req, res) => {
 })
 
 router.post('/upcoming-movies',verifyLogin,(req, res) => {
-    ownerHelper.addUpcomingMovies(req.body, req.session.owner._id).then((response) => {
-        if (response.status) {
-            req.session.upMovies = "Movie added"
-            res.redirect('/owner/upcoming-movies')
-        } else {
-            req.session.upmoviesErr = "Error"
-            res.redirect('/owner/upcomint-movies')
+    ownerHelper.addUpcomingMovies(req.body, req.session.owner._id).then((id) => {
+        console.log(id);
+        let image = req.files.Image
+        image.mv('./public/upcoming-movies/' + id + '.jpg', (err, done) => {
+            if (!err) {
+                req.session.upMovies = "Movie added Successfully"
+                res.redirect('/owner/upcoming-movies')
+            } else {
+                req.session.upmoviesErr = "Something went wrong try again"
+                res.redirect('/owner/upcomint-movies')
+            }
+        })
+       
+    })
+})
+
+router.get('/delete-UpComingMovies/:id',(req,res)=>{
+    ownerHelper.deleteUpcomingMovies(req.params.id).then((response)=>{
+        if(response.status){
+            res.json({ status: true })
+        }else{
+            res.json({ status: false})
         }
     })
 })
+
 //Owner Users acrivity
 
 router.get('/users-activity', (req, res) => {
