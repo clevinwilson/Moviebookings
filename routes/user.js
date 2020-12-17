@@ -4,9 +4,9 @@ const { doLogin } = require('../helpers/owner-helpers');
 const ownerHelpers = require('../helpers/owner-helpers');
 var router = express.Router();
 var userHelpers = require('../helpers/user-helpers')
-var serviceid = "VAb018dbdeb02c7a323cf92a3e9e4dc830";
-var accountSid = "AC339f8aff9fd35caeb2ae59401274e823";  // Your Account SID from www.twilio.com/console 
-var authToken = "602b2ae53dc5da4bc33e2a7e31febf45"; // Your Auth Token from www.twilio.com/console
+var serviceid = "VA3543a1df020f68982834326968197063";
+var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
+var authToken = "0fcc223c5401d418bfa08799035c0297"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -82,14 +82,14 @@ router.get("/logout", (req, res) => {
 
 //user login
 router.get('/login', (req, res) => {
-  res.render('user/login')
+  res.render('user/login',{"userLoginError":req.session.userLoginError})
+  req.session.userLoginError=false
 })
 
 router.post('/login', (req, res) => {
   userHelpers.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.user = response.user;
-      req.session.loggedIn = true;
+      req.session.userDetails = response.user;
       client
       .verify
       .services(serviceid)
@@ -101,8 +101,8 @@ router.post('/login', (req, res) => {
         res.render('user/verify-login', { "phone": req.body.phonenumber })
       })
     } else {
-      req.session.ownerLoginError = "Incorrect username or password ";
-      res.redirect("/");
+      req.session.userLoginError = "Incorrect Phone Number or password ";
+      res.redirect("/login");
     }
   })
  
@@ -120,9 +120,11 @@ router.post('/verify-login/:phone', (req, res) => {
       code: req.body.code
     }).then((data) => {
       if (data.status == "approved") {
+        req.session.user = req.session.userDetails
+        req.session.loggedIn = true;
         res.redirect('/')
       } else {
-        req.session.owner = false;
+        req.session.user = false;
         req.session.loggedIn = false
         res.render('user/verify-login', { error: "invalid code", "phone": req.params.phone })
       }

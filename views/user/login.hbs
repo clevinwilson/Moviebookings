@@ -28,7 +28,11 @@ Author URL: http://w3layouts.com
 				<div class="form-section">
 					<h3>Get Started</h3>
 					<h6>To continue with Us</h6>
-					
+					{{#if userLoginError}}
+					<div class="alert alert-danger" role="alert">
+						{{userLoginError}}
+					</div>
+					{{/if}}
 					<form action="/login" method="post" class="signin-form">
 						
 						<div class="form-input">
