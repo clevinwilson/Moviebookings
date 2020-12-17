@@ -137,15 +137,16 @@ Author URL: http://w3layouts.com
 					</div>
 				</div>
 				<div class="w3l-populohny-grids">
+					{{#each moviesList}}
 					<div class="item vhny-grid">
 						<div class="box16">
 							<a href="genre.html">
 								<figure>
-									<img class="img-fluid" src="user/images/m7.jpg" alt="">
+									<img class="img-fluid" src="/movie-images/{{this._id}}.jpg" alt="">
 								</figure>
 								<div class="box-content">
-									<h3 class="title">Frozen 2</h3>
-									<h4> <span class="post"><span class="fa fa-clock-o"> </span> 1 Hr 4min
+									<h3 class="title">{{this.movietitle}}</h3>
+									<h4> <span class="post"><span class="fa fa-clock-o"> </span> {{this.hour}} Hr {{this.minute}} min
 
 										</span>
 
@@ -156,7 +157,8 @@ Author URL: http://w3layouts.com
 							</a>
 						</div>
 					</div>
-					<div class="item vhny-grid">
+					{{/each}}
+					{{!-- <div class="item vhny-grid">
 						<div class="box16">
 							<a href="genre.html">
 								<figure>
@@ -212,9 +214,9 @@ Author URL: http://w3layouts.com
 								<span class="fa fa-play video-icon" aria-hidden="true"></span>
 							</a>
 						</div>
-					</div>
+					</div>--}}
 				</div>
-			</div>
+			</div> 
 		</div>
 	</section>
 	<!--//grids-sec1-->
@@ -233,14 +235,15 @@ Author URL: http://w3layouts.com
 					</div>
 				</div>
 				<div class="owl-three owl-carousel owl-theme">
+					{{#each moviesList}}
 					<div class="item vhny-grid">
 						<div class="box16 mb-0">
 							<a href="genre.html">
 								<figure>
-									<img class="img-fluid" src="user/images/n1.jpg" alt="">
+									<img class="img-fluid" src="/movie-images/{{this._id}}.jpg" alt="">
 								</figure>
 								<div class="box-content">
-									<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
+									<h4> <span class="post"><span class="fa fa-clock-o"> </span> {{this.hour}} Hr {{this.minute}} min
 
 										</span>
 
@@ -250,14 +253,15 @@ Author URL: http://w3layouts.com
 								<span class="fa fa-play video-icon" aria-hidden="true"></span>
 							</a>
 						</div>
-						<h3> <a class="title-gd" href="genre.html">No Time to Die</a></h3>
+						<h3> <a class="title-gd" href="genre.html">{{this.movietitle}}</a></h3>
 						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
 						<div class="button-center text-center mt-4">
 							<a href="genre.html" class="btn watch-button">Watch now</a>
 						</div>
 
 					</div>
-					<div class="item vhny-grid">
+					{{/each}}
+					{{!-- <div class="item vhny-grid">
 						<div class="box16 mb-0">
 							<a href="genre.html">
 								<figure>
@@ -377,7 +381,7 @@ Author URL: http://w3layouts.com
 						<div class="button-center text-center mt-4">
 							<a href="genre.html" class="btn watch-button">Watch now</a>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 
@@ -448,8 +452,8 @@ Author URL: http://w3layouts.com
 					<!--Horizontal Tab-->
 					<div id="parentHorizontalTab">
 						<ul class="resp-tabs-list hor_1">
+							<li>Upcoming Movies</li>
 							<li>Recent Movies</li>
-							<li>Popular Movies</li>
 							<li>Trend Movies</li>
 							<div class="clear"></div>
 						</ul>
@@ -681,7 +685,7 @@ Author URL: http://w3layouts.com
 							</div>
 							<div class="albums-content">
 								<div class="row">
-									<!--/set1-->
+									{{!-- <!--/set1--> Upcoming movies --}}
 									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
 										<div class="slider-info">
 											<div class="img-circle">

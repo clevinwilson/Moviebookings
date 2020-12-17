@@ -35,18 +35,18 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
                                 <div class="message p-3">
-                                {{#if createOwnersuccess}}
+                                {{#if upMovies}}
                                 <div class="alert alert-success" role="alert">
-                                    {{createOwnersuccess}}
+                                    {{upMovies}}
                                 </div>
                                 {{/if}}
-                                {{#if createOwnerError}}
+                                {{#if upmoviesErr}}
                                 <div class="alert alert-danger" role="alert">
-                                    {{createOwnerError}}
+                                    {{upmoviesErr}}
                                 </div>
                                 </div>
                                 {{/if}}
-                                <form action="/admin/add-owner" id="submit-form" method="post">
+                                <form action="/owner/upcoming-movies" id="submit-form" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="movietitle">Movie Title</label>
@@ -73,17 +73,17 @@
                                                  required>
                                         </div>
                                         <div class="row m-1">
-                                        <div class="form-group mt-3 col-md-5">
-                                            <label for="Run Time">Run Time</label>
-                                            <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="runtime" name="runtime"
-                                                placeholder="Start" required>
-                                        </div>
-                                        <div class="form-group mt-5 col-md-5">
-                                            <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="runtime" name="runtime"
-                                                placeholder="End" required>
-                                        </div>
+                                         <div class="form-group mt-3 col-md-5">
+                                                <label for="Run Time">Run Time</label>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="hour" name="hour"
+                                                    placeholder="Hour" required>
+                                            </div>
+                                            <div class="form-group mt-5 col-md-5">
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="minute" name="minute"
+                                                    placeholder="Minute" required>
+                                            </div>
                                         </div>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Language">Language</label>
@@ -103,12 +103,12 @@
                                                 class="form-control col-md-12 mt-2" id="trailerlink" name="trailerlink"
                                                  required>
                                         </div>
-                                        <div class="form-group mt-3 col-md-10">
+                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Trailer Link">Movie Poster</label>
-                                            <img src="/admin-photo/5fbe533102533a1d6c2dc7a0.jpg" height="250px" width="150px">
+                                            <img src="" id="imgView" height="250px"
+                                                width="150px">
                                             <input style="border-color:#b4e3eb;" type="file"
-                                                class="form-control col-md-12 mt-2" id="poster" name="poster"
-                                                 required>
+                                                class="form-control col-md-12 mt-2" name="Image" onchange="viewImage(event)" required>
                                         </div>
                                         <center>
                                             <a href="/owner/movie-management"
@@ -130,4 +130,8 @@
 
 </body>
 
-</html>
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

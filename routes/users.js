@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userHelper = require('../helpers/user-helpers')
+var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063"; // Your Account SID from www.twilio.com/console
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";   // Your Auth Token from www.twilio.com/console
 var authToken = "0fcc223c5401d418bfa08799035c0297";
@@ -9,13 +9,17 @@ const client = require('twilio')(accountSid, authToken)
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('user/index')
+  userHelpers.getMovies().then((moviesList)=>{
+    res.render('user/index',{moviesList})  
+  })
+
 });
 
 
 //user login
 
 router.get('/signin', (req, res) => {
+  
   res.render('user/signin')
 })
 

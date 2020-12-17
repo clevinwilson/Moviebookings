@@ -108,18 +108,18 @@ router.get('/delete-screen/:id', verifyLogin, (req, res) => {
 })
 
 router.get('/view-schedule/:id', verifyLogin, (req, res) => {
-    let owner=req.session.owner
+    let owner = req.session.owner
     ownerHelper.getShedule(req.params.id).then((show) => {
         console.log(show);
-        res.render('owner/view-schedule', { screenId: req.params.id, show ,owner})
+        res.render('owner/view-schedule', { screenId: req.params.id, show, owner })
     })
 })
 
 //show routers
 router.get('/add-show/:id', verifyLogin, (req, res) => {
-    let owner=req.session.owner
+    let owner = req.session.owner
     ownerHelper.getMoviesTitle(req.session.owner._id).then((movies) => {
-        res.render('owner/add-show', { screenId: req.params.id, movies,owner })
+        res.render('owner/add-show', { screenId: req.params.id, movies, owner })
 
     })
 
@@ -136,31 +136,31 @@ router.post('/add-show', verifyLogin, (req, res) => {
         }
     })
 })
-router.get('/edit-show/:id', verifyLogin,(req, res) => {
-    ownerHelper.getShowDetails(req.params.id).then(async(showDetails)=>{
-        let movieList= await ownerHelper.getMoviesTitle(req.session.owner._id)
-        res.render('owner/edit-show',{showDetails,movieList})   
+router.get('/edit-show/:id', verifyLogin, (req, res) => {
+    ownerHelper.getShowDetails(req.params.id).then(async (showDetails) => {
+        let movieList = await ownerHelper.getMoviesTitle(req.session.owner._id)
+        res.render('owner/edit-show', { showDetails, movieList })
     })
 })
 
-router.post('/edit-show/:id',verifyLogin,(req,res)=>{
-    ownerHelper.updateShow(req.body,req.params.id).then((response)=>{
-        if(response.status){
-            req.session.editShowSucc="show updated Successfully"
+router.post('/edit-show/:id', verifyLogin, (req, res) => {
+    ownerHelper.updateShow(req.body, req.params.id).then((response) => {
+        if (response.status) {
+            req.session.editShowSucc = "show updated Successfully"
             res.redirect('/owner/screen')
-        }else{
-            req.session.editShowErr="Error"
+        } else {
+            req.session.editShowErr = "Error"
             res.redirect('/owner/screen')
         }
     })
 })
 
-router.get('/delete-show/:id',verifyLogin,(req,res)=>{
-    ownerHelper.deleteShow(req.params.id).then((response)=>{
-        if(response){
-            res.json({status:true})
-        }else{
-            res.json({status:false})
+router.get('/delete-show/:id', verifyLogin, (req, res) => {
+    ownerHelper.deleteShow(req.params.id).then((response) => {
+        if (response) {
+            res.json({ status: true })
+        } else {
+            res.json({ status: false })
         }
     })
 })
@@ -197,9 +197,7 @@ router.post('/add-movie', verifyLogin, (req, res) => {
     })
 })
 
-router.get('/upcoming-movies', verifyLogin, (req, res) => {
-    res.render('owner/upcoming-movies')
-})
+
 
 router.get('/edit-movie/:id', verifyLogin, (req, res) => {
     ownerHelper.getMovieDetails(req.params.id).then((movieDetails) => {
@@ -242,6 +240,25 @@ router.get('/delete-movie/:id', verifyLogin, (req, res) => {
     })
 })
 
+//upcoming movies
+router.get('/upcoming-movies', verifyLogin, (req, res) => {
+    let owner =req.session.owner
+    res.render('owner/upcoming-movies', { owner,"upMovies": req.session.upMovies, "upmoviesErr": req.session.upmoviesErr })
+    req.session.upMovies = false
+    req.session.upmoviesErr = false
+})
+
+router.post('/upcoming-movies',verifyLogin,(req, res) => {
+    ownerHelper.addUpcomingMovies(req.body, req.session.owner._id).then((response) => {
+        if (response.status) {
+            req.session.upMovies = "Movie added"
+            res.redirect('/owner/upcoming-movies')
+        } else {
+            req.session.upmoviesErr = "Error"
+            res.redirect('/owner/upcomint-movies')
+        }
+    })
+})
 //Owner Users acrivity
 
 router.get('/users-activity', (req, res) => {
@@ -303,7 +320,7 @@ router.get('/profile', verifyLogin, (req, res) => {
 router.get('/edit-profile', verifyLogin, (req, res) => {
     let owner = req.session.owner
     ownerHelper.getOwnerDetails(req.session.owner._id).then((response) => {
-        res.render('owner/edit-profile', { response ,owner})
+        res.render('owner/edit-profile', { response, owner })
     })
 })
 router.post('/profile/:id', verifyLogin, (req, res) => {
@@ -319,10 +336,10 @@ router.post('/profile/:id', verifyLogin, (req, res) => {
 })
 
 //edit photo 
-router.get('/edit-photo',verifyLogin,(req, res) => {
+router.get('/edit-photo', verifyLogin, (req, res) => {
     let ownerId = req.session.owner._id
     let owner = req.session.owner
-    res.render('owner/edit-photo', { ownerId, "OwnerImagesucc": req.session.OwnerImagesucc, "OwnerImgerror": req.session.OwnerImgerror,owner })
+    res.render('owner/edit-photo', { ownerId, "OwnerImagesucc": req.session.OwnerImagesucc, "OwnerImgerror": req.session.OwnerImgerror, owner })
     req.session.OwnerImagesucc = false
     req.session.OwnerImgerror = false
 })

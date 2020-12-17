@@ -13,5 +13,11 @@ module.exports={
         return new Promise((resolve, reject)=>{
             let user = db.get().collection(collection)
         })
+    },
+    getMovies:()=>{
+        return new Promise((resolve,reject)=>{
+            let moviesList = db.get().collection(collection.MOVIE_COLLECTION).find().limit(4).toArray()
+            resolve(moviesList)
+        })
     }
 }

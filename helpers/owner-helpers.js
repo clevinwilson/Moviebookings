@@ -647,5 +647,18 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    addUpcomingMovies:(details,ownerId)=>{
+        details.createddate= new Date()
+        details.owner=objectId(ownerId)
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).insertOne(details).then((response)=>{
+                if(response){
+                    resolve({status:true})
+                }else{
+                    resolve({status:false})
+                }
+            })
+        })
     }
 }
