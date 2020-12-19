@@ -6,7 +6,7 @@ var router = express.Router();
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "e18e9855a2099daafff486a36442425b"; // Your Auth Token from www.twilio.com/console
+var authToken = "e164d4c5dd2fd49d7c19bd1678d4d2e5"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -36,6 +36,7 @@ router.get('/signin', (req, res) => {
 })
 
 router.post('/getcode', (req, res) => {
+
   client
     .verify
     .services(serviceid)
@@ -131,6 +132,7 @@ router.post('/verify-login/:phone', (req, res) => {
 
     })
 })
+
 router.get('/details', (req, res) => {
   res.render('user/view-details')
 })

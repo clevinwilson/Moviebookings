@@ -14167,7 +14167,7 @@ ul {
 }
 
 [data-theme="dark"] {
-  --theme-rose: #df0e62;
+  --theme-rose: #f90e0e;
   --theme-para: #888;
   --theme-hd-bg: #0c0f0a;
   --theme-dark: #111;
@@ -14321,7 +14321,7 @@ h3.hny-title.two {
 
 a.show-title {
   font-size: 20px;
-  color: var(--theme-rose);
+  color: #df0e0e;
   font-weight: 700;
 }
 
@@ -14493,16 +14493,16 @@ p.title-para {
 }
 
 .w3l-header .navbar-nav .nav-item.active a.nav-link {
-  color: var(--theme-rose);
+  color: #df0e0e
 }
 
 .dropdown.active .dropdown-item.active {
-  color: var(--theme-rose);
+  color: #df0e0e
 }
 
 .w3l-header .navbar-nav .nav-link:hover,
 .w3l-header .navbar-nav .nav-link:focus {
-  color: var(--theme-rose);
+  color: #df0e0e
 }
 
 .w3l-header .dropdown-item {
@@ -15286,7 +15286,7 @@ header.nav-fixed {
 }
 
 .owl-theme .owl-nav [class*=owl-] {
-  color: var(--theme-rose);
+  color: #df0e0e;
   font-size: 30px;
   margin: 0px;
   width: 50px;
@@ -15301,7 +15301,7 @@ header.nav-fixed {
 }
 
 .owl-theme .owl-nav [class*=owl-]:hover {
-  background: var(--theme-rose);
+  background: #13ddf7;
   opacity: 1;
   text-decoration: none;
   outline: none;
@@ -15365,7 +15365,7 @@ header.nav-fixed {
 
 .owl-mid.owl-carousel.owl-theme .owl-dots .owl-dot.active span,
 .owl-mid.owl-carousel.owl-theme.owl-dots .owl-dot:hover span {
-  background: var(--theme-rose);
+  background: #df0e0e;
 }
 
 button.owl-next,
@@ -16096,7 +16096,7 @@ ul.resp-tabs-list {
   float: left;
   width: 31%;
   text-align: center;
-  color: var(--theme-title)!important;
+  color: #161616!important;
   background: var(--theme-lite);
   border-bottom: none;
   border-radius: 6px;
@@ -16126,7 +16126,7 @@ h2.resp-accordion {
   margin-bottom: -1px !important;
   border: none !important;
   color:var(--theme-title)!important;
-  background:#df0e62!important;
+  background:#df0e0e!important;
 }
 
 .resp-content-active,
@@ -19321,7 +19321,7 @@ div#small-dialog4 iframe,
   color: #fff;
   width: 42px;
   height: 42px;
-  background: var(--theme-rose);
+  background: #df0e0e;
   padding: 0;
   line-height: 42px;
   transition: 0.5s ease-out;
