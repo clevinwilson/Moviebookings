@@ -144,4 +144,8 @@ router.post('/verify-login/:phone', (req, res) => {
 router.get('/details', (req, res) => {
   res.render('user/view-details')
 })
+
+router.get('/seat-layout',(req,res)=>{
+  res.render('user/seat-layout')
+})
 module.exports = router;
