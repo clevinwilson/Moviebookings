@@ -28,7 +28,11 @@ Author URL: http://w3layouts.com
 				<div class="form-section">
 					<h3>Get Started</h3>
 					<h6>To continue with Us</h6>
-					
+					{{#if isUser}}
+					<div class="alert alert-danger" role="alert">
+						{{isUser}}
+					</div>
+					{{/if}}
 					<form action="/getcode" method="post" class="signin-form">
 					
 						

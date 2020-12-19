@@ -32,21 +32,29 @@ router.get('/', async (req, res, next) => {
 
 router.get('/signin', (req, res) => {
 
-  res.render('user/signin')
+  res.render('user/signin',{"isUser":req.session.isUser})
+  req.session.isUser=false
 })
 
 router.post('/getcode', (req, res) => {
+  userHelpers.userAvailability(req.body.phonenumber).then((response) => {
+    if (response.status) {
+      client
+        .verify
+        .services(serviceid)
+        .verifications
+        .create({
+          to: `+91${req.body.phonenumber}`,
+          channel: "sms"
+        }).then((data) => {
+          res.render('user/verify', { "phone": req.body.phonenumber })
+        })
+    }else{
+      req.session.isUser="Phone Number alredy exist";
+      res.redirect('/signin')
+    }
+  })
 
-  client
-    .verify
-    .services(serviceid)
-    .verifications
-    .create({
-      to: `+91${req.body.phonenumber}`,
-      channel: "sms"
-    }).then((data) => {
-      res.render('user/verify', { "phone": req.body.phonenumber })
-    })
 })
 
 
@@ -83,8 +91,8 @@ router.get("/logout", (req, res) => {
 
 //user login
 router.get('/login', (req, res) => {
-  res.render('user/login',{"userLoginError":req.session.userLoginError})
-  req.session.userLoginError=false
+  res.render('user/login', { "userLoginError": req.session.userLoginError })
+  req.session.userLoginError = false
 })
 
 router.post('/login', (req, res) => {
@@ -92,26 +100,26 @@ router.post('/login', (req, res) => {
     if (response.status) {
       req.session.userDetails = response.user;
       client
-      .verify
-      .services(serviceid)
-      .verifications
-      .create({
-        to: `+91${req.body.phonenumber}`,
-        channel: "sms"
-      }).then((data) => {
-        res.render('user/verify-login', { "phone": req.body.phonenumber })
-      })
+        .verify
+        .services(serviceid)
+        .verifications
+        .create({
+          to: `+91${req.body.phonenumber}`,
+          channel: "sms"
+        }).then((data) => {
+          res.render('user/verify-login', { "phone": req.body.phonenumber })
+        })
     } else {
       req.session.userLoginError = "Incorrect PhoneNumber or password ";
       res.redirect("/login");
     }
   })
- 
+
 
 })
 
 router.post('/verify-login/:phone', (req, res) => {
-  console.log(req.params.phone,req.body);
+  console.log(req.params.phone, req.body);
   client
     .verify
     .services(serviceid)

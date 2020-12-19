@@ -62,5 +62,15 @@ module.exports = {
                 resolve({ status: false })
             }
         })
+    },
+    userAvailability:(phoneNumber)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user=await db.get().collection(collection.USER_COLLECTION).findOne({phonenumber:phoneNumber})
+            if(user){
+                resolve({status:false})
+            }else{
+                resolve({status:true})
+            }
+        })
     }
 }
