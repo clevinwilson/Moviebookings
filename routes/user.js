@@ -141,8 +141,11 @@ router.post('/verify-login/:phone', (req, res) => {
     })
 })
 
-router.get('/details', (req, res) => {
-  res.render('user/view-details')
+router.get('/details/:id', (req, res) => {
+  userHelpers.viewDetails(req.params.id).then((movieDetails)=>{
+    console.log(movieDetails);
+    res.render('user/view-details',{movieDetails})
+  })
 })
 
 router.get('/seat-layout',(req,res)=>{

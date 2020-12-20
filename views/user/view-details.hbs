@@ -154,11 +154,12 @@
 		<div class="row ipad-width2">
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<div class="movie-img sticky-sb">
-					<img src="/images/uploads/movie-single.jpg" alt="">
+					<img src="/movie-images/{{movieDetails._id}}.jpg" alt="">
 					<div class="movie-btn">	
 						<div class="btn-transform transform-vertical red">
 							<div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
-							<div><a href="https://www.youtube.com/embed/o-0hcF97wy0" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+							
+							<div><a href="{{movieDetails.trailerlink}}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
 						</div>
 						<div class="btn-transform transform-vertical">
 							<div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
@@ -169,7 +170,7 @@
 			</div>
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="movie-single-ct main-content">
-					<h1 class="bd-hd">Skyfall: Quantum of Spectre <span>2015</span></h1>
+					<h1 class="bd-hd">{{movieDetails.movietitle}} <span>{{movieDetails.releasedate}}</span></h1>
 					<div class="social-btn">
 						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
 						<div class="hover-bnt">
@@ -238,7 +239,7 @@
 												<div class="cast-it">
 													<div class="cast-left">
 														<img src="/images/uploads/cast1.jpg" alt="">
-														<a href="#">Robert Downey Jr.</a>
+														<a href="#">{{movieDetails.cast}}</a>
 													</div>
 													<p>...  Robert Downey Jr.</p>
 												</div>
@@ -320,11 +321,15 @@
 						            	<div class="col-md-4 col-xs-12 col-sm-12">
 						            		<div class="sb-it">
 						            			<h6>Director: </h6>
-						            			<p><a href="#">Joss Whedon</a></p>
+						            			<p><a href="#">{{movieDetails.director}}</a></p>
+						            		</div>
+											<div class="sb-it">
+						            			<h6>Language:</h6>
+						            			<p>{{movieDetails.language}}</p>
 						            		</div>
 						            		<div class="sb-it">
-						            			<h6>Writer: </h6>
-						            			<p><a href="#">Joss Whedon,</a> <a href="#">Stan Lee</a></p>
+						            			<h6>Run Time: </h6>
+						            			<p><a href="#">{{movieDetails.hour}} Hr {{movieDetails.minute}} min</a> </p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Stars: </h6>
@@ -332,15 +337,15 @@
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Genres:</h6>
-						            			<p><a href="#">Action, </a> <a href="#"> Sci-Fi,</a> <a href="#">Adventure</a></p>
+						            			<p><a href="#">{{movieDetails.type}}</a> </p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Release Date:</h6>
-						            			<p>May 1, 2015 (U.S.A)</p>
+						            			<p>{{movieDetails.releasedate}}</p>
 						            		</div>
 						            		<div class="sb-it">
-						            			<h6>Run Time:</h6>
-						            			<p>141 min</p>
+						            			<h6>Writer</h6>
+						            			<p>{{movieDetails.director}}</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>MMPA Rating:</h6>

@@ -143,7 +143,7 @@ Author URL: http://w3layouts.com
 					{{#each moviesList}}
 					<div class="item vhny-grid">
 						<div class="box16">
-							<a href="#{{this._id}}" class="popup-with-zoom-anim play-view1">
+							<a href="/details/{{this._id}}" >
 								<figure>
 									<img class="img-fluid" src="/movie-images/{{this._id}}.jpg" alt="">
 								</figure>
@@ -160,10 +160,10 @@ Author URL: http://w3layouts.com
 								<span class="fa fa-play video-icon" aria-hidden="true"></span>
 							</a>
 						</div>
-						<div class="button-center text-center mt-4">
+						{{!-- <div class="button-center text-center mt-4">
 							<a href="genre.html" style="color: var(--theme-title);;" class="btn watch-button">Book
 								now</a>
-						</div>
+						</div> --}}
 						
 						<div id="{{this._id}}" style="    background-color: white; padding: 39px;" class="embed-responsive embed-responsive-16by9  mfp-hide">
 							<iframe width="560" height="315" src="https://www.youtube.com/embed/Zi4LMpSDccc"

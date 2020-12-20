@@ -72,5 +72,11 @@ module.exports = {
                 resolve({status:true})
             }
         })
+    },
+    viewDetails:(movieId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let movieDetails =await db.get().collection(collection.MOVIE_COLLECTION).findOne({_id:objectId(movieId)})
+            resolve(movieDetails)
+        })
     }
 }
