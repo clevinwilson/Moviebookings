@@ -155,4 +155,8 @@ router.get('/seat-layout',(req,res)=>{
 router.get('/video-play',(req,res)=>{
   res.render('user/video-play')
 })
+
+router.get('/time',(req,res)=>{
+  res.render('user/pick-time')
+})
 module.exports = router;
