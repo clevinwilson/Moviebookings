@@ -148,4 +148,8 @@ router.get('/details', (req, res) => {
 router.get('/seat-layout',(req,res)=>{
   res.render('user/seat-layout')
 })
+
+router.get('/video-play',(req,res)=>{
+  res.render('user/video-play')
+})
 module.exports = router;
