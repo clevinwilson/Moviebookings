@@ -34,6 +34,8 @@ module.exports = {
         })
     },
     addScreen: (details, ownerId) => {
+        let seatno =((details.viprow*details.vipcol)+(details.premiumrow*details.premiumcol)+(details.executiverow*details.executivecol)+(details.normalrow*details.normalcol))
+        details.seatno=seatno
         details.owner = objectId(ownerId)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SCREEN_COLLECTION).insertOne(details).then((response) => {

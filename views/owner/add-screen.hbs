@@ -35,36 +35,85 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Details</h6>
                                 </div>
                                 <div class="message p-3">
-                                {{#if addScreenSucc}}
-                                <div class="alert alert-success" role="alert">
-                                    {{addScreenSucc}}
+                                    {{#if addScreenSucc}}
+                                    <div class="alert alert-success" role="alert">
+                                        {{addScreenSucc}}
+                                    </div>
+                                    {{/if}}
+                                    {{#if addScreenErr}}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{addScreenErr}}
+                                    </div>
+                                    {{/if}}
                                 </div>
-                                {{/if}}
-                                {{#if addScreenErr}}
-                                <div class="alert alert-danger" role="alert">
-                                    {{addScreenErr}}
-                                </div>
-                                {{/if}}
-                                </div>
-                                
+
                                 <form action="/owner/add-screen" id="submit-form" method="post">
                                     <div class="card-body">
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="screenname">Screen Name</label>
                                             <input style="border-color:#b4e3eb;" type="text"
                                                 class="form-control col-md-12 mt-2" id="screenname" name="screenname"
-                                                placeholder="Screen Name"  required >
+                                                placeholder="Screen Name" required>
                                         </div>
-                                        <div class="form-group mt-3 col-md-10">
-                                            <label for="Seats">Seats</label>
-                                            <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="seatno" name="seatno"
-                                                placeholder="Seats" required>
+
+                                        <div class="row">
+                                            <div class="form-group mt-3 col-md-6">
+                                                <label for="vip">VIP</label>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="viprow" name="viprow"
+                                                    placeholder="ROWS" required>
+                                            </div>
+                                            <div class="form-group mt-5 col-md-6">
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="vipcol" name="vipcol"
+                                                    placeholder="COLUMNS" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group mt-3 col-md-6">
+                                                <label for="PREMIUM">PREMIUM</label>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="premiumrow"
+                                                    name="premiumrow" placeholder="ROWS" required>
+                                            </div>
+                                            <div class="form-group mt-5 col-md-6">
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="premiumcol"
+                                                    name="premiumcol" placeholder="COLUMNS" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group mt-3 col-md-6">
+                                                <label for="EXECUTIVE">EXECUTIVE</label>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="executiverow"
+                                                    name="executiverow" placeholder="ROWS" required>
+                                            </div>
+                                            <div class="form-group mt-5 col-md-6">
+
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="executivecol"
+                                                    name="executivecol" placeholder="COLUMNS" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group mt-3 col-md-6">
+                                                <label for="NORMAl">NORMAl</label>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="normalrow" name="normalrow"
+                                                    placeholder="ROWS" required>
+                                            </div>
+                                            <div class="form-group mt-5 col-md-6">
+
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="normalcol" name="normalcol"
+                                                    placeholder="COLUMNS" required>
+                                            </div>
                                         </div>
                                         <center>
-                                            <a href="/owner/screen"
-                                                class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
-                                            <button type="submit" id="submit" class="btn btn-success  mt-3">Submit</button>
+                                            <a href="/owner/screen" class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
+                                            <button type="submit" id="submit"
+                                                class="btn btn-success  mt-3">Submit</button>
                                         </center>
                                     </div>
                                 </form>
@@ -81,28 +130,29 @@
 
 </body>
 <script>
-    function isUserExist(){
-            let username=document.getElementById('username').value
-            $.ajax({
-                url:'/admin/isuserexist/'+username,
-                method:'get',
-                success:(response)=>{
-                    
-                    if(response){
-                        document.getElementById('check_availability_username').innerHTML=' '
-                        document.getElementById('submit').disabled = true
-                        document.getElementById('check_not_username').innerHTML=' User name already exists'
-                      
-                       
-                        
-                    }else{
-                        document.getElementById('check_not_username').innerHTML=''
-                        document.getElementById('submit').disabled = false
-                        document.getElementById('check_availability_username').innerHTML=' Name available for Registration'
-                    }
-                    
+    function isUserExist() {
+        let username = document.getElementById('username').value
+        $.ajax({
+            url: '/admin/isuserexist/' + username,
+            method: 'get',
+            success: (response) => {
+
+                if (response) {
+                    document.getElementById('check_availability_username').innerHTML = ' '
+                    document.getElementById('submit').disabled = true
+                    document.getElementById('check_not_username').innerHTML = ' User name already exists'
+
+
+
+                } else {
+                    document.getElementById('check_not_username').innerHTML = ''
+                    document.getElementById('submit').disabled = false
+                    document.getElementById('check_availability_username').innerHTML = ' Name available for Registration'
                 }
-            })
-        }
+
+            }
+        })
+    }
 </script>
+
 </html>
