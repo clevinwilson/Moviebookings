@@ -159,4 +159,8 @@ router.get('/video-play',(req,res)=>{
 router.get('/time',(req,res)=>{
   res.render('user/pick-time')
 })
+
+router.post('/book-seats',(req,res)=>{
+  console.log(req.body);
+})
 module.exports = router;
