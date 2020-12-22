@@ -82,7 +82,11 @@
                                                     style=" border-radius: 21px;" type="button" href="#"
                                                     data-toggle="modal" data-target="#deleteModal"
                                                     onclick=" confirmDelete('{{this._id}}')"
-                                                    class="text-white ml-2 btn btn-danger">DELETE</a></td>
+                                                    class="text-white ml-2 btn btn-danger">DELETE</a>
+                                                    
+                                                    <a type="button" href="/owner/seats/{{this._id}}"
+                                                    style=" background-color: black; border-radius: 21px;"
+                                                    class="text-white m-2 btn btn-success">LAYOUT</a></td>
                                         </tr>
                                         {{/each}}
                                      
