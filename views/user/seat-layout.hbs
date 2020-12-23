@@ -184,13 +184,14 @@
                         }
                     </script>
                 </table>
-                <button type="submit" class="btn btn-success">Submit</button>
-                </form>
-                <div class="screen">
+                
+                <div style="margin-left: 168px; width: 50%;" class="screen">
                     <h2 class="wthree">Screen this way</h2>
                 </div>
                 <button onclick="updateTextArea()">Confirm Selection</button>
             </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+                </form>
             <!-- //seat layout -->
             <!-- details after booking displayed here -->
             <div class="displayerBoxes txt-center" style="overflow-x:auto;">
@@ -223,7 +224,7 @@
     <!-- //js -->
     <!-- script for seat selection -->
     <script>
-        function onLoadderFunc() {
+        {{!-- function onLoadderFunc() {
             $(".seatStructure *").prop("disabled", true);
             $(".displayerBoxes *").prop("disabled", true);
         }
@@ -240,7 +241,7 @@
             }
             $(".inputForm *").prop("disabled", true);
             $(".seatStructure *").prop("disabled", false);
-        }
+        } --}}
 
 
         function updateTextArea() {

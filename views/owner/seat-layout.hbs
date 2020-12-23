@@ -32,33 +32,14 @@
         rel="stylesheet">
     <!-- //fonts -->
 </head>
-{{>user-header}}
+
 
 <body onload="onLoadderFunc()">
-    <h1>Movie Seat Selection</h1>
+    <h3> Seat Selection</h3>
     <div class="container">
 
         <div class="w3ls-reg">
-            <!-- input fields -->
-            <div class="inputForm">
-                <h2>fill the required details below and select your seats</h2>
-                <div class="mr_agilemain">
-                    <div class="agileits-left">
-                        <label> Name
-                            <span>*</span>
-                        </label>
-                        <input type="text" id="Username" required>
-                    </div>
-                    <div class="agileits-right">
-                        <label> Number of Seats
-                            <span>*</span>
-                        </label>
-                        <input type="number" id="Numseats" required min="1">
-                    </div>
-                </div>
-                <button onclick="takeData()">Start Selecting</button>
-            </div>
-            <!-- //input fields -->
+           
             <!-- seat availabilty list -->
             <ul class="seat_w3ls">
                 <li class="smallBox greenBox">Selected Seat</li>
@@ -70,7 +51,7 @@
             <!-- seat availabilty list -->
             <!-- seat layout -->
             <div class="seatStructure txt-center" style="overflow-x:auto;">
-                <form action="/book-seats" method="POST">
+                <form action="/owner/add-seats/{{screenId}},{{showId}}" method="POST">
                 <table id="seatsBlock">
                     <p id="notification"></p>
                     <tr>
@@ -105,7 +86,7 @@
                         //create rows
                         function myFunctions() {
                             var count = 0
-                            for (var j = 1; j <= 10; j++) {
+                            for (var j = 1; j <= {{response.rows}}; j++) {
 
                                 //set heading for rows
                                 if (j == 1) {
@@ -115,21 +96,21 @@
                                     vip.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(vip);
                                     $('#vip').html("VIP");
-                                } else if (j == 4) {
+                                } else if (j == {{response.viprow}}+1) {
                                     var premium = document.createElement("TR");
 
                                     premium.setAttribute("id", "premium");
                                     premium.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(premium);
                                     $('#premium').html("PREMIUM");
-                                } else if (j == 6) {
+                                } else if (j == {{response.viprow}}+1+{{response.premiumrow}}) {
                                     var t = document.createElement("TR");
 
                                     t.setAttribute("id", "executive");
                                     t.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(t);
                                     $('#executive').html("EXECUTIVE");
-                                } else if (j == 8) {
+                                } else if (j == {{response.viprow}}+1+{{response.premiumrow}}+{{response.executiverow}}) {
                                     var normal = document.createElement("TR");
 
                                     normal.setAttribute("id", "normal");
@@ -146,7 +127,7 @@
                                 $('#i' + j).html(letter);
 
                                 //create td
-                                for (var i = 1; i <= 12; i++) {
+                                for (var i = 1; i <= {{response.vipcol}}; i++) {
 
                                     var tdId = count + 1
                                     if (i == 6) {
@@ -163,17 +144,18 @@
                                     checkboxs.setAttribute("id", letter + i);
                                     checkboxs.setAttribute("name", letter + i);
                                     document.getElementById(tdId).appendChild(checkboxs);
+                                    document.getElementById(letter + i).checked = true;
 
                                     {{!-- document.getElementById(letter + i).checked = true; --}}
                                     //set price to each categot
-                                    if(j<4){
-                                        $("#" +letter + i).val('10');
-                                    }else if(j<6){
-                                        $("#" + letter + i).val('20');
-                                    }else if(j<8){
-                                        $("#" + letter + i).val('30');
-                                    }else if(j>=8){
-                                        $("#" + letter + i).val('40');
+                                    if(j<{{response.viprow}}+1){
+                                        $("#" +letter + i).val({{showDetails.vip}});
+                                    }else if(j<{{response.viprow}}+1+{{response.premiumrow}}){
+                                        $("#" + letter + i).val({{showDetails.premium}});
+                                    }else if(j<{{response.viprow}}+1+{{response.premiumrow}}+{{response.executiverow}}){
+                                        $("#" + letter + i).val({{showDetails.executive}});
+                                    }else if(j>={{response.viprow}}+1+{{response.premiumrow}}+{{response.executiverow}}){
+                                        $("#" + letter + i).val({{showDetails.normal}});
                                     }
                                     
                                     count++;
@@ -184,63 +166,29 @@
                         }
                     </script>
                 </table>
-                <button type="submit" class="btn btn-success">Submit</button>
-                </form>
-                <div class="screen">
+               
+                <div style="margin-left: 168px; width: 50%;" class="screen">
                     <h2 class="wthree">Screen this way</h2>
                 </div>
-                <button onclick="updateTextArea()">Confirm Selection</button>
+                <hr>
+                
             </div>
+            <a href="#" class="mr-auto mt-2 btn btn-primary">Back</a>
+             <button type="submit" class="ml-auto mt-2 btn btn-success">Activate</button>
+                </form>
             <!-- //seat layout -->
-            <!-- details after booking displayed here -->
-            <div class="displayerBoxes txt-center" style="overflow-x:auto;">
-                <table class="Displaytable w3ls-table" width="100%">
-                    <tr>
-                        <th>Name</th>
-                        <th>Number of Seats</th>
-                        <th>Seats</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <textarea id="nameDisplay"></textarea>
-                        </td>
-                        <td>
-                            <textarea id="NumberDisplay"></textarea>
-                        </td>
-                        <td>
-                            <textarea id="seatsDisplay"></textarea>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <!-- //details after booking displayed here -->
+            
         </div>
     </div>
-    {{>user-footer}}
     </div>
     <!-- js -->
     <script src="/seat/js/jquery-2.2.3.min.js"></script>
     <!-- //js -->
     <!-- script for seat selection -->
     <script>
-        function onLoadderFunc() {
-            $(".seatStructure *").prop("disabled", true);
-            $(".displayerBoxes *").prop("disabled", true);
-        }
+       
 
-        function takeData() {
-
-            if (($("#Username").val().length == 0) || ($("#Numseats").val().length == 0)) {
-                alert("Please Enter your Name and Number of Seats");
-            } else {
-                $(".inputForm *").prop("disabled", true);
-                $(".seatStructure *").prop("disabled", false);
-                document.getElementById("notification").innerHTML =
-                    "<b style='margin-bottom:0px;background:#ff9800;letter-spacing:1px;'>Please Select your Seats NOW!</b>";
-            }
-            $(".inputForm *").prop("disabled", true);
-            $(".seatStructure *").prop("disabled", false);
-        }
+      
 
 
         function updateTextArea() {

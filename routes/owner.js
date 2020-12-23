@@ -427,4 +427,26 @@ router.post('/password-submit/:id', (req, res) => {
     })
 })
 
+//seating layout for owner
+
+router.get('/seats/:id,:showid',(req,res)=>{
+    ownerHelper.getScreenDetails(req.params.id,req.params.showid).then((response)=>{
+        console.log(response,"fdsfs");
+        if(response){
+            res.render('owner/seat-layout',{"screenId":req.params.id,"showId":req.params.showid,"response":response.screenDetails,showDetails:response.showDetails})
+        }else{
+            res.redirect('/owner/view-shedule')
+        }
+    })
+})
+
+router.post('/add-seats/:id,:showId',(req,res)=>{
+    console.log(req.params.id);
+    ownerHelper.addSeats(req.params.id,req.params.showId,req.body).then((response)=>{
+        if(response){
+            res.redirect('/owner/')
+        }
+    })
+})
+
 module.exports = router;

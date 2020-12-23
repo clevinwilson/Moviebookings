@@ -34,8 +34,11 @@ module.exports = {
         })
     },
     addScreen: (details, ownerId) => {
+        
         let seatno =((details.viprow*details.vipcol)+(details.premiumrow*details.premiumcol)+(details.executiverow*details.executivecol)+(details.normalrow*details.normalcol))
+        let rows=(parseInt((details.viprow))+parseInt((details.premiumrow))+parseInt((details.executiverow))+parseInt((details.normalrow)))
         details.seatno=seatno
+        details.rows=rows
         details.owner = objectId(ownerId)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SCREEN_COLLECTION).insertOne(details).then((response) => {
@@ -680,6 +683,29 @@ module.exports = {
         return new Promise(async(resolve,reject)=>{
             let upMovieList=await db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).find({owner:objectId(ownerId)}).toArray()
             resolve(upMovieList)
+        })
+    },
+    getScreenDetails:(screenId,showId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let showDetails=await db.get().collection(collection.SHOW_COLLECTION).findOne({_id:objectId(showId)})
+            let screenDetails =await db.get().collection(collection.SCREEN_COLLECTION).findOne({_id:objectId(screenId)})
+            if(screenDetails){
+                details={}
+                details.showDetails=showDetails
+                details.screenDetails=screenDetails
+                resolve(details)
+            }else{
+                resolve(false)
+            }
+        })
+    },
+    addSeats:(screenId,showId,details)=>{
+        details.screenId=objectId(screenId)
+        details.showId=objectId(showId)
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.SEAT_COLLECTION).insertOne(details).then((response)=>{
+                resolve(response)
+            })
         })
     }
 }
