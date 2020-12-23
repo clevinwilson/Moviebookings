@@ -9,11 +9,7 @@ var generator = require('generate-password');
 const { template } = require("handlebars")
 
 module.exports = {
-    doSigin: () => {
-        return new Promise((resolve, reject) => {
-            let user = db.get().collection(collection)
-        })
-    },
+
     getMovies: () => {
         return new Promise((resolve, reject) => {
             let moviesList = db.get().collection(collection.MOVIE_COLLECTION).find().limit(4).toArray()
@@ -63,20 +59,46 @@ module.exports = {
             }
         })
     },
-    userAvailability:(phoneNumber)=>{
-        return new Promise(async(resolve,reject)=>{
-            let user=await db.get().collection(collection.USER_COLLECTION).findOne({phonenumber:phoneNumber})
-            if(user){
-                resolve({status:false})
-            }else{
-                resolve({status:true})
+    userAvailability: (phoneNumber) => {
+        return new Promise(async (resolve, reject) => {
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ phonenumber: phoneNumber })
+            if (user) {
+                resolve({ status: false })
+            } else {
+                resolve({ status: true })
             }
         })
     },
-    viewDetails:(movieId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let movieDetails =await db.get().collection(collection.MOVIE_COLLECTION).findOne({_id:objectId(movieId)})
+    viewDetails: (movieId) => {
+        return new Promise(async (resolve, reject) => {
+            let movieDetails = await db.get().collection(collection.MOVIE_COLLECTION).findOne({ _id: objectId(movieId) })
             resolve(movieDetails)
         })
-    }
+    },
+    getBookedSeats: () => {
+        return new Promise(async (resolve, reject) => {
+            let bookedSeats = await db.get().collection(collection.SEAT_COLLECTION).find().toArray()
+            resolve(bookedSeats)
+        })
+    },
+    insertBookedSeats: (seats) => {
+        return new Promise((resolve, reject) => {
+            for(let seat in seats){
+                db.get().collection(collection.SHOW_COLLECTION)
+                .updateOne({ _id: ObjectId("5fe3294473a38755b8310923") },
+                    {
+                        
+                        
+                            $push: {seats: seat }
+                      
+                    }
+
+                ).then((response) => {
+                    resolve(response)
+            })
+            }
+           
+        })
+    },
+    
 }

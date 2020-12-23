@@ -6,16 +6,16 @@ var router = express.Router();
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "e164d4c5dd2fd49d7c19bd1678d4d2e5"; // Your Auth Token from www.twilio.com/console
+var authToken = "c7a6e058a5ee8e93eb8a7b9a5617ea13"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
 
 const verifyLogin = (req, res, next) => {
-  if (req.session.user.LogIn) {
+  if (req.session.loggedIn) {
     next()
   } else {
-    res.redirect('/')
+    res.redirect('/login')
   }
 }
 /* GET users listing. */
@@ -80,10 +80,11 @@ router.post('/verify/:phone', (req, res) => {
 router.post('/singup', (req, res) => {
   userHelpers.signup(req.body).then((response) => {
     req.session.user = response
-    req.session.user.LogIn = true
+    req.session.loggedIn = true
     res.redirect('/')
   })
 })
+
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
@@ -148,8 +149,13 @@ router.get('/details/:id', (req, res) => {
   })
 })
 
-router.get('/seat-layout',(req,res)=>{
-  res.render('user/seat-layout')
+router.get('/seat-layout',verifyLogin,(req,res)=>{
+  userHelpers.getBookedSeats().then((response)=>{
+   
+    console.log(response[0]);
+    res.render('user/seat-layout',{"bookedSeats":response[0]})
+  })
+
 })
 
 router.get('/video-play',(req,res)=>{
@@ -160,7 +166,9 @@ router.get('/time',(req,res)=>{
   res.render('user/pick-time')
 })
 
-router.post('/book-seats',(req,res)=>{
-  console.log(req.body);
+router.post('/book-seats',verifyLogin,(req,res)=>{
+  userHelpers.insertBookedSeats(req.body).then((response)=>{
+    console.log(response);
+  })
 })
 module.exports = router;
