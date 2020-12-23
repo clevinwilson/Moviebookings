@@ -75,30 +75,51 @@ module.exports = {
             resolve(movieDetails)
         })
     },
-    getBookedSeats: () => {
+    getBookedSeats: (showId) => {
         return new Promise(async (resolve, reject) => {
-            let bookedSeats = await db.get().collection(collection.SEAT_COLLECTION).find().toArray()
-            resolve(bookedSeats)
+            let showDeatils = await db.get().collection(collection.SHOW_COLLECTION).findOne({ _id: objectId(showId) })
+            resolve(showDeatils)
         })
     },
     insertBookedSeats: (seats) => {
         return new Promise((resolve, reject) => {
-            for(let seat in seats){
+            for (let seat in seats) {
                 db.get().collection(collection.SHOW_COLLECTION)
-                .updateOne({ _id: ObjectId("5fe3294473a38755b8310923") },
-                    {
-                        
-                        
-                            $push: {seats: seat }
-                      
-                    }
+                    .updateOne({ _id: ObjectId("5fe3294473a38755b8310923") },
+                        {
 
-                ).then((response) => {
-                    resolve(response)
-            })
+
+                            $push: { seats: seat }
+
+                        }
+
+                    ).then((response) => {
+                        resolve(response)
+                    })
             }
-           
+
         })
     },
-    
+    getScreenD: (screenId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.SCREEN_COLLECTION).findOne({ _id: objectId(screenId) }).then((screen) => {
+                resolve(screen)
+            })
+        })
+    },
+    getBookedSeat:(showId, details) => {
+        var price=0
+        return new Promise(async(resolve, reject) => {
+            for (let seats in details) {
+               let seat=await db.get().collection(collection.SEAT_COLLECTION).findOne({showId:objectId(showId),seatName:seats})
+               if(seat){
+                  price=parseInt(price)+parseInt(details[seats])
+               }else{
+                   resolve({status:false})
+               }
+            }
+            resolve({status:true,price})
+        })
+    }
+
 }

@@ -34,11 +34,11 @@ module.exports = {
         })
     },
     addScreen: (details, ownerId) => {
-        
-        let seatno =((details.viprow*details.vipcol)+(details.premiumrow*details.premiumcol)+(details.executiverow*details.executivecol)+(details.normalrow*details.normalcol))
-        let rows=(parseInt((details.viprow))+parseInt((details.premiumrow))+parseInt((details.executiverow))+parseInt((details.normalrow)))
-        details.seatno=seatno
-        details.rows=rows
+
+        let seatno = ((details.viprow * details.vipcol) + (details.premiumrow * details.premiumcol) + (details.executiverow * details.executivecol) + (details.normalrow * details.normalcol))
+        let rows = (parseInt((details.viprow)) + parseInt((details.premiumrow)) + parseInt((details.executiverow)) + parseInt((details.normalrow)))
+        details.seatno = seatno
+        details.rows = rows
         details.owner = objectId(ownerId)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SCREEN_COLLECTION).insertOne(details).then((response) => {
@@ -601,7 +601,7 @@ module.exports = {
     addShow: (details, ownerId) => {
         details.owner = ownerId
         details.screenId = objectId(details.screenId)
-        details.seats=[]
+        details.seats = []
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response) => {
                 if (response) {
@@ -614,7 +614,7 @@ module.exports = {
     },
     getShedule: (screenId) => {
         return new Promise(async (resolve, reject) => {
-            let show = await db.get().collection(collection.SHOW_COLLECTION).find({ screenId:objectId(screenId) }).toArray()
+            let show = await db.get().collection(collection.SHOW_COLLECTION).find({ screenId: objectId(screenId) }).toArray()
             resolve(show)
         })
     },
@@ -648,65 +648,71 @@ module.exports = {
                 })
         })
     },
-    deleteShow:(showId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.SHOW_COLLECTION).removeOne({_id:objectId(showId)}).then((response)=>{
+    deleteShow: (showId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.SHOW_COLLECTION).removeOne({ _id: objectId(showId) }).then((response) => {
                 resolve(response)
             })
         })
     },
-    addUpcomingMovies:(details,ownerId)=>{
-        details.createddate= new Date()
-        details.owner=objectId(ownerId)
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).insertOne(details).then((response)=>{
+    addUpcomingMovies: (details, ownerId) => {
+        details.createddate = new Date()
+        details.owner = objectId(ownerId)
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).insertOne(details).then((response) => {
                 resolve(response.ops[0]._id)
             })
         })
     },
-    deleteUpcomingMovies:(movieId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let movie=await  db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).findOne({_id:objectId(movieId)})
-            if(movie){
-                db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).removeOne({_id:objectId(movieId)}).then((response)=>{
-                    if(response){
-                        resolve({status:true})
-                    }else{
-                        resolve({status:false})
+    deleteUpcomingMovies: (movieId) => {
+        return new Promise(async (resolve, reject) => {
+            let movie = await db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).findOne({ _id: objectId(movieId) })
+            if (movie) {
+                db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).removeOne({ _id: objectId(movieId) }).then((response) => {
+                    if (response) {
+                        resolve({ status: true })
+                    } else {
+                        resolve({ status: false })
                     }
                 })
-            }else{
-                resolve({status:false})
-            } 
+            } else {
+                resolve({ status: false })
+            }
         })
     },
-    UpComingMoviesList:(ownerId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let upMovieList=await db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).find({owner:objectId(ownerId)}).toArray()
+    UpComingMoviesList: (ownerId) => {
+        return new Promise(async (resolve, reject) => {
+            let upMovieList = await db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
             resolve(upMovieList)
         })
     },
-    getScreenDetails:(screenId,showId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let showDetails=await db.get().collection(collection.SHOW_COLLECTION).findOne({_id:objectId(showId)})
-            let screenDetails =await db.get().collection(collection.SCREEN_COLLECTION).findOne({_id:objectId(screenId)})
-            if(screenDetails){
-                details={}
-                details.showDetails=showDetails
-                details.screenDetails=screenDetails
+    getScreenDetails: (screenId, showId) => {
+        return new Promise(async (resolve, reject) => {
+            let showDetails = await db.get().collection(collection.SHOW_COLLECTION).findOne({ _id: objectId(showId) })
+            let screenDetails = await db.get().collection(collection.SCREEN_COLLECTION).findOne({ _id: objectId(screenId) })
+            if (screenDetails) {
+                details = {}
+                details.showDetails = showDetails
+                details.screenDetails = screenDetails
                 resolve(details)
-            }else{
+            } else {
                 resolve(false)
             }
         })
     },
-    addSeats:(screenId,showId,details)=>{
-        details.screenId=objectId(screenId)
-        details.showId=objectId(showId)
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.SEAT_COLLECTION).insertOne(details).then((response)=>{
-                resolve(response)
-            })
+    addSeats: (screenId, showId, seats) => {
+        return new Promise((resolve, reject) => {
+            for (i in seats) {
+                details = {}
+                details.screenId = objectId(screenId)
+                details.showId = objectId(showId)
+                details.seatName = i
+                details.price = seats[i]
+                db.get().collection(collection.SEAT_COLLECTION).insertOne(details).then((response) => {
+                    resolve(response)
+                })
+            }
+
         })
     }
 }

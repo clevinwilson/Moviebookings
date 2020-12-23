@@ -149,14 +149,18 @@ router.get('/details/:id', (req, res) => {
   })
 })
 
-router.get('/seat-layout',verifyLogin,(req,res)=>{
-  userHelpers.getBookedSeats().then((response)=>{
-   
-    console.log(response[0]);
-    res.render('user/seat-layout',{"bookedSeats":response[0]})
+router.get('/seat-layout',verifyLogin,async(req,res)=>{
+
+  let screenDetails =await userHelpers.getScreenD("5fe1da06a2b229094406c945")
+ 
+  userHelpers.getBookedSeats("5fe3294473a38755b8310923").then((showDeatils)=>{
+    console.log(showDeatils,"llll");
+    res.render('user/seat-layout',{screenDetails,"showDeatils":showDeatils})
   })
 
 })
+
+
 
 router.get('/video-play',(req,res)=>{
   res.render('user/video-play')
@@ -166,9 +170,12 @@ router.get('/time',(req,res)=>{
   res.render('user/pick-time')
 })
 
-router.post('/book-seats',verifyLogin,(req,res)=>{
-  userHelpers.insertBookedSeats(req.body).then((response)=>{
-    console.log(response);
-  })
+router.post('/book-seats',verifyLogin,async(req,res)=>{
+  let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923',req.body)
+  if(response.status){
+    console.log(response.price);
+  }else{
+    console.log('err');
+  }
 })
 module.exports = router;

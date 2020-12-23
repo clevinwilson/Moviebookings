@@ -86,7 +86,7 @@
                         //create rows
                         function myFunctions() {
                             var count = 0
-                            for (var j = 1; j <= 10; j++) {
+                            for (var j = 1; j <= {{screenDetails.rows}}; j++) {
 
                                 //set heading for rows
                                 if (j == 1) {
@@ -96,21 +96,21 @@
                                     vip.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(vip);
                                     $('#vip').html("VIP");
-                                } else if (j == 4) {
+                                } else if (j == {{screenDetails.viprow}}+1) {
                                     var premium = document.createElement("TR");
 
                                     premium.setAttribute("id", "premium");
                                     premium.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(premium);
                                     $('#premium').html("PREMIUM");
-                                } else if (j == 6) {
+                                } else if (j == {{screenDetails.viprow}}+1+{{screenDetails.premiumrow}}) {
                                     var t = document.createElement("TR");
 
                                     t.setAttribute("id", "executive");
                                     t.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(t);
                                     $('#executive').html("EXECUTIVE");
-                                } else if (j == 8) {
+                                } else if (j == {{screenDetails.viprow}}+1+{{screenDetails.premiumrow}}+{{screenDetails.executiverow}}) {
                                     var normal = document.createElement("TR");
 
                                     normal.setAttribute("id", "normal");
@@ -127,7 +127,7 @@
                                 $('#i' + j).html(letter);
 
                                 //create td
-                                for (var i = 1; i <= 12; i++) {
+                                for (var i = 1; i <= {{screenDetails.vipcol}}; i++) {
 
                                     var tdId = count + 1
                                     if (i == 6) {
@@ -148,13 +148,13 @@
                                     {{!-- document.getElementById(letter + i).checked = true; --}}
                                     //set price to each categot
                                     if(j<4){
-                                        $("#" +letter + i).val(letter + i);
+                                        $("#" +letter + i).val({{showDeatils.vip}});
                                     }else if(j<6){
-                                        $("#" + letter + i).val(letter + i);
+                                        $("#" + letter + i).val({{showDeatils.premium}});
                                     }else if(j<8){
-                                        $("#" + letter + i).val(letter + i);
+                                        $("#" + letter + i).val({{showDeatils.executive}});
                                     }else if(j>=8){
-                                        $("#" + letter + i).val(letter + i);
+                                        $("#" + letter + i).val({{showDeatils.normal}});
                                     }
                                     
                                     count++;
