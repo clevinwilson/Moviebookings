@@ -601,7 +601,7 @@ module.exports = {
     addShow: (details, ownerId) => {
         details.owner = ownerId
         details.screenId = objectId(details.screenId)
-        details.seats = []
+        details.bookedseats = []
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response) => {
                 if (response) {

@@ -84,12 +84,15 @@ module.exports = {
     insertBookedSeats: (seats) => {
         return new Promise((resolve, reject) => {
             for (let seat in seats) {
+                details={}
+                details.seatName=seat
+                details.price=seats[seat]
                 db.get().collection(collection.SHOW_COLLECTION)
                     .updateOne({ _id: ObjectId("5fe3294473a38755b8310923") },
                         {
 
 
-                            $push: { seats: seat }
+                            $push: { bookedseats:details  }
 
                         }
 

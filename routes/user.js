@@ -172,6 +172,7 @@ router.get('/time',(req,res)=>{
 
 router.post('/book-seats',verifyLogin,async(req,res)=>{
   let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923',req.body)
+  let insert =await userHelpers.insertBookedSeats(req.body)
   if(response.status){
     console.log(response.price);
   }else{
