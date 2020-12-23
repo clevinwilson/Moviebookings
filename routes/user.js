@@ -32,8 +32,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/signin', (req, res) => {
 
-  res.render('user/signin',{"isUser":req.session.isUser})
-  req.session.isUser=false
+  res.render('user/signin', { "isUser": req.session.isUser })
+  req.session.isUser = false
 })
 
 router.post('/getcode', (req, res) => {
@@ -49,8 +49,8 @@ router.post('/getcode', (req, res) => {
         }).then((data) => {
           res.render('user/verify', { "phone": req.body.phonenumber })
         })
-    }else{
-      req.session.isUser="Phone Number alredy exist";
+    } else {
+      req.session.isUser = "Phone Number alredy exist";
       res.redirect('/signin')
     }
   })
@@ -143,39 +143,40 @@ router.post('/verify-login/:phone', (req, res) => {
 })
 
 router.get('/details/:id', (req, res) => {
-  userHelpers.viewDetails(req.params.id).then((movieDetails)=>{
+  userHelpers.viewDetails(req.params.id).then((movieDetails) => {
     console.log(movieDetails);
-    res.render('user/view-details',{movieDetails})
+    res.render('user/view-details', { movieDetails })
   })
 })
 
-router.get('/seat-layout',verifyLogin,async(req,res)=>{
+router.get('/seat-layout', verifyLogin, async (req, res) => {
 
-  let screenDetails =await userHelpers.getScreenD("5fe1da06a2b229094406c945")
- 
-  userHelpers.getBookedSeats("5fe3294473a38755b8310923").then((showDeatils)=>{
-    console.log(showDeatils,"llll");
-    res.render('user/seat-layout',{screenDetails,"showDeatils":showDeatils})
+  let screenDetails = await userHelpers.getScreenD("5fe1da06a2b229094406c945")
+
+  userHelpers.getBookedSeats("5fe3294473a38755b8310923").then((showDeatils) => {
+    console.log(showDeatils.bookedseats);
+    res.render('user/seat-layout', { screenDetails, "showDeatils": showDeatils.bookedseats })
   })
 
 })
 
 
 
-router.get('/video-play',(req,res)=>{
+router.get('/video-play', (req, res) => {
   res.render('user/video-play')
 })
 
-router.get('/time',(req,res)=>{
+router.get('/time', (req, res) => {
   res.render('user/pick-time')
 })
 
-router.post('/book-seats',verifyLogin,async(req,res)=>{
-  let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923',req.body)
-  let insert =await userHelpers.insertBookedSeats(req.body)
-  if(response.status){
+//book seats
+router.post('/book-seats', verifyLogin, async (req, res) => {
+  let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923', req.body)
+  let insert = await userHelpers.insertBookedSeats(req.body)
+  if (response.status) {
     console.log(response.price);
-  }else{
+  } else {
     console.log('err');
   }
 })

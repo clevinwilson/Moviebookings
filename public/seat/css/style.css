@@ -407,7 +407,7 @@ h2.wthree {
 
 .redBox::before {
     content: "";
-    background: Red;
+    background: #adadad;
 }
 
 .emptyBox::before {
@@ -484,6 +484,12 @@ input[type=checkbox]:checked:before {
     background-color: #2dc492;
     font-size: 15px;
 }
+
+input[type="checkbox"]:disabled:before {
+    background-color: #a8b3af;
+    font-size: 15px;;
+}
+
 
 .copy-wthree p {
     color: #fff;

@@ -114,7 +114,6 @@
                                     var normal = document.createElement("TR");
 
                                     normal.setAttribute("id", "normal");
-                                    normal.className = "text-center";
                                     document.getElementById("seatsBlock").appendChild(normal);
                                     $('#normal').html("NORMAl");
                                 }
@@ -164,14 +163,14 @@
                           
                         }
                     </script>
+                    
                 </table>
-                
                 <div style="margin-left: 168px; width: 50%;" class="screen">
                     <h2 class="wthree">Screen this way</h2>
                 </div>
-                 <button type="submit" class="ml-auto  btn btn-success">continue</button>
-                </form>
             </div>
+            <button type="submit" class="ml-auto  btn btn-success">continue</button>
+                </form>
            
             
             <!-- //seat layout -->
@@ -297,4 +296,13 @@
     myFunctions() 
 </script>
 
+
+{{!-- //disabling booked seats --}}
+{{#each showDeatils}}
+                    <script>
+                        document.getElementById("{{this.seatName}}").disabled = true;
+                    </script>
+{{/each}}
+
+                                    >
 </html>
