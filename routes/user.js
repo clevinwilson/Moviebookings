@@ -1,8 +1,10 @@
 const { response } = require('express');
 var express = require('express');
+const { Db } = require('mongodb');
 const { doLogin } = require('../helpers/owner-helpers');
 const ownerHelpers = require('../helpers/owner-helpers');
 var router = express.Router();
+var objectId = require('mongodb').ObjectID
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
@@ -173,15 +175,30 @@ router.get('/time', (req, res) => {
 //book seats
 router.post('/book-seats', verifyLogin, async (req, res) => {
   let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923', req.body)
+  
+  let details={}
+  details.user=objectId(req.session.user._id)
+  details.screen=objectId(response.show[0].screen._id)
+  details.theater=objectId(response.show[0].theater._id)
+  details.price=response.price
+  details.seats=response.seatsDetails
+  let addCheckout=await userHelpers.addCheckout(details)
+  
   let insert = await userHelpers.insertBookedSeats(req.body)
   let date=new Date()
-  console.log(req.body);
+ 
   if (response.status) {
     console.log(response.price);
     res.render('user/checkout',{"price":response.price,"tickets":response.seatsDetails,date,"movie":response.show[0]})
   } else {
     console.log('err');
   }
+})
+
+//payment 
+router.get('/payment',(req,res)=>{
+  userHelpers.getCart(req.session.user._id)
+  res.render('user/payment')
 })
 
 

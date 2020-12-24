@@ -143,7 +143,7 @@ module.exports = {
                  
 
             ]).toArray()
-            console.log(show);
+            console.log(show,"show");
             if (show) {
                 for (let seats in details) {
                     let seat = await db.get().collection(collection.SEAT_COLLECTION).findOne({ showId: objectId(showId), seatName: seats })
@@ -159,6 +159,21 @@ module.exports = {
                 resolve({ status: false })
             }
 
+        })
+    },
+    addCheckout:(details)=>{
+        console.log(details);
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response)=>{
+                resolve(response)
+            })
+
+        })
+    },getCart:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.CHECKOUT_COLLECTION).findOne({user:objectId(userId)}).then((cart)=>{
+                resolve(cart)
+            })
         })
     }
 
