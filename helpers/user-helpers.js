@@ -116,7 +116,7 @@ module.exports = {
             for (let seats in details) {
                let seat=await db.get().collection(collection.SEAT_COLLECTION).findOne({showId:objectId(showId),seatName:seats})
                if(seat){
-                  price=parseInt(price)+parseInt(details[seats])
+                  price=parseInt(price)+parseInt(seat.price)
                }else{
                    resolve({status:false})
                }

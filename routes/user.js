@@ -6,7 +6,7 @@ var router = express.Router();
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "c7a6e058a5ee8e93eb8a7b9a5617ea13"; // Your Auth Token from www.twilio.com/console
+var authToken = "3f2157c14c51069b6fd56d8d3872eb49"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -179,5 +179,9 @@ router.post('/book-seats', verifyLogin, async (req, res) => {
   } else {
     console.log('err');
   }
+})
+
+router.get('/checkout',(req,res)=>{
+  res.render('user/checkout')
 })
 module.exports = router;
