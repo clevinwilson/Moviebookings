@@ -154,8 +154,8 @@ router.get('/seat-layout', verifyLogin, async (req, res) => {
   let screenDetails = await userHelpers.getScreenD("5fe1da06a2b229094406c945")
 
   userHelpers.getBookedSeats("5fe3294473a38755b8310923").then((showDeatils) => {
-    console.log(showDeatils.bookedseats);
-    res.render('user/seat-layout', { screenDetails, "showDeatils": showDeatils.bookedseats })
+    console.log(showDeatils.premium);
+    res.render('user/seat-layout', { screenDetails, "showDeatils": showDeatils })
   })
 
 })
@@ -174,14 +174,15 @@ router.get('/time', (req, res) => {
 router.post('/book-seats', verifyLogin, async (req, res) => {
   let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923', req.body)
   let insert = await userHelpers.insertBookedSeats(req.body)
+  let date=new Date()
+  console.log(req.body);
   if (response.status) {
     console.log(response.price);
+    res.render('user/checkout',{"price":response.price,"tickets":response.seatsDetails,date,"movie":response.show[0]})
   } else {
     console.log('err');
   }
 })
 
-router.get('/checkout',(req,res)=>{
-  res.render('user/checkout')
-})
+
 module.exports = router;

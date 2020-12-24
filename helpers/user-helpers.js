@@ -84,15 +84,15 @@ module.exports = {
     insertBookedSeats: (seats) => {
         return new Promise((resolve, reject) => {
             for (let seat in seats) {
-                details={}
-                details.seatName=seat
-                details.price=seats[seat]
+                details = {}
+                details.seatName = seat
+                details.price = seats[seat]
                 db.get().collection(collection.SHOW_COLLECTION)
                     .updateOne({ _id: ObjectId("5fe3294473a38755b8310923") },
                         {
 
 
-                            $push: { bookedseats:details  }
+                            $push: { bookedseats: details }
 
                         }
 
@@ -110,18 +110,55 @@ module.exports = {
             })
         })
     },
-    getBookedSeat:(showId, details) => {
-        var price=0
-        return new Promise(async(resolve, reject) => {
-            for (let seats in details) {
-               let seat=await db.get().collection(collection.SEAT_COLLECTION).findOne({showId:objectId(showId),seatName:seats})
-               if(seat){
-                  price=parseInt(price)+parseInt(seat.price)
-               }else{
-                   resolve({status:false})
-               }
+    getBookedSeat: (showId, details) => {
+        var price = 0
+        var seatsDetails = []
+        return new Promise(async (resolve, reject) => {
+            let show = await db.get().collection(collection.SHOW_COLLECTION).aggregate([
+                {
+                    $match:{_id:objectId(showId)}
+                },
+                {
+                    $lookup:{
+                        from:collection.OWNER_COLLECTION,
+                        localField:'owner',
+                        foreignField:'_id',
+                        as:'theater'
+                    }
+                },
+                {
+                    $lookup:{
+                        from:collection.SCREEN_COLLECTION,
+                        localField:'screenId',
+                        foreignField:'_id',
+                        as:'screen'
+                    }
+                },
+                 {
+                    $project:{
+                        
+                      _id:1,movietitle:1,date:1,screenId:1,screen: { $arrayElemAt: ['$screen', 0]},  theater: { $arrayElemAt: ['$theater', 0] }
+                    }
+                 }
+                 
+
+            ]).toArray()
+            console.log(show);
+            if (show) {
+                for (let seats in details) {
+                    let seat = await db.get().collection(collection.SEAT_COLLECTION).findOne({ showId: objectId(showId), seatName: seats })
+                    seatsDetails.push(seat)
+                    if (seat) {
+                        price = parseInt(price) + parseInt(seat.price)
+                    } else {
+                        resolve({ status: false })
+                    }
+                }
+                resolve({ status: true, price, seatsDetails,show })
+            } else {
+                resolve({ status: false })
             }
-            resolve({status:true,price})
+
         })
     }
 

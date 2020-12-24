@@ -19,29 +19,34 @@
           <div class="col-lg-8">
 
             <!-- Card -->
+            <h2 style="color: black;" class="m-2">{{movie.movietitle}}</h2>
+            <p style="color: #2c76e6;" class="pl-3 mb-2">Theater Name: {{movie.theater.theatername}}</p>
+             <p style="color: #2c76e6;" class="pl-3 mb-2">Theater Name: {{movie.screen.screenname}}</p>
             <div class="mb-3">
-              <div style="background-color: #f4f4f4;padding: 12px; border-radius: 14px;" class="pt-4 wish-list">
-
-                <h5 class="mb-4">Cart (<span>2</span> items)</h5>
-                
-                <div class="row mb-4">
-                  <div class="col-md-5 col-lg-3 col-xl-3">
+              <div style="background-color: #f4f4f4;padding: 25px; border-radius: 14px;" class="pt-4 wish-list">
+                <script>
+                 let tickets=0
+                </script>
+                <h5 class="mb-4" >No (<span id="count"></span> Tickets)</h5>
+                {{#each tickets}}
+                <div style="background-color: white;border-radius: 12px;padding: 12px;" class="row mb-4">
+                  {{!-- <div class="col-md-5 col-lg-3 col-xl-3">
                     <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
                       <img class="img-fluid w-100" src="/vehicle-images/ds.jpg" alt="Sample">
 
                     </div>
-                  </div>
+                  </div> --}}
                   <div class="col-md-7 col-lg-9 col-xl-9">
                     <div>
                       <div class="d-flex justify-content-between">
                         <div>
-                          <h5>wqqw}</h5>
-                          <p class="mb-3 text-muted text-uppercase small">Brand - sd</p>
-                          <p class="mb-2 text-muted text-uppercase small">Discription: dsd</p>
-                          <p class="mb-3 text-muted text-uppercase small">Category : dsdds</p>
+                          <h5 class="mb-2">{{this.seatName}}</h5>
+                          <p class="mb-1 text-muted text-uppercase small">Seat ID - {{this._id}}</p>
+                          <p class="mb-1 text-muted text-uppercase small">Show ID: {{this.showId}} </p>
+                          <p class="mb-1 text-muted text-uppercase small"><strong id="summary">Amount: ₹ {{this.price}}</strong></p>
                         </div>
 
-                        <div>
+                        {{!-- <div>
                           <button style="padding: 0;border: none;background: none;"
                             onclick="sdsd"
                             class="cart-item-count mr-3">-</button>
@@ -49,20 +54,25 @@
                             <button
                             style="padding: 0;border: none;background: none;" class="cart-item-count ml-3"
                             onclick="ds" >+</button>
-                        </div>
+                        </div> --}}
                       </div>
-                      <div class="d-flex justify-content-between align-items-center">
+                      {{!-- <div class="d-flex justify-content-between align-items-center">
                         <div>
                           <a href="/deletCartItem" type="button" class="card-link-secondary small text-uppercase mr-3"><i
                               class="fas fa-trash-alt mr-1"></i> Remove item </a>
                           <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
                               class="fas fa-heart mr-1"></i> Move to wish list </a>
                         </div>
-                        <p class="mb-0"><span><strong id="summary">Amount: ₹ 3231</strong></span></p class="mb-0">
-                      </div>
+                        
+                      </div> --}}
                     </div>
                   </div>
                 </div>
+                <script>
+                  tickets=tickets+1
+                  document.getElementById("count").innerHTML=tickets
+                </script>
+                {{/each}}
 
            
                 <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
@@ -133,11 +143,11 @@
                         <p class="p-2 mb-0">(including VAT)</p>
                       </strong>
                     </div>
-                    <span class="p-2"><strong>₹ <span id="total">333</span></strong></span>
+                    <span class="p-2"><strong>₹ <span id="total">{{price}}</span></strong></span>
                   </li>
                 </ul>
 
-                <a type="button" href="/place-order" class="btn btn-primary btn-block">go to checkout</a>
+                <a type="button" href="/place-order" class="btn btn-primary btn-block">Checkout</a>
 
               </div>
             </div>
