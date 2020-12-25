@@ -377,7 +377,7 @@ ul.seat_w3ls {
 
 .screen {
     width: 100%;
-    background: #77b4ff;
+    background: #bbd5f5;
     margin: 2em 0;
 }
 
@@ -385,7 +385,7 @@ ul.seat_w3ls {
 h2.wthree {
     padding: 0.8em;
     font-size: 1.2em;
-    color: #000;
+    color: #a6a7ae;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 7px;

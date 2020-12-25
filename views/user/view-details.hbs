@@ -45,7 +45,7 @@
 
 
 <!-- header -->
-	<header  id="site-header" class="w3l-header fixed-top">
+	<header  style="    background-color: black;" id="site-header" class="w3l-header fixed-top">
 		<!--/nav-->
 		<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
 			<div class="container">
@@ -79,9 +79,27 @@
 						<li class="nav-item">
 							<a class="text-white nav-link" href="contact.html">Contact</a>
 						</li>
-                        <li class="nav-item">
-							<a class="text-white nav-link" href="/signin">Sign in</a>
-						</li>
+                       {{#if user}}
+					<li>
+						<div class="dropdown">
+							<button style="background-color: red;" class="text-white btn btn-secondary dropdown-toggle"
+								type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">
+								Hey,{{user.fullname}}
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="#">Profile</a>
+								<a class="dropdown-item" href="#">My bookings</a>
+								<a class="dropdown-item" href="#">Settings</a>
+								<a class="dropdown-item" href="/logout">Log Out</a>
+							</div>
+						</div>
+					</li>
+				{{else}}
+				<li class="nav-item">
+					<a class="text-white nav-link" href="/login">Login</a>
+				</li>
+				{{/if}}
 					</ul>
 
 					<!--/search-right-->

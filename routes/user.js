@@ -8,7 +8,7 @@ var objectId = require('mongodb').ObjectID
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "a8e08a201dee08535c7f616c83f7504b"; // Your Auth Token from www.twilio.com/console
+var authToken = "3fff8b5c5360117cb5a540a706775ca4"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -178,7 +178,6 @@ router.get('/time/:movietitle', (req, res) => {
 
 //book seats
 router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
-  console.log(req.params.showId,"fjfjfj");
   let response = await userHelpers.getBookedSeat(req.params.showId, req.body)
   
   let details={}
@@ -204,7 +203,6 @@ router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
 //payment 
 router.get('/payment',async(req,res)=>{
   let cart= await userHelpers.getCart(req.session.user._id)
-  console.log(cart,'Carttttt');
   res.render('user/payment',{cart})
 })
 
