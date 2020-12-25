@@ -151,12 +151,12 @@ router.get('/details/:id', (req, res) => {
   })
 })
 
-router.get('/seat-layout', verifyLogin, async (req, res) => {
+router.get('/seat-layout/:screenId,:showId', verifyLogin, async (req, res) => {
 
-  let screenDetails = await userHelpers.getScreenD("5fe1da06a2b229094406c945")
+  let screenDetails = await userHelpers.getScreenD(req.params.screenId)
 
-  userHelpers.getBookedSeats("5fe3294473a38755b8310923").then((showDeatils) => {
-    console.log(showDeatils.premium);
+  userHelpers.getBookedSeats(req.params.showId).then((showDeatils) => {
+   
     res.render('user/seat-layout', { screenDetails, "showDeatils": showDeatils })
   })
 
@@ -168,8 +168,12 @@ router.get('/video-play', (req, res) => {
   res.render('user/video-play')
 })
 
-router.get('/time', (req, res) => {
-  res.render('user/pick-time')
+router.get('/time/:movietitle', (req, res) => {
+  console.log(req.params.movietitle);
+  userHelpers.getTime(req.params.movietitle).then((timeList)=>{
+    console.log(timeList);
+    res.render('user/pick-time',{timeList,movietitle:req.params.movietitle})
+  })
 })
 
 //book seats

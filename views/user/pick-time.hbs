@@ -11,7 +11,7 @@ Author URL: http://w3layouts.com
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Book my show | Time</title>
     <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/css/style-starter.css">
+    <link rel="stylesheet" href="/user/css/style-starter.css">
     <!-- Template CSS -->
     <link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
         rel="stylesheet">
@@ -31,10 +31,9 @@ Author URL: http://w3layouts.com
         </nav>
     </div>
     <!--//breadcrumbs -->
-    <h3 class="text-center mt-4">Leave a Message</h3>
-    <h3 class="text-center mt-4">Movie Title</h3>
+    <h3 class="text-center mt-4">{{movietitle}}</h3>
     {{!-- Time --}}
-    <section class="w3l-contact-1">
+    <section style="    padding: 29px;" class="w3l-contact-1">
         <div class="contacts-9 py-5">
 
 
@@ -42,124 +41,33 @@ Author URL: http://w3layouts.com
 
             <div class="d-grid contact-addres-inf mt-5 pt-lg-4">
                 <div class="m-3 contact-info-left d-grid">
-
+                    {{#each timeList}}
                     <div class="col-md-12 contact-info">
                         <div class="contact-details">
-                            <h4>Theater Name:</h4>
-                            <p>text text</p>
+                            <h4>Theater Name: {{this.theater.theatername}} </h4>
+                            <p>Screen : {{this.screen.screenname}}</p>
                         </div>
                         <br>
 
                         <div class="row p-2">
                             <div class="boxs col-md-12 col-lg-6">
-                                <a class=" colorss text-success m-1 btn btn-success text-ligt">dfs</a>
+                                <a href="/seat-layout/{{this.screenId}},{{this._id}}" class=" colorss text-success m-1 btn btn-success text-ligt">{{this.time}}</a>
                             </div>
 
+                            {{!-- <div class="boxs col-md-12 col-lg-6">
+                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
+                            </div>
                             <div class="boxs col-md-12 col-lg-6">
                                 <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
                             </div>
                             <div class="boxs col-md-12 col-lg-6">
                                 <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="boxs col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
+                    {{/each}}
 
-
-                    <div class="col-md-12 contact-info">
-                        <div class="contact-details">
-                            <h4>Theater Name:</h4>
-                            <p>text text</p>
-                        </div>
-                        <br>
-
-                        <div class="row p-2">
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 contact-info">
-                        <div class="contact-details">
-                            <h4>Theater Name:</h4>
-                            <p>text text</p>
-                        </div>
-                        <br>
-
-                        <div class="row p-2">
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 contact-info">
-                        <div class="contact-details">
-                            <h4>Theater Name:</h4>
-                            <p>text text</p>
-                        </div>
-                        <br>
-
-                        <div class="row p-2">
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 contact-info">
-                        <div class="contact-details">
-                            <h4>Theater Name:</h4>
-                            <p>Location</p>
-                        </div>
-                        <br>
-
-                        <div class="row p-2">
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
-                            </div>
-                        </div>
-                    </div>
+                 
                 </div>
             </div>
         </div>
@@ -203,10 +111,10 @@ Author URL: http://w3layouts.com
 </body>
 
 </html>
-<script src="assets/js/jquery-3.3.1.min.js"></script>
+<script src="/user/js/jquery-3.3.1.min.js"></script>
 <!-- Template JavaScript -->
 <!--/theme-change-->
-<script src="assets/js/theme-change.js"></script>
+<script src="/user/js/theme-change.js"></script>
 <!-- //theme-change-->
 <!-- disable body scroll which navbar is in active -->
 <script>
@@ -245,7 +153,7 @@ Author URL: http://w3layouts.com
     });
 </script>
 <!--//MENU-JS-->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="/user/js/bootstrap.min.js"></script>
 
 <style>
     .colorss {

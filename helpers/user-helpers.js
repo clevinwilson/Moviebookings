@@ -169,11 +169,46 @@ module.exports = {
             })
 
         })
-    },getCart:(userId)=>{
+    },
+    getCart:(userId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.CHECKOUT_COLLECTION).findOne({user:objectId(userId)}).then((cart)=>{
                 resolve(cart)
             })
+        })
+    },
+    getTime:(movieName)=>{
+        return new Promise(async(resolve,reject)=>{
+            let timeList =await db.get().collection(collection.SHOW_COLLECTION).aggregate([
+                {
+                    $match:{movietitle:movieName}
+                },
+                {
+                    $lookup:{
+                        from:collection.OWNER_COLLECTION,
+                        localField:'owner',
+                        foreignField:'_id',
+                        as:'theater'
+                    }
+                },
+                {
+                    $lookup:{
+                        from:collection.SCREEN_COLLECTION,
+                        localField:'screenId',
+                        foreignField:'_id',
+                        as:'screen'
+                    }
+                },
+                 {
+                    $project:{
+                        
+                      _id:1,movietitle:1,date:1,screenId:1,time:1,screen: { $arrayElemAt: ['$screen', 0]},  theater: { $arrayElemAt: ['$theater', 0] }
+                    }
+                 }
+                 
+
+            ]).toArray()
+            resolve(timeList)
         })
     }
 
