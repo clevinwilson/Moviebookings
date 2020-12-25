@@ -34,7 +34,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<div class="clear"> </div>
 				<div class="wthree_total">
-					<h2>total to pay <span>93<i>$</i></span></h2>
+					<h2>total to pay <span>{{cart.price}}<i>₹</i></span></h2>
 				</div>
 			</div>
 			<div class="agileinfo_main_bottom_grid">
@@ -44,7 +44,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li><img src="images/2.jpg" alt=" " /></li>
 					</ul>
 					<div class="resp-tabs-container">
-						<div class="agileits_w3layouts_tab1">
+						{{!-- <div class="agileits_w3layouts_tab1">
 							<form action="#" method="post" class="creditly-card-form agileinfo_form">
 								<section class="creditly-wrapper wthree, w3_agileits_wrapper">
 									<div class="credit-card-wrapper">
@@ -82,15 +82,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									</div>
 								</section>
 							</form>
-						</div>
+						</div> --}}
 						<div class="agileits_w3layouts_tab2">
 							<h3>Don't have a paypal Account Please <a href="#">Register</a></h3>
-							<form action="#" method="post">
+							<form action="" id="checkout-form">
 								<label class="agileits_label">Your Email</label>
 								<input type="email" name="Email" placeholder="w3layouts@example.com" required="">
 								<label class="agileits_label">Your Password</label>
 								<input type="password" name="Password" placeholder="Password" required="">
-								<input type="submit" value="Login">
+								<input type="submit" onclick="a()" value="Login">
 							</form>
 						</div>
 					</div>
@@ -103,7 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 	<!-- credit-card -->
 		<script type="text/javascript" src="js/creditly.js"></script>
-		<script type="text/javascript">
+		{{!-- <script type="text/javascript">
 			$(function() {
 			  var creditly = Creditly.initialize(
 				  '.creditly-wrapper .expiration-month-and-year',
@@ -120,11 +120,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				}
 			  });
 			});
-		</script>
+		</script> --}}
 	<!-- //credit-card -->
 	<!-- tabs -->
 	<script src="/payment/js/easy-responsive-tabs.js"></script>
-	<script>
+	{{!-- <script>
 		$(document).ready(function () {
 			$('#horizontalTab').easyResponsiveTabs({
 				type: 'default', //Types: default, vertical, accordion           
@@ -140,7 +140,75 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				}
 			});
 		});
-	</script>
+	</script> --}}
 	<!-- //tabs -->
 </body>
+
+<script>
+	function a(){
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                alert(response)
+                if (response){
+					razorpayPayment(response)
+				}
+               
+            }
+        })
+	}
+    
+
+	function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_deE2E1795zFmxy", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Dream",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+               
+
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success:(response)=>{
+                if(response.status){
+                    location.href="/"
+                }else{
+                    alert('Payment Failed')
+                }
+            }
+        })
+    }
+</script>
+
+
 </html>

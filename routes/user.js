@@ -8,7 +8,7 @@ var objectId = require('mongodb').ObjectID
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "3f2157c14c51069b6fd56d8d3872eb49"; // Your Auth Token from www.twilio.com/console
+var authToken = "a8e08a201dee08535c7f616c83f7504b"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -177,8 +177,9 @@ router.get('/time/:movietitle', (req, res) => {
 })
 
 //book seats
-router.post('/book-seats', verifyLogin, async (req, res) => {
-  let response = await userHelpers.getBookedSeat('5fe3294473a38755b8310923', req.body)
+router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
+  console.log(req.params.showId,"fjfjfj");
+  let response = await userHelpers.getBookedSeat(req.params.showId, req.body)
   
   let details={}
   details.user=objectId(req.session.user._id)
@@ -186,24 +187,50 @@ router.post('/book-seats', verifyLogin, async (req, res) => {
   details.theater=objectId(response.show[0].theater._id)
   details.price=response.price
   details.seats=response.seatsDetails
-  let addCheckout=await userHelpers.addCheckout(details)
+  let addCheckout=await userHelpers.addCheckout(details,req.params.showId)
   
-  let insert = await userHelpers.insertBookedSeats(req.body)
+  
   let date=new Date()
- 
+
+  
   if (response.status) {
     console.log(response.price);
-    res.render('user/checkout',{"price":response.price,"tickets":response.seatsDetails,date,"movie":response.show[0]})
+    res.render('user/checkout',{"price":response.price,"bookedseats":req.body,"showId":req.params.showId,"tickets":response.seatsDetails,date,"movie":response.show[0]})
   } else {
     console.log('err');
   }
 })
 
 //payment 
-router.get('/payment',(req,res)=>{
-  userHelpers.getCart(req.session.user._id)
-  res.render('user/payment')
+router.get('/payment',async(req,res)=>{
+  let cart= await userHelpers.getCart(req.session.user._id)
+  console.log(cart,'Carttttt');
+  res.render('user/payment',{cart})
 })
+
+router.post('/place-order',async(req,res)=>{
+  let cart = await userHelpers.getCart(req.session.user._id)
+  console.log(cart.seats,"jkjkjkk");
+  let insert = await userHelpers.insertBookedSeats(cart.seats,cart.showId)
+  userHelpers.placeOrder(req.session.user._id,cart).then((bookingId)=>{
+    userHelpers.generateRazorpay(bookingId,cart.price).then((response)=>{
+      res.json(response)
+    })
+  })
+})
+
+router.post('/verify-payment',(req,res)=>{
+  console.log(req.body);
+  userHelpers.verifyPayment(req.body).then(()=>{
+    userHelpers.chanePaymentStatus(req.body['order[receipt]']).then(()=>{
+      res.json({status:true})
+    })
+  }).catch((err)=>{
+    console.log(err);
+    res.json({status:false,errMsg:''})
+  })
+})
+
 
 
 module.exports = router;

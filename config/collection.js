@@ -7,5 +7,6 @@ module.exports={
     UPCOMINGMOVIES_COLLECTION:'upcomingmovies',
     USER_COLLECTION:'user',
     SEAT_COLLECTION:"seat",
-    CHECKOUT_COLLECTION:"checkout"
+    CHECKOUT_COLLECTION:"checkout",
+    BOOKING_COLLECTION:"booking"
 }

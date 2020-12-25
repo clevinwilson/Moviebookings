@@ -3,6 +3,11 @@ var collection = require('../config/collection')
 const db = require('../config/connection')
 const bcrypt = require('bcrypt')
 const { response } = require("express")
+const Razorpay = require('razorpay')
+var instance = new Razorpay({
+    key_id: 'rzp_test_deE2E1795zFmxy',
+    key_secret: 'zDZ8GFjzaxyncyKYdabslzOE',
+});
 var objectId = require('mongodb').ObjectID
 var nodemailer = require('nodemailer');
 var generator = require('generate-password');
@@ -81,25 +86,26 @@ module.exports = {
             resolve(showDeatils)
         })
     },
-    insertBookedSeats: (seats) => {
+    insertBookedSeats: (seats, showId) => {
+        console.log(seats,"llpp");
         return new Promise((resolve, reject) => {
-            for (let seat in seats) {
-                details = {}
-                details.seatName = seat
-                details.price = seats[seat]
+            for (let i = 0; i < seats.length; i++) {
                 db.get().collection(collection.SHOW_COLLECTION)
-                    .updateOne({ _id: ObjectId("5fe3294473a38755b8310923") },
+                    .updateOne({ _id: ObjectId(showId) },
                         {
 
 
-                            $push: { bookedseats: details }
+                            $push: {
+                                bookedseats: seats[i]
+                            }
 
                         }
 
                     ).then((response) => {
-                        resolve(response)
+                        resolve()
                     })
             }
+
 
         })
     },
@@ -116,34 +122,34 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let show = await db.get().collection(collection.SHOW_COLLECTION).aggregate([
                 {
-                    $match:{_id:objectId(showId)}
+                    $match: { _id: objectId(showId) }
                 },
                 {
-                    $lookup:{
-                        from:collection.OWNER_COLLECTION,
-                        localField:'owner',
-                        foreignField:'_id',
-                        as:'theater'
+                    $lookup: {
+                        from: collection.OWNER_COLLECTION,
+                        localField: 'owner',
+                        foreignField: '_id',
+                        as: 'theater'
                     }
                 },
                 {
-                    $lookup:{
-                        from:collection.SCREEN_COLLECTION,
-                        localField:'screenId',
-                        foreignField:'_id',
-                        as:'screen'
+                    $lookup: {
+                        from: collection.SCREEN_COLLECTION,
+                        localField: 'screenId',
+                        foreignField: '_id',
+                        as: 'screen'
                     }
                 },
-                 {
-                    $project:{
-                        
-                      _id:1,movietitle:1,date:1,screenId:1,screen: { $arrayElemAt: ['$screen', 0]},  theater: { $arrayElemAt: ['$theater', 0] }
+                {
+                    $project: {
+
+                        _id: 1, movietitle: 1, date: 1, screenId: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
                     }
-                 }
-                 
+                }
+
 
             ]).toArray()
-            console.log(show,"show");
+            console.log(show, "show");
             if (show) {
                 for (let seats in details) {
                     let seat = await db.get().collection(collection.SEAT_COLLECTION).findOne({ showId: objectId(showId), seatName: seats })
@@ -154,61 +160,114 @@ module.exports = {
                         resolve({ status: false })
                     }
                 }
-                resolve({ status: true, price, seatsDetails,show })
+                resolve({ status: true, price, seatsDetails, show })
             } else {
                 resolve({ status: false })
             }
 
         })
     },
-    addCheckout:(details)=>{
+    addCheckout: (details, showId) => {
         console.log(details);
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response)=>{
+        details.showId = objectId(showId)
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response) => {
                 resolve(response)
             })
 
         })
     },
-    getCart:(userId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.CHECKOUT_COLLECTION).findOne({user:objectId(userId)}).then((cart)=>{
+    getCart: (userId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CHECKOUT_COLLECTION).findOne({ user: objectId(userId) }).then((cart) => {
                 resolve(cart)
             })
         })
     },
-    getTime:(movieName)=>{
-        return new Promise(async(resolve,reject)=>{
-            let timeList =await db.get().collection(collection.SHOW_COLLECTION).aggregate([
+    getTime: (movieName) => {
+        return new Promise(async (resolve, reject) => {
+            let timeList = await db.get().collection(collection.SHOW_COLLECTION).aggregate([
                 {
-                    $match:{movietitle:movieName}
+                    $match: { movietitle: movieName }
                 },
                 {
-                    $lookup:{
-                        from:collection.OWNER_COLLECTION,
-                        localField:'owner',
-                        foreignField:'_id',
-                        as:'theater'
+                    $lookup: {
+                        from: collection.OWNER_COLLECTION,
+                        localField: 'owner',
+                        foreignField: '_id',
+                        as: 'theater'
                     }
                 },
                 {
-                    $lookup:{
-                        from:collection.SCREEN_COLLECTION,
-                        localField:'screenId',
-                        foreignField:'_id',
-                        as:'screen'
+                    $lookup: {
+                        from: collection.SCREEN_COLLECTION,
+                        localField: 'screenId',
+                        foreignField: '_id',
+                        as: 'screen'
                     }
                 },
-                 {
-                    $project:{
-                        
-                      _id:1,movietitle:1,date:1,screenId:1,time:1,screen: { $arrayElemAt: ['$screen', 0]},  theater: { $arrayElemAt: ['$theater', 0] }
+                {
+                    $project: {
+
+                        _id: 1, movietitle: 1, date: 1, screenId: 1, time: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
                     }
-                 }
-                 
+                }
+
 
             ]).toArray()
             resolve(timeList)
+        })
+    },
+    placeOrder: (userId, details) => {
+        details.status=false
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BOOKING_COLLECTION).insertOne(details).then((response) => {
+                db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({ user: objectId(userId) })
+                resolve(response.ops[0]._id)
+            })
+        })
+    },
+    generateRazorpay: (bookingId, price) => {
+        return new Promise((resolve, reject) => {
+            var options = {
+                amount: price*100,  // amount in the smallest currency unit
+                currency: "INR",
+                receipt: "" + bookingId
+            };
+            instance.orders.create(options, function (err, order) {
+                console.log("kkk", order);
+                resolve(order)
+            });
+        })
+    },
+    verifyPayment:(details)=>{
+        return new Promise((resolve,reject)=>{
+            const crypto = require('crypto');
+            let hmac = crypto.createHmac('sha256', 'zDZ8GFjzaxyncyKYdabslzOE');
+            hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]']);
+            hmac=hmac.digest('hex')
+            if(hmac==details['payment[razorpay_signature]']){
+                resolve()
+            }else{
+                reject()
+            }
+
+        })
+    },
+    chanePaymentStatus:(orderId)=>{
+      
+        return new Promise(async(resolve,reject)=>{
+            let order =await db.get().collection(collection.BOOKING_COLLECTION).findOne({_id:objectId(orderId)})
+            console.log(order,"lklklklklkllkl");
+            db.get().collection(collection.BOOKING_COLLECTION)
+            .updateOne({_id:objectId(orderId)},
+            {
+                $set:{
+                    status:true
+                }
+            }).then(()=>{
+                resolve()
+            })
         })
     }
 
