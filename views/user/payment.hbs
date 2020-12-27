@@ -107,7 +107,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script>
 	function a(){
         $.ajax({
-            url: '/place-order',
+            url: '/paypal',
             method: 'post',
             data: $('#checkout-form').serialize(),
             success: (response) => {

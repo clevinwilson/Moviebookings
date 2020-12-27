@@ -5,6 +5,7 @@ const { doLogin } = require('../helpers/owner-helpers');
 const ownerHelpers = require('../helpers/owner-helpers');
 var router = express.Router();
 var objectId = require('mongodb').ObjectID
+var paypal = require('paypal-rest-sdk');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
@@ -12,6 +13,12 @@ var authToken = "3fff8b5c5360117cb5a540a706775ca4"; // Your Auth Token from www.
 
 const client = require('twilio')(accountSid, authToken)
 
+
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'Ac8sM23Byt944JvVNBaZpIpU16nhgK2Ytz5wbdFkllpvuMl3IK_0X4z5fnS7Uhv81AXe3ckkSilQJNl7',
+  'client_secret': 'EASJHFNR6Vh9_syXp9M4KL66ORScvyY4z4vAA-9lbHn-3KPHU0exb8gR5B0RCOZz62GpBaOAS2C0Tf31'
+});
 
 const verifyLogin = (req, res, next) => {
   if (req.session.loggedIn) {
@@ -147,7 +154,7 @@ router.post('/verify-login/:phone', (req, res) => {
 router.get('/details/:id', (req, res) => {
   userHelpers.viewDetails(req.params.id).then((movieDetails) => {
     console.log(movieDetails);
-    res.render('user/view-details', { movieDetails })
+    res.render('user/view-details', { movieDetails ,user: req.session.user})
   })
 })
 
@@ -157,7 +164,7 @@ router.get('/seat-layout/:screenId,:showId', verifyLogin, async (req, res) => {
 
   userHelpers.getBookedSeats(req.params.showId).then((showDeatils) => {
    
-    res.render('user/seat-layout', { screenDetails, "showDeatils": showDeatils })
+    res.render('user/seat-layout', { screenDetails, "showDeatils": showDeatils,user: req.session.user })
   })
 
 })
@@ -172,7 +179,7 @@ router.get('/time/:movietitle', (req, res) => {
   console.log(req.params.movietitle);
   userHelpers.getTime(req.params.movietitle).then((timeList)=>{
     console.log(timeList);
-    res.render('user/pick-time',{timeList,movietitle:req.params.movietitle})
+    res.render('user/pick-time',{timeList,movietitle:req.params.movietitle,user: req.session.user})
   })
 })
 
@@ -194,7 +201,7 @@ router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
   
   if (response.status) {
     console.log(response.price);
-    res.render('user/checkout',{"price":response.price,"bookedseats":req.body,"showId":req.params.showId,"tickets":response.seatsDetails,date,"movie":response.show[0]})
+    res.render('user/checkout',{"price":response.price,user: req.session.user,"bookedseats":req.body,"showId":req.params.showId,"tickets":response.seatsDetails,date,"movie":response.show[0]})
   } else {
     console.log('err');
   }
@@ -203,12 +210,11 @@ router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
 //payment 
 router.get('/payment',async(req,res)=>{
   let cart= await userHelpers.getCart(req.session.user._id)
-  res.render('user/payment',{cart})
+  res.render('user/payment',{cart,user: req.session.user})
 })
 
 router.post('/place-order',async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
-  console.log(cart.seats,"jkjkjkk");
   let insert = await userHelpers.insertBookedSeats(cart.seats,cart.showId)
   userHelpers.placeOrder(req.session.user._id,cart).then((bookingId)=>{
     userHelpers.generateRazorpay(bookingId,cart.price).then((response)=>{
@@ -218,15 +224,63 @@ router.post('/place-order',async(req,res)=>{
 })
 
 router.post('/verify-payment',(req,res)=>{
-  console.log(req.body);
   userHelpers.verifyPayment(req.body).then(()=>{
-    userHelpers.chanePaymentStatus(req.body['order[receipt]']).then(()=>{
+    userHelpers.chanePaymentStatus(req.body['order[receipt]'],req.session.user.email).then(()=>{
       res.json({status:true})
     })
   }).catch((err)=>{
     console.log(err);
     res.json({status:false,errMsg:''})
   })
+})
+
+
+
+router.post('/paypal',(req,res)=>{
+  
+  const create_payment_json = {
+    "intent": "sale",
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "redirect_urls": {
+        "return_url": "http://localhost:3000/",
+        "cancel_url": "http://cancel.url"
+    },
+    "transactions": [{
+        "item_list": {
+            "items": [{
+                "name": "item",
+                "sku": "item",
+                "price": "1.00",
+                "currency": "INR",
+                "quantity": 1
+            }]
+        },
+        "amount": {
+            "currency": "INR",
+            "total": "1.00"
+        },
+        "description": "This is the payment description."
+    }]
+};
+
+paypal.payment.create(create_payment_json, function (error, payment) {
+  if (error) {
+      throw error;
+  } else {
+    console.log(payment);
+    for(let i=0; i< payment.links.length; i++){
+      
+      if(payment.links[i].rel === 'approval_url'){
+      
+        res.redirect(payment.links[i].href)
+
+      }
+    }
+  }
+});
+ 
 })
 
 

@@ -1,11 +1,10 @@
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
-       {{>user-header}}  
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+{{>user-header}}
 <section style="margin-top: 122px;">
   <div class="col-md-12">
     <div class="container">
@@ -21,13 +20,14 @@
             <!-- Card -->
             <h2 style="color: var(--theme-title);" class="m-2">{{movie.movietitle}}</h2>
             <p style="color: #a0aec3;" class="pl-3 mb-2">Theater Name: {{movie.theater.theatername}}</p>
-             <p style="color: #a0aec3;" class="pl-3 mb-2">Screen Name: {{movie.screen.screenname}}</p>
+            <p style="color: #a0aec3;" class="pl-3 mb-2">Screen Name: {{movie.screen.screenname}}</p>
             <div class="mb-3">
-              <div style="background-color: var(--theme-lite);padding: 25px; border-radius: 14px;" class="pt-4 wish-list">
+              <div style="background-color: var(--theme-lite);padding: 25px; border-radius: 14px;"
+                class="pt-4 wish-list">
                 <script>
-                 let tickets=0
+                  let tickets = 0
                 </script>
-                <h5 class="mb-4" >No (<span id="count"></span> Tickets)</h5>
+                <h5 class="mb-4">No (<span id="count"></span> Tickets)</h5>
                 {{#each tickets}}
                 <div style="background-color:var(--theme-lite);border-radius: 12px;padding: 12px;" class="row mb-4">
                   {{!-- <div class="col-md-5 col-lg-3 col-xl-3">
@@ -43,38 +43,38 @@
                           <h5 class="mb-2">{{this.seatName}}</h5>
                           <p class="mb-1 text-muted text-uppercase small">Seat ID - {{this._id}}</p>
                           <p class="mb-1 text-muted text-uppercase small">Show ID: {{this.showId}} </p>
-                          <p class="mb-1 text-muted text-uppercase small"><strong id="summary">Amount: ₹ {{this.price}}</strong></p>
+                          <p class="mb-1 text-muted text-uppercase small"><strong id="summary">Amount: ₹
+                              {{this.price}}</strong></p>
                         </div>
 
                         {{!-- <div>
-                          <button style="padding: 0;border: none;background: none;"
-                            onclick="sdsd"
+                          <button style="padding: 0;border: none;background: none;" onclick="sdsd"
                             class="cart-item-count mr-3">-</button>
-                            <span id="ds">dssds</span>
-                            <button
-                            style="padding: 0;border: none;background: none;" class="cart-item-count ml-3"
-                            onclick="ds" >+</button>
+                          <span id="ds">dssds</span>
+                          <button style="padding: 0;border: none;background: none;" class="cart-item-count ml-3"
+                            onclick="ds">+</button>
                         </div> --}}
                       </div>
                       {{!-- <div class="d-flex justify-content-between align-items-center">
                         <div>
-                          <a href="/deletCartItem" type="button" class="card-link-secondary small text-uppercase mr-3"><i
-                              class="fas fa-trash-alt mr-1"></i> Remove item </a>
+                          <a href="/deletCartItem" type="button"
+                            class="card-link-secondary small text-uppercase mr-3"><i class="fas fa-trash-alt mr-1"></i>
+                            Remove item </a>
                           <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
                               class="fas fa-heart mr-1"></i> Move to wish list </a>
                         </div>
-                        
+
                       </div> --}}
                     </div>
                   </div>
                 </div>
                 <script>
-                  tickets=tickets+1
-                  document.getElementById("count").innerHTML=tickets
+                  tickets = tickets + 1
+                  document.getElementById("count").innerHTML = tickets
                 </script>
                 {{/each}}
 
-           
+
                 <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
                   items to your cart does not mean booking them.</p>
 
@@ -128,15 +128,18 @@
                 <h5 class="mb-3">The total amount of</h5>
 
                 <ul class="list-group list-group-flush">
-                  <li style="background-color: var(--theme-lite);" class="p-2 list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  <li style="background-color: var(--theme-lite);"
+                    class="p-2 list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                     Temporary amount
                     {{!-- <span id="total">₹{{total.total}}</span> --}}
                   </li>
-                  <li style="background-color: var(--theme-lite);" class="p-2 list-group-item d-flex justify-content-between align-items-center px-0">
+                  <li style="background-color: var(--theme-lite);"
+                    class="p-2 list-group-item d-flex justify-content-between align-items-center px-0">
                     Shipping
                     <span class="p-2">Gratis</span>
                   </li>
-                  <li style="background-color: var(--theme-lite);" class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                  <li style="background-color: var(--theme-lite);"
+                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                     <div>
                       <strong class="p-2">The total amount of</strong>
                       <strong>
@@ -147,14 +150,60 @@
                   </li>
                 </ul>
 
-                <a type="button" href="/payment" class="btn btn-primary btn-block">Checkout</a>
 
+              </div>
+            </div>
+            <div>
+             <center> <label style="color: white;" for="payment">Select payment option</label></center>
+            </div>
+            <!-- Card -->
+            <div class="mb-3">
+              <div class="pt-4">
+
+                <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#paypal"
+                  aria-expanded="false" aria-controls="collapseExample">
+                  PayPal
+                  <span><i class="fas fa-chevron-down pt-1"></i></span>
+                </a>
+
+                <div class="collapse" id="paypal">
+                  <div class="mt-3">
+                    <div class="md-form md-outline mb-0">
+                      <form action="/paypal" method="POST">
+
+                        <input type="submit" class="btn btn-primary btn-block" value="Continue">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card -->
+            <!-- Card -->
+            <div class="mb-3">
+              <div class="pt-4">
+
+                <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#razorpay"
+                  aria-expanded="false" aria-controls="collapseExample">
+                  Razorpay
+                  <span><i class="fas fa-chevron-down pt-1"></i></span>
+                </a>
+
+                <div class="collapse" id="razorpay">
+                  <div class="mt-3">
+                    <div class="md-form md-outline mb-0">
+                      <a style="color: white;" type="button" onclick="a()" class="btn btn-primary btn-block">Continue</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- Card -->
 
             <!-- Card -->
-            <div class="mb-3">
+
+            <!-- Card -->
+            {{!-- <div class="mb-3">
               <div class="pt-4">
 
                 <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
@@ -172,7 +221,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
             <!-- Card -->
 
           </div>
@@ -187,34 +236,121 @@
   </div>
 </section>
 <script>
-  function changeQuantity(cartId, vid,uid, count) {
-    let quantity=parseInt(document.getElementById(vid).innerHTML)
-    count=parseInt(count)
+  function changeQuantity(cartId, vid, uid, count) {
+    let quantity = parseInt(document.getElementById(vid).innerHTML)
+    count = parseInt(count)
     $.ajax({
-      url:'/change-vehicle-quantity',
+      url: '/change-vehicle-quantity',
       data: {
-        user:uid,
-        cart:cartId,
-        vehicle:vid,
-        count:count,
-        quantity:quantity
+        user: uid,
+        cart: cartId,
+        vehicle: vid,
+        count: count,
+        quantity: quantity
       },
-      method:'post',
-      success:(response)=>{
-        if(response.removeVehicle){
+      method: 'post',
+      success: (response) => {
+        if (response.removeVehicle) {
           alert("Item deleted")
-          location.reload() 
-        }else{
-          document.getElementById(vid).innerHTML=quantity+count
-          document.getElementById('total').innerHTML=response.total
+          location.reload()
+        } else {
+          document.getElementById(vid).innerHTML = quantity + count
+          document.getElementById('total').innerHTML = response.total
         }
       }
     })
   }
+
 </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
+
+
+
+<script>
+  function a() {
+    $.ajax({
+      url: '/place-order',
+      method: 'post',
+      data: $('#checkout-form').serialize(),
+      success: (response) => {
+        alert(response)
+        if (response) {
+          razorpayPayment(response)
+        }
+
+      }
+    })
+  }
+
+
+  function razorpayPayment(order) {
+    var options = {
+      "key": "rzp_test_deE2E1795zFmxy", // Enter the Key ID generated from the Dashboard
+      "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Dream",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response) {
+
+
+        verifyPayment(response, order)
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#F37254"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
+
+  function verifyPayment(payment, order) {
+    $.ajax({
+      url: '/verify-payment',
+      data: {
+        payment,
+        order
+      },
+      method: 'post',
+      success: (response) => {
+        if (response.status) {
+          location.href = "/"
+        } else {
+          alert('Payment Failed')
+        }
+      }
+    })
+  }
+
+
+
+  function b() {
+    $.ajax({
+      url: '/paypal',
+      method: 'post',
+
+      success: (response) => {
+        alert(response)
+        location.href = response
+      }
+    })
+  }
+</script>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
