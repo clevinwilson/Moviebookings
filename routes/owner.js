@@ -433,7 +433,7 @@ router.get('/seats/:id,:showid',(req,res)=>{
     ownerHelper.getScreenDetails(req.params.id,req.params.showid).then((response)=>{
         console.log(response,"fdsfs");
         if(response){
-            res.render('owner/seat-layout',{"screenId":req.params.id,"showId":req.params.showid,"response":response.screenDetails,showDetails:response.showDetails})
+            res.render('owner/seat-layout',{"screenId":req.params.id,"showId":req.params.showid,"response":response.screenDetails,"showDetails":response.showDetails})
         }else{
             res.redirect('/owner/view-shedule')
         }

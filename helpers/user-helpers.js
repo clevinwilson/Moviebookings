@@ -209,7 +209,7 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1, movietitle: 1, date: 1, screenId: 1, time: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        _id: 1, movietitle: 1, date: 1, screenId: 1,hours:1,minutes:1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
                     }
                 }
 
