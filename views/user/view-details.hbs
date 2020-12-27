@@ -49,7 +49,7 @@
 		<!--/nav-->
 		<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
 			<div class="container">
-				<h1><a style="font-size: 27px; color: white; margin-left: -61px;"  class="navbar-brand" href="index.html"><span class="icon-log"
+				<h1><a style="font-size: 27px; color: white; margin-left: -41px;"  class="navbar-brand" href="index.html"><span class="icon-log"
 							aria-hidden="true"></span>
 						Movie booking </a></h1>
 				<!-- if logo is image enable this   
@@ -67,7 +67,7 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class=" text-white nav-link" href="index.html">Home</a>
+							<a class=" text-white nav-link" href="/">Home</a>
 						</li>
 						<li class="nav-item">
 							<a class="text-white nav-link" href="about.html">About</a>
@@ -82,16 +82,16 @@
                        {{#if user}}
 					<li>
 						<div class="dropdown">
-							<button style="background-color: red;" class="text-white btn btn-secondary dropdown-toggle"
+							<button style="    background-color: red;  margin-top: 12px;font-size: 16px;margin: 9px; " class="text-white btn btn-secondary dropdown-toggle"
 								type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Hey,{{user.fullname}}
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#">Profile</a>
-								<a class="dropdown-item" href="#">My bookings</a>
-								<a class="dropdown-item" href="#">Settings</a>
-								<a class="dropdown-item" href="/logout">Log Out</a>
+								<a style="font-size: 16px;" class="dropdown-item" href="#">Profile</a>
+								<a style="font-size: 16px;" class="dropdown-item" href="#">My bookings</a>
+								<a style="font-size: 16px;" class="dropdown-item" href="#">Settings</a>
+								<a style="font-size: 16px;" class="dropdown-item" href="/logout">Log Out</a>
 							</div>
 						</div>
 					</li>
@@ -167,21 +167,21 @@
 		</div>
 	</div>
 </div>
-<div class="page-single movie-single movie_single">
+<div style="background-color: #0c0f0a" class="page-single movie-single movie_single">
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<div class="movie-img sticky-sb">
 					<img src="/movie-images/{{movieDetails._id}}.jpg" alt="">
 					<div class="movie-btn">	
-						<div class="btn-transform transform-vertical red">
-							<div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
+						<div class="btn-transform  red">
+							{{!-- <div><a style="background-color: red;" href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div> --}}
 							
-							<div><a href="{{movieDetails.trailerlink}}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+							<div><a style="background-color: red;" href="{{movieDetails.trailerlink}}" class="item item-2 redbtn fancybox-media hvr-grow"></i> Watch Trailer</a></div>
 						</div>
-						<div class="btn-transform transform-vertical">
-							<div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
-							<div><a href="/time/{{movieDetails.movietitle}}" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
+						<div class="btn-transform ">
+							<div><a style="background-color: #89f1ff;" href="/time/{{movieDetails.movietitle}}" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
+							{{!-- <div><a href="/time/{{movieDetails.movietitle}}" ></a>class="item item-2 yellowbtn"><i class="ion-card"></i></a></div> --}}
 						</div>
 					</div>
 				</div>
@@ -971,7 +971,7 @@
 	</div>
 </div>
 <!-- footer section-->
-<footer class="ht-footer">
+<footer style="background-color: #111111;" class="ht-footer">
 	<div class="container">
 		<div class="flex-parent-ft">
 			<div class="flex-child-ft item1">

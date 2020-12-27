@@ -215,7 +215,6 @@ router.get('/payment',async(req,res)=>{
 
 router.post('/place-order',async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
-  let insert = await userHelpers.insertBookedSeats(cart.seats,cart.showId)
   userHelpers.placeOrder(req.session.user._id,cart).then((bookingId)=>{
     userHelpers.generateRazorpay(bookingId,cart.price).then((response)=>{
       res.json(response)
@@ -223,7 +222,9 @@ router.post('/place-order',async(req,res)=>{
   })
 })
 
-router.post('/verify-payment',(req,res)=>{
+router.post('/verify-payment',async(req,res)=>{
+  let bookings=await userHelpers.getbookings(req.body['order[receipt]'])
+  let insert = await userHelpers.insertBookedSeats(bookings.seats,bookings.showId)
   userHelpers.verifyPayment(req.body).then(()=>{
     userHelpers.chanePaymentStatus(req.body['order[receipt]'],req.session.user.email).then(()=>{
       res.json({status:true})

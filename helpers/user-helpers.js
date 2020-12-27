@@ -12,6 +12,7 @@ var objectId = require('mongodb').ObjectID
 var nodemailer = require('nodemailer');
 var generator = require('generate-password');
 const { template } = require("handlebars")
+const { resolve } = require("path")
 
 module.exports = {
 
@@ -553,6 +554,13 @@ module.exports = {
                 }
             }).then(()=>{
                 resolve()
+            })
+        })
+    },
+    getbookings:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.BOOKING_COLLECTION).findOne({_id:objectId(orderId)}).then((response)=>{
+                resolve(response)
             })
         })
     }
