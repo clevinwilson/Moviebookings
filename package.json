@@ -1,6 +1,6 @@
 {
   "name": "moviebooking",
-  "version": "14.5.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
