@@ -9,7 +9,7 @@ var paypal = require('paypal-rest-sdk');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "3fff8b5c5360117cb5a540a706775ca4"; // Your Auth Token from www.twilio.com/console
+var authToken = "1393adf48e91fcccdbc49dd40a84c42b"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -193,7 +193,7 @@ router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
   details.theater=objectId(response.show[0].theater._id)
   details.price=response.price
   details.seats=response.seatsDetails
-  let addCheckout=await userHelpers.addCheckout(details,req.params.showId)
+  let addCheckout=await userHelpers.addCheckout(details,req.params.showId,req.session.user._id)
   
   
   let date=new Date()
@@ -237,8 +237,8 @@ router.post('/verify-payment',async(req,res)=>{
 
 
 
-router.post('/paypal',(req,res)=>{
-  
+router.post('/paypal',async(req,res)=>{
+  let cart = await userHelpers.getCart(req.session.user._id)
   const create_payment_json = {
     "intent": "sale",
     "payer": {
@@ -253,14 +253,14 @@ router.post('/paypal',(req,res)=>{
             "items": [{
                 "name": "item",
                 "sku": "item",
-                "price": "1.00",
+                "price": ""+cart.price,
                 "currency": "INR",
                 "quantity": 1
             }]
         },
         "amount": {
             "currency": "INR",
-            "total": "1.00"
+            "total": "200"
         },
         "description": "This is the payment description."
     }]

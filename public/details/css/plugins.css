@@ -1922,13 +1922,13 @@
 	z-index: 8040;
 }
 
-.fancybox-prev {
+/* .fancybox-prev {
 	left: 0;
 }
 
 .fancybox-next {
 	right: 0;
-}
+} */
 
 .fancybox-nav span {
 	position: absolute;
@@ -1941,15 +1941,15 @@
 	visibility: hidden;
 }
 
-.fancybox-prev span {
+/* .fancybox-prev span {
 	left: 10px;
 	background-position: 0 -36px;
-}
+} */
 
-.fancybox-next span {
+/* .fancybox-next span {
 	right: 10px;
 	background-position: 0 -72px;
-}
+} */
 
 .fancybox-nav:hover span {
 	visibility: visible;

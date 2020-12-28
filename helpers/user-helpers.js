@@ -168,13 +168,23 @@ module.exports = {
 
         })
     },
-    addCheckout: (details, showId) => {
+    addCheckout: (details, showId,userId) => {
         console.log(details);
         details.showId = objectId(showId)
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response) => {
-                resolve(response)
-            })
+        return new Promise(async(resolve, reject) => {
+            let cart =await db.get().collection(collection.CHECKOUT_COLLECTION).findOne({user:ObjectId(userId)})
+            if(cart){
+                db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({_id:objectId(cart._id)}).then((response)=>{
+                    db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response) => {
+                        resolve(response)
+                    })
+                })
+            }else{
+                db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response) => {
+                    resolve(response)
+                })
+            }
+            
 
         })
     },
