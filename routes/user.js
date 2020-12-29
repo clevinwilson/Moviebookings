@@ -216,9 +216,13 @@ router.get('/payment',async(req,res)=>{
 router.post('/place-order',async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
   userHelpers.placeOrder(req.session.user._id,cart).then((bookingId)=>{
+    if(bookingId){
     userHelpers.generateRazorpay(bookingId,cart.price).then((response)=>{
       res.json(response)
     })
+  }else{
+    res.json(false)
+  }
   })
 })
 

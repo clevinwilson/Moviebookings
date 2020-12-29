@@ -230,13 +230,20 @@ module.exports = {
     },
     placeOrder: (userId, details) => {
         details.status=false
-        return new Promise((resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
+            let show=await db.get().collection(collection.SHOW_COLLECTION).findOne({_id:objectId(details.showId)})
+            for(let i=0;i<=details.seats.length; i++){
+                if(details.seats[i].seatName === show.bookedseats[i].seatName){
+                    resolve()
+                }
+            }
             db.get().collection(collection.BOOKING_COLLECTION).insertOne(details).then((response) => {
                 db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({ user: objectId(userId) })
                 resolve(response.ops[0]._id)
             })
         })
     },
+    
     generateRazorpay: (bookingId, price) => {
         return new Promise((resolve, reject) => {
             var options = {

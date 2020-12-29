@@ -273,9 +273,10 @@
       method: 'post',
       data: $('#checkout-form').serialize(),
       success: (response) => {
-        alert(response)
         if (response) {
           razorpayPayment(response)
+        }else{
+          location.href = "/"
         }
 
       }
