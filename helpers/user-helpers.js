@@ -34,7 +34,6 @@ module.exports = {
 
             details.signupwithphone = true
             details.signupwithgoogle = false
-            details.email = " "
             details.password = await bcrypt.hash(details.password, 10)
             db.get().collection(collection.USER_COLLECTION).insertOne(details).then((response) => {
                 resolve(response.ops[0])

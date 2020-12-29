@@ -9,7 +9,7 @@ var paypal = require('paypal-rest-sdk');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "1393adf48e91fcccdbc49dd40a84c42b"; // Your Auth Token from www.twilio.com/console
+var authToken = "676adead4169a7d9ffbf770aa2971c24"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -282,6 +282,10 @@ paypal.payment.create(create_payment_json, function (error, payment) {
   }
 });
  
+})
+
+router.get('/order-success',(req,res)=>{
+  res.render('user/order-success')
 })
 
 

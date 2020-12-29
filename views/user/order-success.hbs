@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+</head>
+<script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        } 
+    </script>
+{{>user-header}}
+<style>
+    body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+    }
+
+    h1 {
+        color: #88B04B;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-weight: 900;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #404F5E;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+
+        box-shadow: 0px 0px 4px #636363;
+
+        display: inline-block;
+        margin: 0 auto;
+        margin-bottom: 130px;
+        margin-top: 130px;
+    }
+</style>
+
+<body style="background-color: var(--theme-bg);">
+    <div style="background: var(--theme-lite)" class="card">
+        <div>
+            <i style=" color: #46b621; font-size: 115px; line-height: 200px; margin-left:-15px; margin-bottom: 10px;"
+                class="fas fa-check-circle"></i>
+        </div>
+        <h1>Success</h1>
+        <p style="color: var(--theme-title);">Your booking has been confirmed.<br /> Check your email for detials.</p>
+        <a href="/">My Bookings</a>
+    </div>
+
+</body>
+{{>user-footer}}
+
+</html>
