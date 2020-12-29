@@ -87,7 +87,7 @@ module.exports = {
         })
     },
     insertBookedSeats: (seats, showId) => {
-        console.log(seats,"llpp");
+        console.log(seats, "llpp");
         return new Promise((resolve, reject) => {
             for (let i = 0; i < seats.length; i++) {
                 db.get().collection(collection.SHOW_COLLECTION)
@@ -167,23 +167,23 @@ module.exports = {
 
         })
     },
-    addCheckout: (details, showId,userId) => {
+    addCheckout: (details, showId, userId) => {
         console.log(details);
         details.showId = objectId(showId)
-        return new Promise(async(resolve, reject) => {
-            let cart =await db.get().collection(collection.CHECKOUT_COLLECTION).findOne({user:ObjectId(userId)})
-            if(cart){
-                db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({_id:objectId(cart._id)}).then((response)=>{
+        return new Promise(async (resolve, reject) => {
+            let cart = await db.get().collection(collection.CHECKOUT_COLLECTION).findOne({ user: ObjectId(userId) })
+            if (cart) {
+                db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({ _id: objectId(cart._id) }).then((response) => {
                     db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response) => {
                         resolve(response)
                     })
                 })
-            }else{
+            } else {
                 db.get().collection(collection.CHECKOUT_COLLECTION).insertOne(details).then((response) => {
                     resolve(response)
                 })
             }
-            
+
 
         })
     },
@@ -219,7 +219,7 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1, movietitle: 1, date: 1, screenId: 1,hours:1,minutes:1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        _id: 1, movietitle: 1, date: 1, screenId: 1, hours: 1, minutes: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
                     }
                 }
 
@@ -229,25 +229,31 @@ module.exports = {
         })
     },
     placeOrder: (userId, details) => {
-        details.status=false
-        return new Promise(async(resolve, reject) => {
-            let show=await db.get().collection(collection.SHOW_COLLECTION).findOne({_id:objectId(details.showId)})
-            for(let i=0;i<=details.seats.length; i++){
-                if(details.seats[i].seatName === show.bookedseats[i].seatName){
-                    resolve()
-                }
-            }
-            db.get().collection(collection.BOOKING_COLLECTION).insertOne(details).then((response) => {
-                db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({ user: objectId(userId) })
-                resolve(response.ops[0]._id)
-            })
+        details.status = false
+        return new Promise(async (resolve, reject) => {
+            // let show = await db.get().collection(collection.SHOW_COLLECTION).findOne({ _id: objectId(details.showId) })
+            // console.log(show.bookedseats[0].seatName,"lll");
+            // console.log(details.seats.length);
+            // console.log(details.seats);
+            // if (show.bookedseats[0]) {
+            //     for (let i = 0; i < details.seats.length; i++) {
+            //         if (details.seats[i].seatName === show.bookedseats[0].seatName) {
+            //             resolve()
+            //         }e
+            //     }
+            // } else {
+                db.get().collection(collection.BOOKING_COLLECTION).insertOne(details).then((response) => {
+                    db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({ user: objectId(userId) })
+                    resolve(response.ops[0]._id)
+                })
+            // }
         })
     },
-    
+
     generateRazorpay: (bookingId, price) => {
         return new Promise((resolve, reject) => {
             var options = {
-                amount: price*100,  // amount in the smallest currency unit
+                amount: price * 100,  // amount in the smallest currency unit
                 currency: "INR",
                 receipt: "" + bookingId
             };
@@ -256,24 +262,24 @@ module.exports = {
             });
         })
     },
-    verifyPayment:(details)=>{
-        return new Promise((resolve,reject)=>{
+    verifyPayment: (details) => {
+        return new Promise((resolve, reject) => {
             const crypto = require('crypto');
             let hmac = crypto.createHmac('sha256', 'zDZ8GFjzaxyncyKYdabslzOE');
-            hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]']);
-            hmac=hmac.digest('hex')
-            if(hmac==details['payment[razorpay_signature]']){
+            hmac.update(details['payment[razorpay_order_id]'] + '|' + details['payment[razorpay_payment_id]']);
+            hmac = hmac.digest('hex')
+            if (hmac == details['payment[razorpay_signature]']) {
                 resolve()
-            }else{
+            } else {
                 reject()
             }
 
         })
     },
-    chanePaymentStatus:(orderId,email)=>{
-      console.log(email);
-        return new Promise(async(resolve,reject)=>{
-            let order =await db.get().collection(collection.BOOKING_COLLECTION).aggregate([
+    chanePaymentStatus: (orderId, email) => {
+        console.log(email);
+        return new Promise(async (resolve, reject) => {
+            let order = await db.get().collection(collection.BOOKING_COLLECTION).aggregate([
                 {
                     $match: { _id: objectId(orderId) }
                 },
@@ -296,34 +302,34 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1, movietitle: 1,seats:1, date: 1, screenId: 1,hours:1,minutes:1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        _id: 1, movietitle: 1, seats: 1, date: 1, screenId: 1, hours: 1, minutes: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
                     }
                 }
 
 
             ]).toArray()
-            seatss=[]
-            for(i=0; i<order[0].seats.length ; i++){
+            seatss = []
+            for (i = 0; i < order[0].seats.length; i++) {
                 seatss.push(order[0].seats[i].seatName)
                 console.log(order[0].seats[i]);
             }
-          
-                var transporter = nodemailer.createTransport({
-                    host: "smtp.gmail.com",
-                    port: 587,
-                    secure: false,
-                    requireTLS: true,
-                    auth: {
-                        user: "www.myappsa2z@gmail.com",
-                        pass: "fmejzqxsrtfogxzg",
-                    },
-                });
 
-                var mailOptions = {
-                    from: "www.myappsa2z@gmail.com",
-                    to: email,
-                    subject: "Movie booking theater account details",
-                    html: `<!DOCTYPE html >
+            var transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                requireTLS: true,
+                auth: {
+                    user: "www.myappsa2z@gmail.com",
+                    pass: "fmejzqxsrtfogxzg",
+                },
+            });
+
+            var mailOptions = {
+                from: "www.myappsa2z@gmail.com",
+                to: email,
+                subject: "Movie booking theater account details",
+                html: `<!DOCTYPE html >
 
                 <head>
                     <meta charset="UTF-8">
@@ -553,29 +559,29 @@ module.exports = {
                     </div>
                 </body>
                 </html>`};
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error);
-                        resolve({ status: false, message: "Email not send please try again " })
-                    } else {
-                        console.log("Email sent: " + info.response);
-                        resolve({ status: true, "ownerId": owner._id })
-                    }
-                });
-            db.get().collection(collection.BOOKING_COLLECTION)
-            .updateOne({_id:objectId(orderId)},
-            {
-                $set:{
-                    status:true
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    resolve({ status: false, message: "Email not send please try again " })
+                } else {
+                    console.log("Email sent: " + info.response);
+                    resolve({ status: true, "ownerId": owner._id })
                 }
-            }).then(()=>{
-                resolve()
-            })
+            });
+            db.get().collection(collection.BOOKING_COLLECTION)
+                .updateOne({ _id: objectId(orderId) },
+                    {
+                        $set: {
+                            status: true
+                        }
+                    }).then(() => {
+                        resolve()
+                    })
         })
     },
-    getbookings:(orderId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.BOOKING_COLLECTION).findOne({_id:objectId(orderId)}).then((response)=>{
+    getbookings: (orderId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BOOKING_COLLECTION).findOne({ _id: objectId(orderId) }).then((response) => {
                 resolve(response)
             })
         })
