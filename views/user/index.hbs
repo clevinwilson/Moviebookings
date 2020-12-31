@@ -1140,25 +1140,38 @@ Author URL: http://w3layouts.com
 </body>
 
 </html>
+
+{{!-- Popup map --}}
 <script>
 	function submitLocation() {
-        {{!-- $(document).ready(function () {
-            $("#deleteModal").modal('hide')
-        }) --}}
+       
         $.ajax({
             url: '/location',
             method: 'post',
 			data:{longitude:longitude,latitude:latitude,},
             success: (response) => {
                 if (response.status) {
-                    window.location.reload()
-                    document.getElementById("success").style.display="block"
+					alert('haii')
+                    $(document).ready(function () {
+                       $("#deleteModal").modal('hide')
+                    })
                 } else {
-                    document.getElementById("error").style.display="block"
+                     $(document).ready(function () {
+                        $("#deleteModal").modal('show')
+                    })
                 }
             }
         })
     }
+</script>
+<script>
+	function mapPopup(){
+		 $(document).ready(function () {
+                $("#deleteModal").modal('show')
+            })
+			console.log('map')
+	}
+	
 </script>
 
 
@@ -1372,5 +1385,12 @@ Author URL: http://w3layouts.com
 	});
 </script>
 <!--//MENU-JS-->
+{{#if location}}
+
+{{else}}
+<script>
+	mapPopup()
+</script>
+{{/if}}
 
 <script src="user/js/bootstrap.min.js"></script>

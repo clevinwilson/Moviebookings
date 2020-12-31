@@ -6,10 +6,11 @@ const ownerHelpers = require('../helpers/owner-helpers');
 var router = express.Router();
 var objectId = require('mongodb').ObjectID
 var paypal = require('paypal-rest-sdk');
+const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "676adead4169a7d9ffbf770aa2971c24"; // Your Auth Token from www.twilio.com/console
+var authToken = "2f703fb42885a09991de0dfe34633fd8"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -31,7 +32,8 @@ const verifyLogin = (req, res, next) => {
 router.get('/', async (req, res, next) => {
   let UpComingMoviesList = await userHelpers.getUpcomingMovie()
   userHelpers.getMovies().then((moviesList) => {
-    res.render('user/index', { moviesList, UpComingMoviesList, user: req.session.user })
+    
+    res.render('user/index', { moviesList, UpComingMoviesList,"location":req.session.location, user: req.session.user })
   })
 
 });
@@ -292,6 +294,20 @@ router.get('/order-success',(req,res)=>{
   res.render('user/order-success')
 })
 
+router.get('/map',(req,res)=>{
+
+
+  
+  res.render('user/map')
+})
+
+//Popup map
+router.post('/location',(req,res)=>{
+  req.session.location=true
+  req.session.longitude=req.body.longitude
+  req.session.latitude=req.body.latitude
+  res.json({status:true})
+})
 
 
 module.exports = router;
