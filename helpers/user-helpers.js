@@ -434,7 +434,7 @@ module.exports = {
                                                                                         <table width="100%" cellspacing="0" cellpadding="0">
                                                                                             <tbody>
                                                                                               <tr>
-                                                                                                <td class="esd-block-image es-p5t es-p5b" align="center" style="font-size:0"><a target="_blank"><img src="https://onuexc.stripocdn.email/content/guids/CABINET_dd354a98a803b60e2f0411e893c82f56/images/23891556799905703.png" alt style="display: block;" width="175"></a></td>
+                                                                                                <td class="esd-block-image es-p5t es-p5b" align="center" style="font-size:0"><a target="_blank"><img src="https://i.pinimg.com/474x/27/48/ae/2748ae9571d2e25bc778350e9a5eff24.jpg" alt style="display: block;" width="175"></a></td>
                                                                                               </tr>
                                                                                                 <tr>
                                                                                                     <td class= esd-block-text es-m-txt-l" align="left">
