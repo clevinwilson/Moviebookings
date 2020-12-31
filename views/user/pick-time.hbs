@@ -53,6 +53,7 @@ Author URL: http://w3layouts.com
                         <div class="contact-details">
                             <h4>Theater Name: {{this.theater.theatername}} </h4>
                             <p>Screen : {{this.screen.screenname}}</p>
+                            
                         </div>
                         <br>
 
@@ -86,8 +87,11 @@ Author URL: http://w3layouts.com
                     <script>
                         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
                         // make a directions request
-                       
-                            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + "75.60856154188272,12.109935727915285;75.58110387524735,12.062681452842597"
+                        var a=""+{{this.longitude}}+","
+                        var b=""+{{this.latitude}}+";"
+                        var c=""+{{this.theater.longitude}}+","
+                        var d=""+{{this.theater.latitude}}
+                            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + a+b+c+d
                                 + '?geometries=geojson&steps=true&access_token=' + mapboxgl.accessToken;
                             var req = new XMLHttpRequest();
                             req.responseType = 'json';
