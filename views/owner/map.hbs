@@ -41,9 +41,13 @@
             border-radius: 3px;
             display: none;
         }
+        #map{
+              height: 70vh;
+              width: 100vw;
+        }
     </style>
-
-    <div id="map"></div>
+    <div class="mapcontainer">
+        <div id="map"></div>
     <pre id="coordinates" class="coordinates"></pre>
 
     <script>
@@ -82,6 +86,8 @@
             coordinates.style.display = 'block';
             coordinates.innerHTML =
                 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+                longitude=lngLat.lng
+				latitude=lngLat.lat
         }
 
         marker.on('dragend', onDragEnd);
@@ -94,6 +100,7 @@
                 trackUserLocation: true
             })
         );
+        
 
          const nav = new mapboxgl.NavigationControl();
             map.addControl(nav)
@@ -106,8 +113,32 @@
             {{!-- map.addControl(directions,'top-left') --}}
         }
     </script>
+    <center>
+        <a style="margin-top: 650px; color: white; background-color: black;" href="/owner/settings" class="btn btn-success"> Back</a>
+         <a style="margin-top: 650px; color: white;" onclick="submitLocation()" class="btn btn-success"> Submit</a></center>
+    
+    </div>
+    
     
 
 </body>
 
 </html>
+<script>
+    function submitLocation() {
+        $.ajax({
+            url: '/owner/location',
+            method: 'post',
+			data:{longitude:longitude,latitude:latitude,},
+            success: (response) => {
+                if (response.status) {
+                   window.location.href="/owner/settings"
+                } else {
+                    alert("Error")
+                }
+            }
+        })
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

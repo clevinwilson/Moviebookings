@@ -454,4 +454,12 @@ router.get('/map',(req,res)=>{
     res.render('owner/map')
 })
 
+router.post('/location',(req,res)=>{
+
+    ownerHelper.updateLocation(req.body,req.session.owner._id).then((response)=>{
+        res.json({status:true})
+        
+    })
+})
+
 module.exports = router;

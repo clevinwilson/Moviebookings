@@ -83,6 +83,8 @@ module.exports={
             });
             ownerDetails.createDate=new Date()
             ownerDetails.password=await bcrypt.hash(password, 10)
+            ownerDetails.longitude=""
+            ownerDetails.latitude=""
             db.get().collection(collection.OWNER_COLLECTION).insertOne(ownerDetails).then((details)=>{
                 if (details) {
                     var transporter = nodemailer.createTransport({

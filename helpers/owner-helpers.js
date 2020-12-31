@@ -714,5 +714,18 @@ module.exports = {
             }
 
         })
+    },
+    updateLocation:(location,ownerId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.OWNER_COLLECTION)
+            .updateOne({_id:objectId(ownerId)},{
+                $set:{
+                    longitude:location.longitude,
+                    latitude:location.latitude
+                }
+            }).then((response)=>{
+                resolve(response)
+            })
+        })
     }
 }
