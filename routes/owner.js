@@ -449,4 +449,9 @@ router.post('/add-seats/:id,:showId',(req,res)=>{
     })
 })
 
+// location
+router.get('/map',(req,res)=>{
+    res.render('owner/map')
+})
+
 module.exports = router;

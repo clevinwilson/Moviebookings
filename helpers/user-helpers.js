@@ -29,9 +29,10 @@ module.exports = {
             })
         })
     },
-    signup: (details) => {
+    signup: (details,longitude,latitude) => {
         return new Promise(async (resolve, reject) => {
-
+            details.longitude=longitude
+            details.latitude=latitude
             details.signupwithphone = true
             details.signupwithgoogle = false
             details.password = await bcrypt.hash(details.password, 10)

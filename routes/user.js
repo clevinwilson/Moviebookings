@@ -10,7 +10,7 @@ const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "2f703fb42885a09991de0dfe34633fd8"; // Your Auth Token from www.twilio.com/console
+var authToken = "8922ae964eca4977e09550c53ca54dcf"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -89,7 +89,7 @@ router.post('/verify/:phone', (req, res) => {
 })
 
 router.post('/singup', (req, res) => {
-  userHelpers.signup(req.body).then((response) => {
+  userHelpers.signup(req.body,req.session.longitude,req.session.latitude).then((response) => {
     req.session.user = response
     req.session.loggedIn = true
     res.redirect('/')
@@ -215,6 +215,7 @@ router.get('/payment',async(req,res)=>{
   res.render('user/payment',{cart,user: req.session.user})
 })
 
+//razorpay
 router.post('/place-order',async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
   userHelpers.placeOrder(req.session.user._id,cart).then((bookingId)=>{
@@ -228,6 +229,7 @@ router.post('/place-order',async(req,res)=>{
   })
 })
 
+//verifypayment
 router.post('/verify-payment',async(req,res)=>{
   let bookings=await userHelpers.getbookings(req.body['order[receipt]'])
   let insert = await userHelpers.insertBookedSeats(bookings.seats,bookings.showId)
@@ -242,7 +244,7 @@ router.post('/verify-payment',async(req,res)=>{
 })
 
 
-
+//paypal 
 router.post('/paypal',async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
   const create_payment_json = {
@@ -294,12 +296,7 @@ router.get('/order-success',(req,res)=>{
   res.render('user/order-success')
 })
 
-router.get('/map',(req,res)=>{
 
-
-  
-  res.render('user/map')
-})
 
 //Popup map
 router.post('/location',(req,res)=>{
