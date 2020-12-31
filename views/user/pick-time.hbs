@@ -15,6 +15,13 @@ Author URL: http://w3layouts.com
     <!-- Template CSS -->
     <link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
         rel="stylesheet">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+        type="text/css" />
     <!-- Template CSS -->
 </head>
 
@@ -51,8 +58,10 @@ Author URL: http://w3layouts.com
 
                         <div class="row p-2">
                             <div class="boxs col-md-12 col-lg-6">
-                                <a href="/seat-layout/{{this.screenId}},{{this._id}}" class=" colorss text-success m-1 btn btn-success text-ligt">{{this.hours}}:{{this.minutes}}</a>
+                                <a href="/seat-layout/{{this.screenId}},{{this._id}}"
+                                    class=" colorss text-success m-1 btn btn-success text-ligt">{{this.hours}}:{{this.minutes}}</a>
                             </div>
+
 
                             {{!-- <div class="boxs col-md-12 col-lg-6">
                                 <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
@@ -64,16 +73,61 @@ Author URL: http://w3layouts.com
                                 <a class="colorss text-success m-1 btn btn-success text-ligt">dfs</a>
                             </div> --}}
                         </div>
+                        <hr>
+                        <div class="row">
+                        <div class="distance ml-4">
+                            <p style="color: #1782ce;" >Distance: <span id="distance"></span> km</p>
+                        </div>
+                        <div class="duration ml-3">
+                            <p style="color: #1782ce;" >Duration: <span id="duration"></span> minutes</p>
+                        </div>
+                        </div>
                     </div>
+                    <script>
+                        mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
+                        // make a directions request
+                       
+                            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + "75.60856154188272,12.109935727915285;75.58110387524735,12.062681452842597"
+                                + '?geometries=geojson&steps=true&access_token=' + mapboxgl.accessToken;
+                            var req = new XMLHttpRequest();
+                            req.responseType = 'json';
+                            req.open('GET', url, true);
+                            req.onload = function () {
+                                var jsonResponse = req.response;
+                                var distance = jsonResponse.routes[0].distance * 0.001;
+                                var duration = jsonResponse.routes[0].duration / 60;
+                                var steps = jsonResponse.routes[0].legs[0].steps;
+                                var coords = jsonResponse.routes[0].geometry;
+                                //  console.log(steps);
+                                console.log(coords);
+                                document.getElementById('distance').innerHTML = distance
+                                document.getElementById('duration').innerHTML = duration
+                                console.log(distance);
+                                // console.log(duration);
+
+                                // get route directions on load map
+                                steps.forEach(function (step) {
+                                    instructions.insertAdjacentHTML('beforeend', '<p>' + step.maneuver.instruction + '</p>');
+                                });
+                                // get distance and duration
+                                instructions.insertAdjacentHTML('beforeend', '<p>' + 'Distance: ' + distance.toFixed(2) + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes' + '</p>');
+                                // add the route to the map
+                                addRoute(coords);
+                                //  console.log(coordinates);
+
+                            };
+                            req.send();
+                    
+                    </script>
                     {{/each}}
 
-                 
+
+
                 </div>
             </div>
         </div>
         </div>
         </div>
-
     </section>
     <!-- /contact1 -->
     <!-- footer-66 -->
@@ -161,7 +215,8 @@ Author URL: http://w3layouts.com
         background-color: var(--theme-bg);
         color: green
     }
-    .boxs{
+
+    .boxs {
         border-spacing: 15px;
     }
 </style>
