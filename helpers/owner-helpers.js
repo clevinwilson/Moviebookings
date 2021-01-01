@@ -131,7 +131,8 @@ module.exports = {
                             minute: details.minute,
                             trailerlink: details.trailerlink,
                             language: details.language,
-                            type: details.type
+                            type: details.type,
+                            about:details.about
                         }
                     }).then((response) => {
                         if (response) {
