@@ -633,8 +633,8 @@ module.exports = {
                     $set: {
                         movietitle: details.movietitle,
                         date: details.date,
-                        hours: details.hours,
-                        minutes: details.minutes,
+                        time: details.time,
+                        timeperiod: details.timeperiod,
                         vip: details.vip,
                         premium: details.premium,
                         executive: details.executive,
