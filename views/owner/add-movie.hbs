@@ -54,11 +54,16 @@
                                             <input style="border-color:#b4e3eb;" type="text"
                                                 class="form-control col-md-12 mt-2" id="movietitle" name="movietitle"
                                                 required>
-                                        </div>
-                                        <div class="form-group mt-3 col-md-10">
-                                            <label for="Cast">Cast</label>
-                                            <input style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="cast" name="cast" required>
+                                        </div> 
+                                        <div class="cast" id="cast">
+                                            
+                                            <div class="form-group mt-3 col-md-10">
+                                                <label for="Cast">Cast</label>
+                                        <button class="m-1 btn btn-danger" id="remove"  onblur="removeElement()">-</button>
+                                        <button class="m-1 btn btn-success" id="add"  onclick="addElement()">+</button>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="cast" name="cast" required>
+                                            </div>
                                         </div>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Director">Director</label>
@@ -96,10 +101,11 @@
                                             <input style="border-color:#b4e3eb;" type="text"
                                                 class="form-control col-md-12 mt-2" id="type" name="type" required>
                                         </div>
-                                         <div class="form-group mt-3 col-md-10">
+                                        <div class="form-group mt-3 col-md-10">
                                             <label for="Type">About the movie</label>
                                             <textarea style="border-color:#b4e3eb;" type="text"
-                                                class="form-control col-md-12 mt-2" id="type" name="about" required> </textarea>
+                                                class="form-control col-md-12 mt-2" id="type" name="about"
+                                                required> </textarea>
                                         </div>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Trailer Link">Trailer Link</label>
@@ -109,10 +115,10 @@
                                         </div>
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Trailer Link">Movie Poster</label>
-                                            <img src="" id="imgView" height="250px"
-                                                width="150px">
+                                            <img src="" id="imgView" height="250px" width="150px">
                                             <input style="border-color:#b4e3eb;" type="file"
-                                                class="form-control col-md-12 mt-2" name="Image" onchange="viewImage(event)" required>
+                                                class="form-control col-md-12 mt-2" name="Image"
+                                                onchange="viewImage(event)" required>
                                         </div>
                                         <center>
                                             <a href="/owner/movie-management"
@@ -136,7 +142,40 @@
 </body>
 
 <script>
-    function viewImage(event){
-        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+</script>
+<script>
+    f = 1
+    function addElement() {
+         
+        f = f + 1
+        var x = document.createElement("DIV");
+        x.setAttribute("class", "form-group mt-5 col-md-5");
+        x.setAttribute("id", f);
+        document.getElementById("cast").appendChild(x);
+
+        var label = document.createElement("LABEL");
+        label.setAttribute("id", "cast" + f);
+        document.getElementById(f).appendChild(label)
+        document.getElementById('cast' + f).innerHTML = "Cast" + f
+
+        var input = document.createElement("INPUT");
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "cast"+f);
+        input.setAttribute("class", "form-control col-md-12 mt-2");
+        document.getElementById(f).appendChild(input)
+         if (f == 6) {
+            document.getElementById("add").disabled = true;
+        }
+    }
+
+    function removeElement(){
+        document.getElementById(f).remove();
+        f=f-1
+        if (f <= 6) {
+            document.getElementById("add").disabled = false;
+        }
     }
 </script>
