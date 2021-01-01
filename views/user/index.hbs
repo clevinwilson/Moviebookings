@@ -148,8 +148,8 @@ Author URL: http://w3layouts.com
 				<div class="w3l-populohny-grids">
 					{{#each moviesList}}
 					<div class="item vhny-grid">
-						<div class="box16">
-							<a href="/details/{{this._id}}">
+						<a href="/details/{{this._id}}">
+							<div class="box16">
 								<figure>
 									<img class="img-fluid" src="/movie-images/{{this._id}}.jpg" alt="">
 								</figure>
@@ -157,32 +157,24 @@ Author URL: http://w3layouts.com
 									<h3 class="title">{{this.movietitle}}</h3>
 									<h4> <span class="post"><span class="fa fa-clock-o"> </span> {{this.hour}} Hr
 											{{this.minute}} min
-
 										</span>
-
 										<span class="post fa fa-heart text-right"></span>
 									</h4>
 								</div>
-								<span class="fa fa-play video-icon" aria-hidden="true"></span>
-							</a>
-						</div>
+							</div>
+						</a>
 						{{!-- <div class="button-center text-center mt-4">
 							<a href="genre.html" style="color: var(--theme-title);;" class="btn watch-button">Book
 								now</a>
 						</div> --}}
-
 						<div id="{{this._id}}" style="    background-color: white; padding: 39px;"
 							class="embed-responsive embed-responsive-16by9  mfp-hide">
-							<iframe width="560" height="315" src="https://www.youtube.com/embed/Zi4LMpSDccc"
-								frameborder="0"
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/Zi4LMpSDccc" frameborder="0"
 								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 								allowfullscreen></iframe>
 						</div>
-
-
-
 					</div>
-
+					
 					{{/each}}
 					{{!-- <div class="item vhny-grid">
 						<div class="box16">
@@ -1033,11 +1025,11 @@ Author URL: http://w3layouts.com
 
 
 
-	<!-- Delete Modal-->
+	<!-- Location Modal-->
 	
-		<div class="modal fade" style="    padding-right: -2px;" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		<div class="modal fade" style="    padding-right: -2px;" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			aria-hidden="true">
-			<div style="    margin-top: 125px;" class="modal-dialog" role="document">
+			<div style="    margin-top: 57px;" class="modal-dialog" role="document">
 				<div class="modal-content" style="    height: 524px;">
 					  <h5 class="modal-title text-center" id="exampleModalLabel">Select your location</h5>
 					 <style>
@@ -1152,11 +1144,11 @@ Author URL: http://w3layouts.com
             success: (response) => {
                 if (response.status) {
                     $(document).ready(function () {
-                       $("#deleteModal").modal('hide')
+                       $("#locationModal").modal('hide')
                     })
                 } else {
                      $(document).ready(function () {
-                        $("#deleteModal").modal('show')
+                        $("#locationModal").modal('show')
                     })
                 }
             }
@@ -1166,7 +1158,7 @@ Author URL: http://w3layouts.com
 <script>
 	function mapPopup(){
 		 $(document).ready(function () {
-                $("#deleteModal").modal('show')
+                $("#locationModal").modal('show')
             })
 			console.log('map')
 	}
