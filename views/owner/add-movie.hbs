@@ -54,17 +54,26 @@
                                             <input style="border-color:#b4e3eb;" type="text"
                                                 class="form-control col-md-12 mt-2" id="movietitle" name="movietitle"
                                                 required>
-                                        </div> 
-                                        <div class="cast" id="cast">
-                                            
-                                            <div class="form-group mt-3 col-md-10">
+                                        </div>
+
+                                        <div class="row m-1" id="cast">
+                                            <div class="form-group mt-1 col-md-5">
                                                 <label for="Cast">Cast</label>
-                                        <button class="m-1 btn btn-danger" id="remove"  onblur="removeElement()">-</button>
-                                        <button class="m-1 btn btn-success" id="add"  onclick="addElement()">+</button>
+                                                  <button class="m-1 btn btn-danger" id="remove"
+                                                    onblur="removeElement()">-</button>
+                                                <button class="m-1 btn btn-success" id="add"
+                                                    onclick="addElement()">+</button>        
                                                 <input style="border-color:#b4e3eb;" type="text"
                                                     class="form-control col-md-12 mt-2" id="cast" name="cast" required>
                                             </div>
+                                            <div class="form-group mt-5 col-md-5">
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="castas" name="castas"
+                                                     required>
+                                            </div>
                                         </div>
+
+
                                         <div class="form-group mt-3 col-md-10">
                                             <label for="Director">Director</label>
                                             <input style="border-color:#b4e3eb;" type="text"
@@ -149,12 +158,16 @@
 <script>
     f = 1
     function addElement() {
-         
+
         f = f + 1
+
         var x = document.createElement("DIV");
         x.setAttribute("class", "form-group mt-5 col-md-5");
         x.setAttribute("id", f);
         document.getElementById("cast").appendChild(x);
+
+
+
 
         var label = document.createElement("LABEL");
         label.setAttribute("id", "cast" + f);
@@ -163,19 +176,26 @@
 
         var input = document.createElement("INPUT");
         input.setAttribute("type", "text");
-        input.setAttribute("name", "cast"+f);
+        input.setAttribute("name", "cast" + f);
         input.setAttribute("class", "form-control col-md-12 mt-2");
         document.getElementById(f).appendChild(input)
-         if (f == 6) {
+
+        var input = document.createElement("INPUT");
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "castas" + f);
+        input.setAttribute("class", "form-control col-md-12 mt-2");
+        document.getElementById(f).appendChild(input)
+        if (f == 6) {
             document.getElementById("add").disabled = true;
         }
     }
 
-    function removeElement(){
+    function removeElement() {
         document.getElementById(f).remove();
-        f=f-1
+        f = f - 1
         if (f <= 6) {
             document.getElementById("add").disabled = false;
         }
+
     }
 </script>

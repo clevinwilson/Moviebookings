@@ -189,7 +189,7 @@
 			</div>
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="movie-single-ct main-content">
-					<h1 class="bd-hd">{{movieDetails.movietitle}} <span>{{movieDetails.releasedate}}</span></h1>
+					<h1 class="bd-hd">{{movieDetails.movietitle}} <span style="color: #bdbfc2;">{{movieDetails.releasedate}}</span></h1>
 					<div class="social-btn">
 						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
 						<div class="hover-bnt">
@@ -234,7 +234,7 @@
 						        <div id="overview" class="tab active">
 						            <div class="row">
 						            	<div class="col-md-8 col-sm-12 col-xs-12">
-						            		<p>Tony Stark creates the Ultron Program to protect the world, but when the peacekeeping program becomes hostile, The Avengers go into action to try and defeat a virtually impossible enemy together. Earth's mightiest heroes must come together once again to protect the world from global extinction.</p>
+						            		<p>{{movieDetails.about}}</p>
 						            		<div class="title-hd-sm">
 												<h4>Videos & Photos</h4>
 												<a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
@@ -259,57 +259,53 @@
 														<img src="/images/uploads/cast1.jpg" alt="">
 														<a href="#">{{movieDetails.cast}}</a>
 													</div>
-													<p>...  Robert Downey Jr.</p>
+													<p>...   {{movieDetails.castas}}.</p>
 												</div>
+												{{#if movieDetails.cast2}}
 												<div class="cast-it">
 													<div class="cast-left">
 														<img src="/images/uploads/cast2.jpg" alt="">
-														<a href="#">Chris Hemsworth</a>
+														<a href="#">{{movieDetails.cast2}}</a>
 													</div>
-													<p>...  Thor</p>
+													<p>...    {{movieDetails.castas2}}</p>
 												</div>
+												{{/if}}
+												{{#if movieDetails.cast3}}
 												<div class="cast-it">
 													<div class="cast-left">
 														<img src="/images/uploads/cast3.jpg" alt="">
-														<a href="#">Mark Ruffalo</a>
+														<a href="#">{{movieDetails.cast3}}</a>
 													</div>
-													<p>...  Bruce Banner/ Hulk</p>
+													<p>...    {{movieDetails.castas3}}</p>
 												</div>
+												{{/if}}
+												{{#if movieDetails.cast4}}
 												<div class="cast-it">
 													<div class="cast-left">
 														<img src="/images/uploads/cast4.jpg" alt="">
-														<a href="#">Chris Evans</a>
+														<a href="#">{{movieDetails.cast4}}</a>
 													</div>
-													<p>...  Steve Rogers/ Captain America</p>
+													<p>...    {{movieDetails.castas4}}</p>
 												</div>
+												{{/if}}
+												{{#if movieDetails.cast5}}
 												<div class="cast-it">
 													<div class="cast-left">
-														<img src="/images/uploads/cast5.jpg" alt="">
-														<a href="#">Scarlett Johansson</a>
+														<img src="/images/uploads/cast2.jpg" alt="">
+														<a href="#">{{movieDetails.cast5}}</a>
 													</div>
-													<p>...  Natasha Romanoff/ Black Widow</p>
+													<p>...    {{movieDetails.castas5}}</p>
 												</div>
+												{{/if}}
+												{{#if movieDetails.cast6}}
 												<div class="cast-it">
 													<div class="cast-left">
-														<img src="/images/uploads/cast6.jpg" alt="">
-														<a href="#">Jeremy Renner</a>
+														<img src="/images/uploads/cast2.jpg" alt="">
+														<a href="#">{{movieDetails.cast6}}</a>
 													</div>
-													<p>...  Clint Barton/ Hawkeye</p>
+													<p>...    {{movieDetails.castas6}}</p>
 												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="/images/uploads/cast7.jpg" alt="">
-														<a href="#">James Spader</a>
-													</div>
-													<p>...  Ultron</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="/images/uploads/cast9.jpg" alt="">
-														<a href="#">Don Cheadle</a>
-													</div>
-													<p>...  James Rhodes/ War Machine</p>
-												</div>
+												{{/if}}
 											</div>
 											{{!-- <div class="title-hd-sm">
 												<h4>User reviews</h4>
@@ -351,7 +347,7 @@
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Stars: </h6>
-						            			<p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>
+						            			<p><a href="#">{{movieDetails.cast}},</a> <a href="#">{{movieDetails.cast2}},</a> <a href="#">{{movieDetails.cast3}},</a><a href="#"> {{movieDetails.cast4}}</a></p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Genres:</h6>
