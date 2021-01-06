@@ -37,33 +37,35 @@ Author URL: http://w3layouts.com
         <div class="contacts-9 py-5">
             <div class="container py-lg-4">
                 <div class="headerhny-title text-center">
-                   
+
                     <h3 class="hny-title mb-0">All bookings</h3>
-                    
+
                 </div>
                 <div class="contact-view mt-lg-5 mt-4">
                     <div class="conhny-form-section">
 
-                         {{#each allbookings}}
+                        {{#each allbookings}}
                         <div class="form-input mt-4">
                             <div class="row contact-info">
 
-                                <div >
-                                    
+                                <div>
+
                                     <img id="optionalstuff" src="/movie-images/{{this.show.movieId}}.jpg">
                                 </div>
                                 <div class="contact-details">
                                     <h4 style="color: #df0e62;">{{this.theater.theatername}}</h4>
-                                    <h5 style="color: #619bb0b5;" >Movie: {{this.show.movietitle}} </h5><hr style="background-color: var(--theme-title);">
-                                    <h5>Booked Date: </h5>
+                                    <h5 style="color: #619bb0b5;">Movie: {{this.show.movietitle}} </h5>
+                                    <hr style="background-color: var(--theme-title);">
+                                    {{!-- <h5>Booked Date: {{this.date}} </h5> --}}
                                     <h3 style="float: right;">Price: {{this.price}}</h3>
-                                    
-                                    <h5 class="mt-1" >Show Date:{{this.show.date}} Show Time: {{this.show.time}} {{this.show.timeperiod}}</h5>
+
+                                    <h4 class="mt-1">Show Date: {{this.show.date}}</h4>
+                                    <h4>Show Time: {{this.show.time}} {{this.show.timeperiod}}</h4>
                                     <p>Screen: {{this.screen.screenname}} </p>
                                     <hr style="background-color: var(--theme-title);">
                                     <h4>Seat No</h4>
-                                   {{#each this.seats}}
-                                    
+                                    {{#each this.seats}}
+
                                     <h3 style="float: left;">{{this.seatName}},</h3>
 
                                     {{/each}}
@@ -71,58 +73,18 @@ Author URL: http://w3layouts.com
                             </div>
                         </div>
                         {{/each}}
-                        
+
 
                     </div>
 
                     <style>
                         @media (max-width:629px) {
-  img#optionalstuff {
-    display: none;
-  }
-}
+                            img#optionalstuff {
+                                display: none;
+                            }
+                        }
                     </style>
-                    <div class="d-grid contact-addres-inf mt-5 pt-lg-4">
-                        <div class="contact-info-left d-grid">
-                            <div class="contact-info">
-                                <div class="icon">
-                                    <span class="fa fa-location-arrow" aria-hidden="true"></span>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Address:</h4>
-                                    <p>Lorem dolor sit, New York, USA</p>
-                                </div>
-                            </div>
-                            <div class="contact-info">
-                                <div class="icon">
-                                    <span class="fa fa-phone" aria-hidden="true"></span>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Phone:</h4>
-                                    <p><a href="tel:+598-658-456">+598-658-346</a></p>
-                                    <p><a href="tel:+598-658-457">+598-658-436</a></p>
-                                </div>
-                            </div>
-                            <div class="contact-info">
-                                <div class="icon">
-                                    <span class="fa fa-envelope-open-o" aria-hidden="true"></span>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Mail:</h4>
-                                    <p><a href="mailto:mail@example.com" class="email">info@proshowz.com</a></p>
-                                    <p><a href="mailto:mail@example.com" class="email">proshowz@support.com</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="contact-map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.305935303!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1563262564932!5m2!1sen!2sin"
-                style="border:0" allowfullscreen=""></iframe>
-        </div>
+
     </section>
     <!-- /contact1 -->
     <!-- footer-66 -->
@@ -131,10 +93,10 @@ Author URL: http://w3layouts.com
 </body>
 
 </html>
-<script src="assets/js/jquery-3.3.1.min.js"></script>
+<script src="/user/js/jquery-3.3.1.min.js"></script>
 <!-- Template JavaScript -->
 <!--/theme-change-->
-<script src="assets/js/theme-change.js"></script>
+<script src="/user/js/theme-change.js"></script>
 <!-- //theme-change-->
 <!-- disable body scroll which navbar is in active -->
 <script>
@@ -173,4 +135,4 @@ Author URL: http://w3layouts.com
     });
 </script>
 <!--//MENU-JS-->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="/user/js/bootstrap.min.js"></script>

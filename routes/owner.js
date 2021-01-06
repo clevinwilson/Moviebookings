@@ -463,4 +463,16 @@ router.post('/location',(req,res)=>{
     })
 })
 
+router.get('/movie-avilability/:movietitle',(req,res)=>{
+    ownerHelper.checkMovie(req.params.movietitle).then((response)=>{
+       
+        if(response.status){
+           
+            res.json({status:true})
+        }else{
+            res.json({status:false})
+        }
+    })
+})
+
 module.exports = router;

@@ -606,7 +606,7 @@ module.exports = {
         return new Promise(async(resolve, reject) => {
             let movieId =await db.get().collection(collection.MOVIE_COLLECTION).findOne({movietitle:details.movietitle})
          
-            details.movieId=movieId._id
+            details.movieId= objectId(movieId._id)
 
             db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response) => {
                 if (response) {
@@ -731,6 +731,17 @@ module.exports = {
             }).then((response)=>{
                 resolve(response)
             })
+        })
+    },
+    checkMovie:(movieName)=>{
+        return new Promise(async(resolve,reject)=>{
+            let movie=await db.get().collection(collection.MOVIE_COLLECTION).findOne({movietitle:movieName})
+            console.log(movie);
+            if(movie){
+                resolve({status:true})
+            }else{
+                resolve({status:false})
+            }
         })
     }
 }

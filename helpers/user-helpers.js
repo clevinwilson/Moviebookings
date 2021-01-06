@@ -243,6 +243,7 @@ module.exports = {
             //         }e
             //     }
             // } else {
+                details.date=new Date()
                 db.get().collection(collection.BOOKING_COLLECTION).insertOne(details).then((response) => {
                     db.get().collection(collection.CHECKOUT_COLLECTION).removeOne({ user: objectId(userId) })
                     resolve(response.ops[0]._id)
@@ -626,7 +627,7 @@ module.exports = {
                 }
 
 
-            ]).toArray()
+            ]).sort({_id:-1}).toArray()
             resolve(bookings)
         })
     }
