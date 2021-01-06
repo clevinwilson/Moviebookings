@@ -118,7 +118,7 @@ router.get('/view-schedule/:id', verifyLogin, (req, res) => {
 //show routers
 router.get('/add-show/:id', verifyLogin, (req, res) => {
     let owner = req.session.owner
-    ownerHelper.getMoviesTitle(req.session.owner._id).then((movies) => {
+    ownerHelper.getMoviesTitle().then((movies) => {
         res.render('owner/add-show', { screenId: req.params.id, movies, owner })
 
     })

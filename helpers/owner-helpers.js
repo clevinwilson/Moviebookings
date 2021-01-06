@@ -593,9 +593,9 @@ module.exports = {
             }
         })
     },
-    getMoviesTitle: (ownerId) => {
+    getMoviesTitle: () => {
         return new Promise(async (resolve, reject) => {
-            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
+            let movies = await db.get().collection(collection.MOVIE_COLLECTION).find().toArray()
             resolve(movies)
         })
     },
