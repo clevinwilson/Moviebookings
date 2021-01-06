@@ -603,7 +603,11 @@ module.exports = {
         details.owner = ownerId
         details.screenId = objectId(details.screenId)
         details.bookedseats = []
-        return new Promise((resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
+            let movieId =await db.get().collection(collection.MOVIE_COLLECTION).findOne({movietitle:details.movietitle})
+         
+            details.movieId=movieId._id
+
             db.get().collection(collection.SHOW_COLLECTION).insertOne(details).then((response) => {
                 if (response) {
                     resolve({ status: true })
