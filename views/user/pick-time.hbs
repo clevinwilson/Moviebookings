@@ -91,7 +91,7 @@ Author URL: http://w3layouts.com
                         var b=""+{{this.latitude}}+";"
                         var c=""+{{this.theater.longitude}}+","
                         var d=""+{{this.theater.latitude}}
-                            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + a+b+c+d
+                            var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + a+b+c+d
                                 + '?geometries=geojson&steps=true&access_token=' + mapboxgl.accessToken;
                             var req = new XMLHttpRequest();
                             req.responseType = 'json';

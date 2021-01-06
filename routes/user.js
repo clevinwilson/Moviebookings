@@ -10,7 +10,7 @@ const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "8922ae964eca4977e09550c53ca54dcf"; // Your Auth Token from www.twilio.com/console
+var authToken = "d8e7713737698c562939439ae1a1c110"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -265,14 +265,14 @@ router.post('/paypal',async(req,res)=>{
             "items": [{
                 "name": "item",
                 "sku": "item",
-                "price": ""+cart.price,
+                "price": ""+cart.price+"",
                 "currency": "INR",
                 "quantity": 1
             }]
         },
         "amount": {
             "currency": "INR",
-            "total": "200"
+            "total": ""+cart.price+"",
         },
         "description": "This is the payment description."
     }]

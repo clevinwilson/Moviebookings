@@ -138,6 +138,7 @@ router.post('/add-show', verifyLogin, (req, res) => {
 })
 router.get('/edit-show/:id', verifyLogin, (req, res) => {
     ownerHelper.getShowDetails(req.params.id).then(async (showDetails) => {
+        console.log(showDetails);
         let movieList = await ownerHelper.getMoviesTitle(req.session.owner._id)
         res.render('owner/edit-show', { showDetails, movieList })
     })
