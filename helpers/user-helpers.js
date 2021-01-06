@@ -588,8 +588,46 @@ module.exports = {
         })
     },
     getAllBookings:(userId)=>{
-        return new Promise((resolve,reject)=>{
-            
+        return new Promise(async(resolve,reject)=>{
+            let bookings =await db.get().collection(collection.BOOKING_COLLECTION).aggregate([
+                {
+                    $match: {user: objectId(userId) }
+                },
+                {
+                    $lookup: {
+                        from: collection.OWNER_COLLECTION,
+                        localField: 'theater',
+                        foreignField: '_id',
+                        as: 'theater'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.SCREEN_COLLECTION,
+                        localField: 'screen',
+                        foreignField: '_id',
+                        as: 'screen'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.SHOW_COLLECTION,
+                        localField: 'showId',
+                        foreignField: '_id',
+                        as: 'show'
+                    }
+                },
+                
+                {
+                    $project: {
+
+                        _id: 1, movietitle: 1, seats: 1, date: 1, screenId: 1,price:1, hours: 1, minutes: 1,show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                    }
+                }
+
+
+            ]).toArray()
+            resolve(bookings)
         })
     }
 

@@ -311,8 +311,11 @@ router.post('/location',(req,res)=>{
 })
 
 router.get('/my-bookings',(req,res)=>{
-  userHelpers.getAllBookings(req.session.user._id)
-  res.render('user/my-bookings')
+  userHelpers.getAllBookings(req.session.user._id).then((allbookings)=>{
+    console.log(allbookings);
+    res.render('user/my-bookings',{user:req.session.user,allbookings})
+  })
+  
 })
 
 
