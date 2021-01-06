@@ -586,6 +586,11 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    getAllBookings:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            
+        })
     }
 
 }

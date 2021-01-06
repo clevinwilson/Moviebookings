@@ -27,7 +27,8 @@
     "paypal-rest-sdk": "^1.8.1",
     "razorpay": "^2.0.6",
     "stripe": "^8.129.0",
-    "twilio": "^3.54.0"
+    "twilio": "^3.54.0",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "handlebars": "^4.7.6"

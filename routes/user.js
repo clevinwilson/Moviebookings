@@ -310,5 +310,10 @@ router.post('/location',(req,res)=>{
   res.json({status:true})
 })
 
+router.get('/my-bookings',(req,res)=>{
+  userHelpers.getAllBookings(req.session.user._id)
+  res.render('user/my-bookings')
+})
+
 
 module.exports = router;
