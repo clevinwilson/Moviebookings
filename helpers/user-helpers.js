@@ -636,6 +636,12 @@ module.exports = {
             let details =await db.get().collection(collection.BOOKING_COLLECTION).findOne({_id:objectId(orderId)})
             resolve(details)
         })
+    },
+    getAllMovies:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let movies=await db.get().collection(collection.MOVIE_COLLECTION).find().toArray()
+            resolve(movies)
+        })
     }
 
 }

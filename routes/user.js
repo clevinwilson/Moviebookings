@@ -332,5 +332,13 @@ router.post('/pending-order',(req,res)=>{
   })
 })
 
+//all movies
+router.get('/all-movies',(req,res)=>{
+  userHelpers.getAllMovies().then((response)=>{
+    res.render('user/all-movies',{response})
+  })
+ 
+})
+
 
 module.exports = router;
