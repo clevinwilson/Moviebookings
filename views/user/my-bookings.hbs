@@ -16,6 +16,7 @@ Author URL: http://w3layouts.com
     <!-- Template CSS -->
     <link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
         rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Template CSS -->
 </head>
 
@@ -49,10 +50,12 @@ Author URL: http://w3layouts.com
                             <p>{{this.date}}</p>
                             <div class="row contact-info">
 
-                                <a href="/details/{{this.show.movieId}}"> 
-                                <div>
-                                    <img id="optionalstuff" style="height: 269px;width: 181px;" src="/movie-images/{{this.show.movieId}}.jpg">
-                                </div></a>
+                                <a href="/details/{{this.show.movieId}}">
+                                    <div>
+                                        <img id="optionalstuff" style="height: 269px;width: 181px;"
+                                            src="/movie-images/{{this.show.movieId}}.jpg">
+                                    </div>
+                                </a>
                                 <div class="contact-details">
                                     <h4 style="color: #df0e62;">{{this.theater.theatername}}</h4>
                                     <h5 style="color: #619bb0b5;">Movie: {{this.show.movietitle}} </h5>
@@ -60,8 +63,17 @@ Author URL: http://w3layouts.com
                                     {{!-- <h5>Booked Date: {{this.date}} </h5> --}}
                                     <h3 style="float: right;">Price: {{this.price}}</h3>
 
-                                    <h4 class="mt-1">Show Date: {{this.show.date}}</h4>
-                                    <h4>Show Time: {{this.show.time}} {{this.show.timeperiod}}</h4>
+
+                                    <h4 class="mt-1">Date: {{this.show.date}}</h4>
+
+                                    <h4>Time: {{this.show.time}} {{this.show.timeperiod}}</h4>
+
+                                    {{#if this.status}}
+                                    <h4 style="float: right; color: green;">Paid</h4>
+                                    {{else}}
+                                    <h4 style="float: right; color: red;">Pending</h4>
+                                    {{/if}}
+
                                     <p>Screen: {{this.screen.screenname}} </p>
                                     <hr style="background-color: var(--theme-title);">
                                     <h4>Seat No</h4>
@@ -70,6 +82,11 @@ Author URL: http://w3layouts.com
                                     <h3 style="float: left;">{{this.seatName}},</h3>
 
                                     {{/each}}
+                                    {{#if this.status}}
+                                    {{else}}
+                                    <a style="float: right;     background-color: #2781f1;border-color: #2781f1;color: white;"
+                                        class="btn btn-primary" type="button" onclick="a('{{this._id}}')">Pay</a>
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>
@@ -96,9 +113,7 @@ Author URL: http://w3layouts.com
 </html>
 <script src="/user/js/jquery-3.3.1.min.js"></script>
 <!-- Template JavaScript -->
-<!--/theme-change-->
-<script src="/user/js/theme-change.js"></script>
-<!-- //theme-change-->
+
 <!-- disable body scroll which navbar is in active -->
 <script>
     $(function () {
@@ -135,5 +150,92 @@ Author URL: http://w3layouts.com
         });
     });
 </script>
+
+
+<script>
+    function a(orderId) {
+        $.ajax({
+            url: '/pending-order',
+            method: 'post',
+            data: { orderId: orderId },
+            success: (response) => {
+                if (response) {
+                    razorpayPayment(response)
+                } else {
+                    location.href = "/"
+                }
+
+            }
+        })
+    }
+
+
+
+    function razorpayPayment(order) {
+    var options = {
+      "key": "rzp_test_deE2E1795zFmxy", // Enter the Key ID generated from the Dashboard
+      "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Dream",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response) {
+
+
+        verifyPayment(response, order)
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#F37254"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
+
+  function verifyPayment(payment, order) {
+    $.ajax({
+      url: '/verify-payment',
+      data: {
+        payment,
+        order
+      },
+      method: 'post',
+      success: (response) => {
+        if (response.status) {
+          location.href = "/order-success"
+        } else {
+          alert('Payment Failed')
+        }
+      }
+    })
+  }
+
+
+
+  function b() {
+    $.ajax({
+      url: '/paypal',
+      method: 'post',
+
+      success: (response) => {
+        alert(response)
+        location.href = response
+      }
+    })
+  }
+
+
+
+
+</script>
+<script src="/user/js/jquery-1.9.1.min.js"></script>
 <!--//MENU-JS-->
-<script src="/user/js/bootstrap.min.js"></script>

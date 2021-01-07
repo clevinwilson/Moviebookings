@@ -622,13 +622,19 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1, movietitle: 1, seats: 1, date: 1, screenId: 1,price:1, hours: 1, minutes: 1,show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        _id: 1,status:1, movietitle: 1, seats: 1, date: 1, screenId: 1,price:1, hours: 1, minutes: 1,show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
                     }
                 }
 
 
             ]).sort({_id:-1}).toArray()
             resolve(bookings)
+        })
+    },
+    getBookingDetails:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let details =await db.get().collection(collection.BOOKING_COLLECTION).findOne({_id:objectId(orderId)})
+            resolve(details)
         })
     }
 

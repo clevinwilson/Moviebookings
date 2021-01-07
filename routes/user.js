@@ -310,12 +310,26 @@ router.post('/location',(req,res)=>{
   res.json({status:true})
 })
 
+//user bookings
 router.get('/my-bookings',(req,res)=>{
   userHelpers.getAllBookings(req.session.user._id).then((allbookings)=>{
-    console.log(allbookings);
     res.render('user/my-bookings',{user:req.session.user,allbookings})
   })
   
+})
+
+//payment for pending orders
+
+router.post('/pending-order',(req,res)=>{
+  userHelpers.getBookingDetails(req.body.orderId).then((response)=>{
+    if(response){
+      userHelpers.generateRazorpay(response._id,response.price).then((response)=>{
+        res.json(response)
+      })
+    }else{
+      res.json(false)
+    }
+  })
 })
 
 
