@@ -10,7 +10,7 @@ const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "1ca0bbf6dea07140e16d6d5d1900c42c"; // Your Auth Token from www.twilio.com/console
+var authToken = "58f66a5b8bce31f154b509897975f2b0"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -388,7 +388,13 @@ router.post('/edit-profile',verifyLogin,(req,res)=>{
 
 //about page
 router.get('/about',(req,res)=>{
-  res.render('user/about')
+  res.render('user/about',{user:req.session.user})
+})
+
+//settings page
+
+router.get('/settings',verifyLogin,(req,res)=>{
+  res.render('user/settings',{user:req.session.user})
 })
 
 
