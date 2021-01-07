@@ -649,6 +649,18 @@ module.exports = {
                 resolve(userdetails)
             })
         })
+    },
+    editProfile:(details,userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION)
+            .updateOne({_id:objectId(userId)},{
+                $set:{
+                    fullname:details.name
+                }
+            }).then((response)=>{
+                resolve(response)
+            })
+        })
     }
 
 }

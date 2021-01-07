@@ -9,7 +9,7 @@ Author URL: http://w3layouts.com
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Movie Booking | Profile</title>
+    <title> Movie Booking | Edit Profile</title>
     <!-- Template CSS -->
     <link rel="stylesheet" href="/user/css/style-starter.css">
     <!-- Template CSS -->
@@ -33,40 +33,37 @@ Author URL: http://w3layouts.com
     <!--//breadcrumbs -->
     <!-- Profile -->
     <section>
-       
+
         <div style="    margin-top: 60px;  margin-bottom: 60px;" class="container">
-            <div style="    padding: 22px" class="row">
+            <form action="/edit-profile" class="text-center" id="submit-form" method="post"
+                enctype="multipart/form-data">
+                <div style="    padding: 22px" class="row">
 
-                <div class=" col-md-6">
-                    <img style="    height: 300px;width: 300px;border-radius: 145px;" id="imgView"
-                        src="/user-photo/{{user._id}}.jpg">
 
-                    <a style="color: white; background-color: #12a2e4;" href="/edit-photo"
-                        class=" mt-3 btn btn-success"><i class="fas fa-camera-retro"></i></a>
-                </div>
-                <div class="mt-3 p-2 col-md-6">
-                    <div class="col-md-12">
-                        <label class="col-md-12">Name</label>
-                        <p class="ml-3" style="  color: var(--theme-title);">{{userdetails.fullname}}</p>
-                    </div>
-                    <hr style="background-color: var(--theme-title);">
-                    <div class="col-md-12">
-                        <label class="col-md-12">Phone Number</label>
-                        <p class="ml-3" style="color: var(--theme-title);">{{userdetails.phonenumber}}</p>
-                    </div>
-                    <hr style="background-color: var(--theme-title);">
-                    <div class="col-md-12">
-                        <label class="col-md-12">Email</label>
-                        <p class="ml-3" style="color: var(--theme-title);">{{userdetails.email}}</p>
-                    </div>
-                    <div style="float: right;" class="mt-5 buttons">
-                        <a style="background-color: black; border-color:black"
-                            class="m-2 text-white btn btn-success">Back</a>
-                        <a class="m-2 text-white btn btn-success" href="/edit-profile">Edit</a>
+                    <div class="mt-3 p-2 col-md-6">
+                        <div class="col-md-12">
+                            <label class="col-md-12">Name</label>
+                            <input type="text" name="name" value="{{userdetails.fullname}}">
+                        </div>
+                        <hr style="background-color: var(--theme-title);">
+                        <div class="col-md-12">
+                            <label class="col-md-12">Phone Number</label>
+                            <p class="ml-3" style="color: var(--theme-title);">{{userdetails.phonenumber}}</p>
+                        </div>
+                        <hr style="background-color: var(--theme-title);">
+                        <div class="col-md-12">
+                            <label class="col-md-12">Email</label>
+                            <p class="ml-3" style="color: var(--theme-title);">{{userdetails.email}}</p>
+                        </div>
+                        <div style="float: right;" class="mt-5 buttons">
+                            <a style="background-color: black; border-color:black"
+                                class="m-2 text-white btn btn-success" href="/pofile">Back</a>
+                           <button type="submit" id="submit" class="btn btn-success  mt-3">Submit</button>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
     <!-- /profile -->

@@ -370,5 +370,21 @@ router.post('/changePhoto',(req,res)=>{
 }
 })
 
+router.get('/edit-profile',async(req,res)=>{
+  let userdetails=await userHelpers.gerUserDetails(req.session.user._id)
+ 
+  res.render('user/edit-profile',{userdetails})
+})
+
+router.post('/edit-profile',(req,res)=>{
+  userHelpers.editProfile(req.body,req.session.user._id).then((response)=>{
+    if(response){
+      res.redirect('/profile')
+    }else{
+      res.redirect('/profle')
+    }
+  })
+})
+
 
 module.exports = router;
