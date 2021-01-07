@@ -386,5 +386,10 @@ router.post('/edit-profile',verifyLogin,(req,res)=>{
   })
 })
 
+//about page
+router.get('/about',(req,res)=>{
+  res.render('user/about')
+})
+
 
 module.exports = router;
