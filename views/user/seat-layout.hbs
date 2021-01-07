@@ -51,7 +51,7 @@
             <!-- seat availabilty list -->
             <!-- seat layout -->
             <div class="seatStructure txt-center" style="overflow-x:auto;">
-                <form action="/book-seats/{{showDeatils._id}}" method="POST">
+                <form action="/book-seats/{{showDeatils._id}}" id="formID" method="POST">
                 <table id="seatsBlock">
                     <p id="notification"></p>
                     <tr>
@@ -143,6 +143,8 @@
                                     checkboxs.setAttribute("id", letter + i);
                                     checkboxs.setAttribute("name", letter + i);
                                     document.getElementById(tdId).appendChild(checkboxs);
+                                    $("#"+ letter + i).click(function(){ showButton(); });
+
                                     
                                     {{!-- document.getElementById(letter + i).checked = true; --}}
                                     //set price to each categot
@@ -169,9 +171,13 @@
                     <h2 class="wthree">Screen this way</h2>
                 </div>
             </div>
-            <button type="submit" class="ml-auto  btn btn-success">continue</button>
-                </form>
            
+            <button type="submit" style="    height: 52px;position: fixed;bottom: 0px;right: 0px;z-index: 99;font-size: 15px;border: none;outline: none;
+            width: 100%;cursor: pointer;color: #fff;background-color: #0288D1;display: none;padding: 0;line-height: 42px;transition: 0.5s ease-out;" 
+            id="submitbtn"  class="block fa fa-arrow-up  btn btn-success">Pay</button>
+                </form>
+                
+        
             
             <!-- //seat layout -->
             <!-- details after booking displayed here -->
@@ -206,6 +212,24 @@
     <!-- js -->
     <script src="/seat/js/jquery-2.2.3.min.js"></script>
     <!-- //js -->
+
+    {{!-- show button when checkbox checked --}}
+    <script>
+        function showButton() {
+            if ($("#formID input:checkbox:checked").length > 0) {
+                // any one is checked
+                var x = document.getElementById("submitbtn");
+                x.style.display = "block";
+            }
+            else {
+                var x = document.getElementById("submitbtn");
+                x.style.display = "none";
+            }
+        }
+
+    </script>
+
+
     <!-- script for seat selection -->
     <script>
         
