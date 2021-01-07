@@ -131,6 +131,13 @@
                                                 class="form-control col-md-12 mt-2" name="Image"
                                                 onchange="viewImage(event)" required>
                                         </div>
+                                        <div class="form-group mt-3 col-md-10">
+                                            <label for="Trailer Link">Banner </label>
+                                            <img src="" id="bannerImg" height="200px" width="400px">
+                                            <input style="border-color:#b4e3eb;" type="file"
+                                                class="form-control col-md-12 mt-2" name="Image2"
+                                                onchange="banner(event)" required>
+                                        </div>
                                         <center>
                                             <a href="/owner/movie-management"
                                                 class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
@@ -187,6 +194,10 @@
 <script>
     function viewImage(event) {
         document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+
+    function banner(event) {
+        document.getElementById('bannerImg').src = URL.createObjectURL(event.target.files[0])
     }
 </script>
 <script>

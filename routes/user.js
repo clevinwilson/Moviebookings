@@ -214,13 +214,13 @@ router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
 })
 
 //payment 
-router.get('/payment',async(req,res)=>{
+router.get('/payment',verifyLogin,async(req,res)=>{
   let cart= await userHelpers.getCart(req.session.user._id)
   res.render('user/payment',{cart,user: req.session.user})
 })
 
 //razorpay
-router.post('/place-order',async(req,res)=>{
+router.post('/place-order',verifyLogin,async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
   userHelpers.placeOrder(req.session.user._id,cart).then((bookingId)=>{
     if(bookingId){
@@ -234,7 +234,7 @@ router.post('/place-order',async(req,res)=>{
 })
 
 //verifypayment
-router.post('/verify-payment',async(req,res)=>{
+router.post('/verify-payment',verifyLogin,async(req,res)=>{
   let bookings=await userHelpers.getbookings(req.body['order[receipt]'])
   let insert = await userHelpers.insertBookedSeats(bookings.seats,bookings.showId)
   userHelpers.verifyPayment(req.body).then(()=>{
@@ -249,7 +249,7 @@ router.post('/verify-payment',async(req,res)=>{
 
 
 //paypal 
-router.post('/paypal',async(req,res)=>{
+router.post('/paypal',verifyLogin,async(req,res)=>{
   let cart = await userHelpers.getCart(req.session.user._id)
   const create_payment_json = {
     "intent": "sale",
@@ -296,7 +296,7 @@ paypal.payment.create(create_payment_json, function (error, payment) {
  
 })
 
-router.get('/order-success',(req,res)=>{
+router.get('/order-success',verifyLogin,(req,res)=>{
   res.render('user/order-success')
 })
 
@@ -311,7 +311,7 @@ router.post('/location',(req,res)=>{
 })
 
 //user bookings
-router.get('/my-bookings',(req,res)=>{
+router.get('/my-bookings',verifyLogin,(req,res)=>{
   userHelpers.getAllBookings(req.session.user._id).then((allbookings)=>{
     res.render('user/my-bookings',{user:req.session.user,allbookings})
   })
@@ -320,7 +320,7 @@ router.get('/my-bookings',(req,res)=>{
 
 //payment for pending orders
 
-router.post('/pending-order',(req,res)=>{
+router.post('/pending-order',verifyLogin,(req,res)=>{
   userHelpers.getBookingDetails(req.body.orderId).then((response)=>{
     if(response){
       userHelpers.generateRazorpay(response._id,response.price).then((response)=>{
@@ -342,18 +342,18 @@ router.get('/all-movies',(req,res)=>{
 
 //user Profile
 
-router.get('/profile',(req,res)=>{
+router.get('/profile',verifyLogin,(req,res)=>{
   userHelpers.gerUserDetails(req.session.user._id).then((userdetails)=>{
     res.render('user/profile',{user:req.session.user,userdetails})
   })
  
 })
 
-router.get('/edit-photo',(req,res)=>{
+router.get('/edit-photo',verifyLogin,(req,res)=>{
   res.render('user/update-photo',{user:req.session.user})
 })
 
-router.post('/changePhoto',(req,res)=>{
+router.post('/changePhoto',verifyLogin,(req,res)=>{
   id=req.session.user._id
   if (req.files.Image) {
     let image = req.files.Image
@@ -370,13 +370,13 @@ router.post('/changePhoto',(req,res)=>{
 }
 })
 
-router.get('/edit-profile',async(req,res)=>{
+router.get('/edit-profile',verifyLogin,async(req,res)=>{
   let userdetails=await userHelpers.gerUserDetails(req.session.user._id)
  
-  res.render('user/edit-profile',{userdetails})
+  res.render('user/edit-profile',{userdetails,user:req.session.user})
 })
 
-router.post('/edit-profile',(req,res)=>{
+router.post('/edit-profile',verifyLogin,(req,res)=>{
   userHelpers.editProfile(req.body,req.session.user._id).then((response)=>{
     if(response){
       res.redirect('/profile')
