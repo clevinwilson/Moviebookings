@@ -349,5 +349,26 @@ router.get('/profile',(req,res)=>{
  
 })
 
+router.get('/edit-photo',(req,res)=>{
+  res.render('user/update-photo',{user:req.session.user})
+})
+
+router.post('/changePhoto',(req,res)=>{
+  id=req.session.user._id
+  if (req.files.Image) {
+    let image = req.files.Image
+    image.mv('./public/user-photo/' + id + '.jpg', (err) => {
+        if (!err) {
+            req.session.userImagesucc = "Photo Updated successfully"
+            res.redirect('/profile')
+        } else {
+            req.session.userImgerror = "Something went wrong try again"
+            res.redirect('/profile')
+        }
+    })
+
+}
+})
+
 
 module.exports = router;
