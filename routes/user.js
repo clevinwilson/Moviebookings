@@ -335,7 +335,16 @@ router.post('/pending-order',(req,res)=>{
 //all movies
 router.get('/all-movies',(req,res)=>{
   userHelpers.getAllMovies().then((response)=>{
-    res.render('user/all-movies',{response})
+    res.render('user/all-movies',{response,user:req.session.user})
+  })
+ 
+})
+
+//user Profile
+
+router.get('/profile',(req,res)=>{
+  userHelpers.gerUserDetails(req.session.user._id).then((userdetails)=>{
+    res.render('user/profile',{user:req.session.user,userdetails})
   })
  
 })

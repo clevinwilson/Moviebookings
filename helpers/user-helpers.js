@@ -642,6 +642,13 @@ module.exports = {
             let movies=await db.get().collection(collection.MOVIE_COLLECTION).find().toArray()
             resolve(movies)
         })
+    },
+    gerUserDetails:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION).findOne({_id:userId}).then((userdetails)=>{
+                resolve(userdetails)
+            })
+        })
     }
 
 }

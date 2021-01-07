@@ -1,0 +1,117 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Movie Booking | Profile</title>
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/user/css/style-starter.css">
+    <!-- Template CSS -->
+    <link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+    <!-- Template CSS -->
+</head>
+
+<body>
+    <!-- header -->
+    {{>user-header}}
+    <!-- //header -->
+    <!--/breadcrumbs -->
+    <div class="w3l-breadcrumbs">
+        <nav id="breadcrumbs" class="breadcrumbs">
+            <div class="container page-wrapper">
+                <a href="index.html">Home</a> » <span class="breadcrumb_last" aria-current="page">Profile</span>
+            </div>
+        </nav>
+    </div>
+    <!--//breadcrumbs -->
+    <!-- Profile -->
+    <section>
+        <div style="    margin-top: 60px;  margin-bottom: 60px;" class="container">
+            <div style="    padding: 22px" class="row">
+
+                <div class=" col-md-6">
+                    <img style="    height: 300px;width: 300px;border-radius: 145px;" src="/images/adminbanner.jpg">
+
+                     <a style="color: white; background-color: #12a2e4;" class=" mt-3 btn btn-success"><i class="fas fa-camera-retro"></i></a>
+                </div>
+                <div class="mt-3 p-2 col-md-6">
+                    <div class="col-md-12">
+                        <label class="col-md-12">Name</label>
+                        <p class="ml-3" style="  color: var(--theme-title);">{{userdetails.fullname}}</p>
+                    </div>
+                     <hr style="background-color: var(--theme-title);">
+                    <div class="col-md-12">
+                        <label class="col-md-12">Phone Number</label>
+                        <p class="ml-3" style="color: var(--theme-title);">{{userdetails.phonenumber}}</p>
+                    </div>
+                     <hr style="background-color: var(--theme-title);">
+                    <div class="col-md-12">
+                        <label class="col-md-12">Email</label>
+                        <p class="ml-3" style="color: var(--theme-title);">{{userdetails.email}}</p>
+                    </div>
+                    <div style="float: right;" class="mt-5 buttons">
+                        <a style="background-color: black; border-color:black" class="m-2 text-white btn btn-success">Back</a>
+                        <a class="m-2 text-white btn btn-success">Edit</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /profile -->
+    <!-- footer-66 -->
+    {{>user-footer}}
+    <!--//footer-66 -->
+</body>
+
+</html>
+<script src="/user/js/jquery-3.3.1.min.js"></script>
+<!-- Template JavaScript -->
+<!--/theme-change-->
+<script src="/user/js/theme-change.js"></script>
+<!-- //theme-change-->
+<!-- disable body scroll which navbar is in active -->
+<script>
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
+</script>
+<!-- disable body scroll which navbar is in active -->
+<!--/MENU-JS-->
+<script>
+    $(window).on("scroll", function () {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 80) {
+            $("#site-header").addClass("nav-fixed");
+        } else {
+            $("#site-header").removeClass("nav-fixed");
+        }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function () {
+        $("header").toggleClass("active");
+    });
+    $(document).on("ready", function () {
+        if ($(window).width() > 991) {
+            $("header").removeClass("active");
+        }
+        $(window).on("resize", function () {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+        });
+    });
+</script>
+<!--//MENU-JS-->
+<script src="/user/js/bootstrap.min.js"></script>
