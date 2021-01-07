@@ -46,12 +46,13 @@ Author URL: http://w3layouts.com
 
                         {{#each allbookings}}
                         <div class="form-input mt-4">
+                            <p>{{this.date}}</p>
                             <div class="row contact-info">
 
+                                <a href="/details/{{this.show.movieId}}"> 
                                 <div>
-
-                                    <img id="optionalstuff" src="/movie-images/{{this.show.movieId}}.jpg">
-                                </div>
+                                    <img id="optionalstuff" style="height: 269px;width: 181px;" src="/movie-images/{{this.show.movieId}}.jpg">
+                                </div></a>
                                 <div class="contact-details">
                                     <h4 style="color: #df0e62;">{{this.theater.theatername}}</h4>
                                     <h5 style="color: #619bb0b5;">Movie: {{this.show.movietitle}} </h5>

@@ -280,7 +280,10 @@ router.get('/delete-UpComingMovies/:id',(req,res)=>{
 //Owner Users acrivity
 
 router.get('/users-activity', (req, res) => {
-    res.render('owner/users-activity')
+    ownerHelper.getUserDetails(req.session.owner._id).then((details)=>{
+        res.render('owner/users-activity',{details,owner:req.session.owner})
+    })
+    
 })
 
 //owenr settings page

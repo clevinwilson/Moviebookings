@@ -10,7 +10,7 @@ const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "d8e7713737698c562939439ae1a1c110"; // Your Auth Token from www.twilio.com/console
+var authToken = "1ca0bbf6dea07140e16d6d5d1900c42c"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 

@@ -743,5 +743,62 @@ module.exports = {
                 resolve({status:false})
             }
         })
+    },
+    getUserDetails(theaterId){
+        return new Promise(async(resolve,reject)=>{
+            var date = new Date();
+            var today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            let userDetails=await db.get().collection(collection.BOOKING_COLLECTION).aggregate([
+                
+                {
+                    $match: {theater: objectId(theaterId) }
+                },
+                {
+                    $lookup: {
+                        from: collection.USER_COLLECTION,
+                        localField: 'user',
+                        foreignField: '_id',
+                        as: 'user'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.SCREEN_COLLECTION,
+                        localField: 'screen',
+                        foreignField: '_id',
+                        as: 'screen'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.OWNER_COLLECTION,
+                        localField: 'theater',
+                        foreignField: '_id',
+                        as: 'theater'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.SHOW_COLLECTION,
+                        localField: 'showId',
+                        foreignField: '_id',
+                        as: 'show'
+                    }
+                },
+                
+                {
+                    $project: {
+
+                        _id: 1,seats:1,date:1,status:1,price:1,show: { $arrayElemAt: ['$show', 0]},user: { $arrayElemAt: ['$user', 0]},screen: { $arrayElemAt: ['$screen', 0] },theater: { $arrayElemAt: ['$theater', 0]}
+                    }
+                }
+
+
+            ]).sort({_id:-1}).toArray()
+            console.log(userDetails);
+            resolve(userDetails)
+        })
     }
 }
+
+
