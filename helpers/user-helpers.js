@@ -792,6 +792,22 @@ module.exports = {
             
             resolve(movies[0].movies)
         })
+    },
+    removeMovie:(movieId,userId)=>{
+        
+        return new Promise(async(resolve,reject)=>{
+         
+                db.get().collection(collection.FAVORITE_COLLECTION)
+                .updateOne({user:objectId(userId)},{
+                    $pull:{
+                        movie: objectId(movieId)
+                        
+                    }
+                }).then((response)=>{
+                    resolve({status:true})
+                })
+            
+        })
     }
     
 

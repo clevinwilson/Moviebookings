@@ -462,4 +462,10 @@ router.get('/favoritemovies',(req,res)=>{
   })
 })
 
+router.post('/removeMovie',(req,res)=>{
+  userHelpers.removeMovie(req.body.movieId,req.session.user._id).then((response)=>{
+    res.json(response)
+  })
+})
+
 module.exports = router;

@@ -69,7 +69,9 @@ Author URL: http://w3layouts.com
 													</span>
 
 													<span class="post fa fa-heart text-right"></span>
+                                                    
 												</h4>
+                                                <a style="float: right; color: white; background-color: red; border-color: red; " onclick="removeMovie('{{this._id}}')" class="mt-5 btn btn-success">Remove</a>
 											</div>
 										</div>
 
@@ -133,6 +135,24 @@ Author URL: http://w3layouts.com
 			}
 		});
 	});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function removeMovie(movieId) {
+        alert(movieId)
+        $.ajax({
+            url: '/removeMovie',
+            method: 'post',
+            data: { movieId: movieId },
+            success: (response) => {
+                if (response.status) {
+                    location.reload()
+                } else {
+                    alert("Error")
+                }
+            }
+        })
+    }
 </script>
 <!--//MENU-JS-->
 <script src="/user/js/bootstrap.min.js"></script>
