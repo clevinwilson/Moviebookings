@@ -698,6 +698,28 @@ module.exports = {
                 resolve({ status: false, "message": "User not exist" })
             }
         })
+    },
+    googleAu: (details) => {
+        return new Promise(async (resolve, reject) => {
+            let user =await db.get().collection(collection.USER_COLLECTION).findOne({ gid: details.id })
+            if (user) {
+                resolve(user)
+            } else {
+                console.log(details.emails[0].value);
+                userdetails = {}
+                userdetails.gid = details.id
+                userdetails.fullname = details.displayName
+                userdetails.email = details.emails[0].value
+                userdetails.phonenumber = ""
+                userdetails.longitude = ""
+                userdetails.latitude = ""
+                userdetails.signupwithphone = false
+                userdetails.signupwithgoogle = true
+                db.get().collection(collection.USER_COLLECTION).insertOne(userdetails).then((response) => [
+                    resolve(response.ops[0])
+                ])
+            }
+        })
     }
 
 }

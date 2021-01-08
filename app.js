@@ -12,6 +12,7 @@ var usersRouter = require('./routes/user');
 var OwnerRouter = require('./routes/owner')
 var fileUpload=require('express-fileupload')
 var MongoDBStore = require('connect-mongodb-session')(session);
+const passport=require('passport')
 
 var app = express();
 
@@ -31,6 +32,10 @@ db.connect((err)=>{
   if(err) console.log("Connection Error"+err);
   else console.log("Database connected to port 27017");
 })
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
 app.use('/owner',OwnerRouter);

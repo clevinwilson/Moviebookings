@@ -8,6 +8,8 @@ var objectId = require('mongodb').ObjectID
 var paypal = require('paypal-rest-sdk');
 const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
+const passport=require('passport')
+require('./passport-setup')
 var serviceid = "VA3543a1df020f68982834326968197063";
 var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
 var authToken = "58f66a5b8bce31f154b509897975f2b0"; // Your Auth Token from www.twilio.com/console
@@ -421,5 +423,29 @@ router.post('/change-password',(req,res)=>{
   }
   })
 })
+
+//login with google
+router.get('/google',
+
+  passport.authenticate('google', { scope: ['profile','email'] })
+  );
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log(req.user)
+    userHelpers.googleAu(req.user).then((response)=>{
+      if(response){
+        req.session.user = response
+        req.session.loggedIn = true
+        res.redirect('/');
+      }else{
+        res.redirect('/login')
+      }
+    })
+    // Successful authentication, redirect home.
+    
+  });
+
 
 module.exports = router;
