@@ -188,7 +188,7 @@ router.get('/time/:movietitle', (req, res) => {
 
       res.render('user/pick-time', { data:true,timeList, movietitle: req.params.movietitle, user: req.session.user })
     }else{
-      res.render('user/pick-time',{data:false})
+      res.render('user/pick-time',{data:false, user: req.session.user })
     }
   })
 })
@@ -301,7 +301,7 @@ paypal.payment.create(create_payment_json, function (error, payment) {
 })
 
 router.get('/order-success',verifyLogin,(req,res)=>{
-  res.render('user/order-success')
+  res.render('user/order-success',{user:req.session.user._id})
 })
 
 
