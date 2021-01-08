@@ -401,6 +401,7 @@ router.get('/about',(req,res)=>{
 //settings page
 
 router.get('/settings',verifyLogin,(req,res)=>{
+  console.log(req.session.user);
   res.render('user/settings',{user:req.session.user,"longitude":req.session.longitude,"latitude":req.session.latitude})
 })
 

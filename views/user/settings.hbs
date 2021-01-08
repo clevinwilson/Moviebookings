@@ -52,6 +52,7 @@ Author URL: http://w3layouts.com
 
 			  <div class="d-grid contact-addres-inf mt-5 pt-lg-4">
 				<div class="contact-info-left d-grid">
+					{{#if user.signupwithphone}}
 					<a href="/change-password" ><div class="contact-info">
 						<div class="icon">
 							<span style="color: #129ce8;" class="fa fa-key" aria-hidden="true"></span>
@@ -61,6 +62,7 @@ Author URL: http://w3layouts.com
 							<p>Change your account  Password</p>
 						</div>
 					</div></a>
+					{{/if}}
 					<a onclick="mapPopup()"><div class="contact-info">
 						<div class="icon">
 							<span style="color: #129ce8;" class="fa fa-map-marker" aria-hidden="true"></span>
