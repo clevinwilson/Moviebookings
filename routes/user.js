@@ -448,5 +448,11 @@ router.get('/google/callback',
     
   });
 
+router.post('/addtofavorite',(req,res)=>{
+  console.log(req.body);
+  userHelpers.addtofavorite(req.body.movieId,req.session.user._id).then((response)=>{
+    res.json(response)
+  })
+})
 
 module.exports = router;

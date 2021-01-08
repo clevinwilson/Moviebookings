@@ -8,5 +8,7 @@ module.exports={
     USER_COLLECTION:'user',
     SEAT_COLLECTION:"seat",
     CHECKOUT_COLLECTION:"checkout",
-    BOOKING_COLLECTION:"booking"
+    BOOKING_COLLECTION:"booking",
+    FAVORITE_COLLECTION:"favorite"
+    
 }

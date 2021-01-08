@@ -720,6 +720,44 @@ module.exports = {
                 ])
             }
         })
+    },
+    addtofavorite: (movieId, userId) => {
+        console.log(movieId , userId);
+        return new Promise(async (resolve, reject) => {
+            let user = await db.get().collection(collection.FAVORITE_COLLECTION).findOne({ user: userId })
+            if (user) {
+                let movie = await db.get().collection(collection.FAVORITE_COLLECTION).findOne({ movie: objectId(movieId) })
+                if (movie) {
+                    resolve({ status: false,message:"Movie already in favorite" })
+                } else {
+
+
+                    db.get().collection(collection.FAVORITE_COLLECTION)
+                        .updateOne({ user: objectId(userId) }, {
+                           
+                                $push: { movie: objectId(movieId) }
+                            
+                        }).then((response)=>{
+                            if(response){
+                                resolve({status:true,message:"Added to favorite"})
+                            }
+                        })
+                }
+            } else {
+                let favorite = {
+                    user: objectId(userId),
+                    movie: [objectId(movieId)]
+                }
+                db.get().collection(collection.FAVORITE_COLLECTION).insertOne(favorite).then((response)=>{
+                    if(response){
+                        resolve({status:true,message:"Added to favorite"})
+                    }else{
+                        resolve({status:false,message:"Error"})
+                    }
+                })
+
+            }
+        })
     }
 
 }

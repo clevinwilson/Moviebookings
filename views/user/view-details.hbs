@@ -67,18 +67,18 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class=" text-white nav-link" href="/">Home</a>
+							<a class="mt-4 text-white nav-link" href="/">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="text-white nav-link" href="about.html">About</a>
+							<a class="mt-4 text-white nav-link" href="/about">About</a>
 						</li>
-				       <li class="nav-item">
+				       {{!-- <li class="nav-item">
 								<a class="text-white nav-link" href="genre.html">Genre</a>
 							</li>
 
 						<li class="nav-item">
 							<a class="text-white nav-link" href="contact.html">Contact</a>
-						</li>
+						</li> --}}
                        {{#if user}}
 					<li>
 						<div class="dropdown">
@@ -191,7 +191,7 @@
 				<div class="movie-single-ct main-content">
 					<h1 class="bd-hd">{{movieDetails.movietitle}} <span style="color: #bdbfc2;">{{movieDetails.releasedate}}</span></h1>
 					<div class="social-btn">
-						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						<a onclick="addtofavorite('{{movieDetails._id}}')" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
 						<div class="hover-bnt">
 							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
 							<div class="hvr-item">
@@ -855,6 +855,23 @@
 <script src="/details/js/plugins.js"></script>
 <script src="/details/js/plugins2.js"></script>
 <script src="/details/js/custom.js"></script>
+
+<script>
+	function addtofavorite(movieId) {
+        $.ajax({
+            url: '/addtofavorite',
+            method: 'post',
+			data:{movieId:movieId},
+            success: (response) => {
+                if (response.status) {
+                   alert(response.message)
+                } else {
+                     alert(response.message)
+                }
+            }
+        })
+    }
+</script>
 </body>
 
 <!-- moviesingle11:03-->
