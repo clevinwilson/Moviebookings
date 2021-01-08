@@ -1,0 +1,138 @@
+
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="zxx">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title> Movie Booking| Favorite Movies </title>
+	<!-- Template CSS -->
+	<link rel="stylesheet" href="/user/css/style-starter.css">
+	<!-- Template CSS -->
+	<link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
+		rel="stylesheet">
+	<!-- Template CSS -->
+</head>
+
+<body>
+		<!-- header -->
+		{{>user-header}}
+		<!-- //header -->
+		<!--/breadcrumbs -->
+	<div class="w3l-breadcrumbs">
+		<nav id="breadcrumbs" class="breadcrumbs">
+			<div class="container page-wrapper">
+			<a href="/">Home</a> » <span class="breadcrumb_last" aria-current="page">Favorite</span>
+			</div>
+		</nav>
+	</div>
+ <!--//breadcrumbs -->
+	  <!-- contact1 -->
+	  <section class="w3l-albums py-5" id="projects">
+		<div class="container py-lg-4">
+			<div class="row">
+				<div class="col-lg-12 mx-auto">
+					<!--Horizontal Tab-->
+					<div id="parentHorizontalTab">
+						
+						<div class="resp-tabs-container hor_1">
+							<div class="albums-content">
+								<div class="row">
+									<!--/set1-->
+									
+									
+									
+									{{#each movies}}
+									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
+										<div class="slider-info">
+											<div class="img-circle">
+												<a href="/details/{{this._id}}"><img src="/movie-images/{{this._id}}.jpg" class="img-fluid"
+														alt="author image">
+													<div class="overlay-icon">
+
+														
+													</div>
+												</a>
+											</div>
+											<div class="message">
+												<p>{{this.language}}</p>
+												<a class="author-book-title" href="/details/{{this._id}}">{{this.movietitle}}</a>
+												<h4> <span class="post"><span class="fa fa-clock-o"> </span>
+                                                {{this.hour}} Hr {{this.minute}} min
+
+													</span>
+
+													<span class="post fa fa-heart text-right"></span>
+												</h4>
+											</div>
+										</div>
+
+									</div>
+                                    {{/each}}
+									<!--//set1-->
+								</div>
+							</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	  <!-- /contact1 -->
+	<!-- footer-66 -->
+	{{>user-footer}}
+	<!--//footer-66 -->
+</body>
+
+</html>
+<script src="/user/js/jquery-3.3.1.min.js"></script>
+<!-- Template JavaScript -->
+<!--/theme-change-->
+<script src="/user/js/theme-change.js"></script>
+<!-- //theme-change-->
+<!-- disable body scroll which navbar is in active -->
+<script>
+	$(function () {
+		$('.navbar-toggler').click(function () {
+			$('body').toggleClass('noscroll');
+		})
+	});
+</script>
+<!-- disable body scroll which navbar is in active -->
+<!--/MENU-JS-->
+<script>
+	$(window).on("scroll", function () {
+		var scroll = $(window).scrollTop();
+
+		if (scroll >= 80) {
+			$("#site-header").addClass("nav-fixed");
+		} else {
+			$("#site-header").removeClass("nav-fixed");
+		}
+	});
+
+	//Main navigation Active Class Add Remove
+	$(".navbar-toggler").on("click", function () {
+		$("header").toggleClass("active");
+	});
+	$(document).on("ready", function () {
+		if ($(window).width() > 991) {
+			$("header").removeClass("active");
+		}
+		$(window).on("resize", function () {
+			if ($(window).width() > 991) {
+				$("header").removeClass("active");
+			}
+		});
+	});
+</script>
+<!--//MENU-JS-->
+<script src="/user/js/bootstrap.min.js"></script>

@@ -758,6 +758,41 @@ module.exports = {
 
             }
         })
+    },
+    getFavoriteMovies: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            let movies = await db.get().collection(collection.FAVORITE_COLLECTION).aggregate([
+                {
+                    $match: { user: objectId(userId) }
+                },
+                {
+                    $unwind: '$movie'
+                },
+                {
+                    $lookup: {
+                        from: collection.MOVIE_COLLECTION,
+                        localField: 'movie',
+                        foreignField: '_id',
+                        as: 'movies'   //can be any name           
+                    }
+                },
+                {
+                    $unwind: '$movies'
+                },
+                {
+                    $group: {
+                        _id: null,
+                        movie: { "$push": "$movie" },
+                        movies: { "$push": "$movies" }
+                    }
+                }
+
+
+            ]).toArray()
+            
+            resolve(movies[0].movies)
+        })
     }
+    
 
 }

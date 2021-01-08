@@ -448,10 +448,17 @@ router.get('/google/callback',
     
   });
 
+  //add to favorite
 router.post('/addtofavorite',(req,res)=>{
   console.log(req.body);
   userHelpers.addtofavorite(req.body.movieId,req.session.user._id).then((response)=>{
     res.json(response)
+  })
+})
+
+router.get('/favoritemovies',(req,res)=>{
+  userHelpers.getFavoriteMovies(req.session.user._id).then((movies)=>{
+    res.render('user/favorite',{movies,user:req.session.user})
   })
 })
 
