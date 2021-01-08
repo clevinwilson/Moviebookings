@@ -197,36 +197,44 @@ module.exports = {
     },
     getTime: (movieName) => {
         return new Promise(async (resolve, reject) => {
-            let timeList = await db.get().collection(collection.SHOW_COLLECTION).aggregate([
-                {
-                    $match: { movietitle: movieName }
-                },
-                {
-                    $lookup: {
-                        from: collection.OWNER_COLLECTION,
-                        localField: 'owner',
-                        foreignField: '_id',
-                        as: 'theater'
-                    }
-                },
-                {
-                    $lookup: {
-                        from: collection.SCREEN_COLLECTION,
-                        localField: 'screenId',
-                        foreignField: '_id',
-                        as: 'screen'
-                    }
-                },
-                {
-                    $project: {
+            let movie = await db.get().collection(collection.SHOW_COLLECTION).findOne({ movietitle: movieName })
+            if (movie) {
+                let timeList = await db.get().collection(collection.SHOW_COLLECTION).aggregate([
+                    {
+                        $match: { movietitle: movieName }
+                    },
+                    {
+                        $lookup: {
+                            from: collection.OWNER_COLLECTION,
+                            localField: 'owner',
+                            foreignField: '_id',
+                            as: 'theater'
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: collection.SCREEN_COLLECTION,
+                            localField: 'screenId',
+                            foreignField: '_id',
+                            as: 'screen'
+                        }
+                    },
+                    {
+                        $project: {
 
-                        _id: 1, movietitle: 1, date: 1,timeperiod:1, screenId: 1, time: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                            _id: 1,status:1, movietitle: 1, date: 1, timeperiod: 1, screenId: 1, time: 1, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        }
                     }
-                }
 
 
-            ]).toArray()
-            resolve(timeList)
+                ]).toArray()
+
+                resolve(timeList)
+                console.log(timeList);
+            } else {
+                resolve(false)
+            }
+
         })
     },
     placeOrder: (userId, details) => {

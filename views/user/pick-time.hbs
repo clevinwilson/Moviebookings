@@ -40,12 +40,9 @@ Author URL: http://w3layouts.com
     <!--//breadcrumbs -->
     <h3 class="text-center mt-4">{{movietitle}}</h3>
     {{!-- Time --}}
+    {{#if data}}
     <section style="    padding: 29px;" class="w3l-contact-1">
         <div class="contacts-9 py-5">
-
-
-
-
             <div class="d-grid contact-addres-inf mt-5 pt-lg-4">
                 <div class="m-3 contact-info-left d-grid">
                     {{#each timeList}}
@@ -60,10 +57,17 @@ Author URL: http://w3layouts.com
                         <br>
 
                         <div class="row p-2">
+                            {{#if this.status}}
                             <div class="boxs col-md-12 col-lg-6">
                                 <a href="/seat-layout/{{this.screenId}},{{this._id}}"
                                     class=" colorss text-success m-1 btn btn-success text-ligt">{{this.time}} {{this.timeperiod}}</a>
                             </div>
+                            {{else}}
+                            <div class="boxs col-md-12 col-lg-6">
+                                <a 
+                                    class=" colorss text-success m-1 btn btn-success text-ligt">Comming Soon</a>
+                            </div>
+                            {{/if}}
 
 
                             {{!-- <div class="boxs col-md-12 col-lg-6">
@@ -135,6 +139,11 @@ Author URL: http://w3layouts.com
         </div>
         </div>
     </section>
+    {{else}}
+    
+    <center><h1 class="m-5">No records</h1></center>
+    {{/if}}
+
     <!-- /contact1 -->
     <!-- footer-66 -->
     {{>user-footer}}

@@ -179,13 +179,17 @@ router.get('/video-play', (req, res) => {
 
 //pick time
 router.get('/time/:movietitle', (req, res) => {
-  console.log(req.params.movietitle);
-  userHelpers.getTime(req.params.movietitle).then((timeList)=>{
-    
-    timeList[0].longitude=req.session.longitude
-    timeList[0].latitude=req.session.latitude
-   
-    res.render('user/pick-time',{timeList,movietitle:req.params.movietitle,user: req.session.user})
+  userHelpers.getTime(req.params.movietitle).then((timeList) => {
+
+    if (timeList) {
+      console.log(timeList);
+      timeList[0].longitude = req.session.longitude
+      timeList[0].latitude = req.session.latitude
+
+      res.render('user/pick-time', { data:true,timeList, movietitle: req.params.movietitle, user: req.session.user })
+    }else{
+      res.render('user/pick-time',{data:false})
+    }
   })
 })
 
