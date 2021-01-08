@@ -47,40 +47,43 @@ Author URL: http://w3layouts.com
 									<!--/set1-->
 									
 									
-									
-									{{#each movies}}
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="/details/{{this._id}}"><img src="/movie-images/{{this._id}}.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>{{this.language}}</p>
-												<a class="author-book-title" href="/details/{{this._id}}">{{this.movietitle}}</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span>
-                                                {{this.hour}} Hr {{this.minute}} min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-                                                    
-												</h4>
-                                                <a style="float: right; color: white; background-color: red; border-color: red; " onclick="removeMovie('{{this._id}}')" class="mt-5 btn btn-success">Remove</a>
-											</div>
-										</div>
-
-									</div>
+                                    {{#each movies.movies}}
+                                    <div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
+                                        <div class="slider-info">
+                                            <div class="img-circle">
+                                                <a href="/details/{{this._id}}"><img src="/movie-images/{{this._id}}.jpg" class="img-fluid"
+                                                        alt="author image">
+                                                    <div class="overlay-icon">
+                                    
+                                    
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="message">
+                                                <p>{{this.language}}</p>
+                                                <a class="author-book-title" href="/details/{{this._id}}">{{this.movietitle}}</a>
+                                                <h4> <span class="post"><span class="fa fa-clock-o"> </span>
+                                                        {{this.hour}} Hr {{this.minute}} min
+                                    
+                                                    </span>
+                                    
+                                                    <span class="post fa fa-heart text-right"></span>
+                                    
+                                                </h4>
+                                                <a style="float: right; color: white; background-color: red; border-color: red; "
+                                                    onclick="removeMovie('{{this._id}}')" class="mt-5 btn btn-success">Remove</a>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    {{else}}
+                                    <div class="boxs col-md-12 col-lg-6">
+                                        <a class=" colorss text-success m-1 btn btn-success text-ligt">No record found</a>
+                                    </div>
                                     {{/each}}
-									<!--//set1-->
-								</div>
-							</div>
-							
+                                    <!--//set1-->
+                                    </div>
+                                    </div>
 							
 						</div>
 					</div>

@@ -789,8 +789,8 @@ module.exports = {
 
 
             ]).toArray()
-            
-            resolve(movies[0].movies)
+           
+            resolve(movies[0])
         })
     },
     removeMovie:(movieId,userId)=>{
