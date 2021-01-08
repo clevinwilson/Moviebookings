@@ -46,7 +46,7 @@ Author URL: http://w3layouts.com
 
 			  <div class="d-grid contact-addres-inf mt-5 pt-lg-4">
 				<div class="contact-info-left d-grid">
-					<div class="contact-info">
+					<a href="/change-password" ><div class="contact-info">
 						<div class="icon">
 							<span style="color: #129ce8;" class="fa fa-key" aria-hidden="true"></span>
 						</div>
@@ -54,7 +54,7 @@ Author URL: http://w3layouts.com
 							<h4>Password</h4>
 							<p>Change Password</p>
 						</div>
-					</div>
+					</div></a>
 					<div class="contact-info">
 						<div class="icon">
 							<span style="color: #129ce8;" class="fa fa-map-marker" aria-hidden="true"></span>
@@ -127,6 +127,18 @@ Author URL: http://w3layouts.com
 			}
 		});
 	});
+</script>
+<script>
+	longitude=75.46718098971121
+	latitude=12.187250631184511
+	 var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+""+longitude+","+""+latitude+'.json?access_token=pk.eyJ1Ijoic2VhcmNoLW1hY2hpbmUtdXNlci0xIiwiYSI6ImNrN2Y1Nmp4YjB3aG4zZ253YnJoY21kbzkifQ.JM5ZeqwEEm-Tonrk5wOOMw&cachebuster=1609914886346&autocomplete=true&types=locality'
+                            var req = new XMLHttpRequest();
+                            req.responseType = 'json';
+                            req.open('GET', url, true);
+                            req.onload = function () {
+                                console.log(req.response.features[0].place_name,'dfs') 
+                            };
+                            req.send();
 </script>
 <!--//MENU-JS-->
 <script src="/user/js/bootstrap.min.js"></script>

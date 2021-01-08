@@ -397,5 +397,10 @@ router.get('/settings',verifyLogin,(req,res)=>{
   res.render('user/settings',{user:req.session.user})
 })
 
+//user change password
+router.get('/change-password',(req,res)=>{
+  res.render('user/change-password')
+})
+
 
 module.exports = router;
