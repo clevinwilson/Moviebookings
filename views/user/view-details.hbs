@@ -45,6 +45,7 @@
 
 
 <!-- header -->
+
 	<header  style="    background-color: black;" id="site-header" class="w3l-header fixed-top">
 		<!--/nav-->
 		<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
@@ -67,11 +68,21 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class="mt-4 text-white nav-link" href="/">Home</a>
+							<a style="color: gray;" class="mt-4  nav-link" href="/">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="mt-4 text-white nav-link" href="/about">About</a>
+							<a style="color: gray;" class="mt-4  nav-link" href="/about">About</a>
 						</li>
+						<li class="nav-item">
+						<div class="mt-4  dropdown">
+							<button style="color: gray;" class="nav-link dropbtn">Language</button>
+							<div class="dropdown-content">
+								<a href="#">Malayalam</a>
+								<a href="#">English</a>
+								<a href="#">Hindi</a>
+							</div>
+						</div>
+					</li>
 				       {{!-- <li class="nav-item">
 								<a class="text-white nav-link" href="genre.html">Genre</a>
 							</li>
@@ -88,10 +99,11 @@
 								Hey,{{user.fullname}}
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a style="font-size: 16px;" class="dropdown-item" href="#">Profile</a>
-								<a style="font-size: 16px;" class="dropdown-item" href="#">My bookings</a>
-								<a style="font-size: 16px;" class="dropdown-item" href="#">Settings</a>
-								<a style="font-size: 16px;" class="dropdown-item" href="/logout">Log Out</a>
+								<a class="dropdown-item" href="/profile">Profile</a>
+								<a class="dropdown-item" href="/my-bookings">My bookings</a>
+								<a class="dropdown-item" href="/favoritemovies">Favorite Movies</a>
+								<a class="dropdown-item" href="/settings">Settings</a>
+								<a class="dropdown-item" href="/logout">Log Out</a>
 							</div>
 						</div>
 					</li>
@@ -101,6 +113,54 @@
 				</li>
 				{{/if}}
 					</ul>
+					<style>
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #0c0f0a;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #0c0f0a;
+}
+</style>
 
 					<!--/search-right-->
 					<!--/search-right-->
