@@ -304,6 +304,7 @@ router.get('/order-success',verifyLogin,(req,res)=>{
 
 //Popup map
 router.post('/location',(req,res)=>{
+  console.log(req.body,"hh");
   req.session.location=true
   req.session.longitude=req.body.longitude
   req.session.latitude=req.body.latitude
@@ -394,7 +395,7 @@ router.get('/about',(req,res)=>{
 //settings page
 
 router.get('/settings',verifyLogin,(req,res)=>{
-  res.render('user/settings',{user:req.session.user})
+  res.render('user/settings',{user:req.session.user,"longitude":req.session.longitude,"latitude":req.session.latitude})
 })
 
 //user change password
