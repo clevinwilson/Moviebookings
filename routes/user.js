@@ -398,9 +398,23 @@ router.get('/settings',verifyLogin,(req,res)=>{
 })
 
 //user change password
-router.get('/change-password',(req,res)=>{
-  res.render('user/change-password')
+router.get('/change-password',verifyLogin,(req,res)=>{
+  res.render('user/change-password',{user:req.session.user,"changePasswordSucc": req.session.changePasswordSucc, "changePasswordError": req.session.changePasswordError })
+  req.session.changePasswordSucc = false
+  req.session.changePasswordError = false
 })
 
+router.post('/change-password',(req,res)=>{
+  console.log(req.body);
+  userHelpers.changePassword(req.body,req.session.user._id).then((response)=>{
+    if (response.status) {
+      req.session.changePasswordSucc = "Password Updated Successfully"
+      res.redirect('/change-password')
+  } else {
+      req.session.changePasswordError = response.message
+      res.redirect('/change-password')
+  }
+  })
+})
 
 module.exports = router;

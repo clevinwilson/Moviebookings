@@ -661,6 +661,35 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    changePassword:(details,userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user=await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)})
+            console.log(user);
+            if(user){
+                let oldPassword = await bcrypt.compare(details.oldPassword, user.password)
+                
+                if (oldPassword) {
+                    details.confirmpassword = await bcrypt.hash(details.confirmpassword, 10)
+                    db.get().collection(collection.USER_COLLECTION)
+                        .updateOne({ _id: objectId(userId) }, {
+                            $set: {
+                                password: details.confirmpassword
+                            }
+                        }).then((response) => {
+                            if (response) {
+                                resolve({ status: true })
+                            } else {
+                                resolve({ status: false, "message": "Something Went Wrong try again" })
+                            }
+                        })
+                } else {
+                    resolve({ status: false, "message": "Incorrect old password. please retry" })
+                }
+            }else {
+                resolve({ status: false, "message": "User not exist" })
+            }
+        })
     }
 
 }
