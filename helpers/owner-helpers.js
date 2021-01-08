@@ -602,6 +602,7 @@ module.exports = {
     addShow: (details, ownerId) => {
         details.owner = ownerId
         details.screenId = objectId(details.screenId)
+        details.status=false
         details.bookedseats = []
         return new Promise(async(resolve, reject) => {
             let movieId =await db.get().collection(collection.MOVIE_COLLECTION).findOne({movietitle:details.movietitle})
@@ -706,16 +707,27 @@ module.exports = {
         })
     },
     addSeats: (screenId, showId, seats) => {
-        return new Promise((resolve, reject) => {
-            for (i in seats) {
-                details = {}
-                details.screenId = objectId(screenId)
-                details.showId = objectId(showId)
-                details.seatName = i
-                details.price = seats[i]
-                db.get().collection(collection.SEAT_COLLECTION).insertOne(details).then((response) => {
-                    resolve(response)
+        return new Promise(async(resolve, reject) => {
+            let show = await db.get().collection(collection.SHOW_COLLECTION).findOne({ _id: objectId(showId) })
+            if (show) {
+                db.get().collection(collection.SHOW_COLLECTION)
+                .updateOne({_id:objectId(showId)},{
+                    $set:{
+                        status:true
+                    }
+                }).then((response)=>{
+                    for (i in seats) {
+                        details = {}
+                        details.screenId = objectId(screenId)
+                        details.showId = objectId(showId)
+                        details.seatName = i
+                        details.price = seats[i]
+                        db.get().collection(collection.SEAT_COLLECTION).insertOne(details).then((response) => {
+                            resolve(response)
+                        })
+                    }
                 })
+                
             }
 
         })

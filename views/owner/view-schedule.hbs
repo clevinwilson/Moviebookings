@@ -57,6 +57,7 @@
                                             <th>Movie Name</th>
                                             <th>Date</th>
                                             <th>Time</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -66,6 +67,7 @@
                                             <th>Movie Name</th>
                                             <th>Date</th>
                                             <th>Time</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </tfoot>
@@ -76,6 +78,11 @@
                                             <td>{{this.movietitle}}</td>
                                             <td>{{this.date}}</td>
                                             <td>{{this.hours}} Hr {{this.minutes}}min</td>
+                                            {{#if this.status}}
+                                            <td class="text-success">Active</td>
+                                            {{else}}
+                                            <td class="text-danger">False</td>
+                                            {{/if}}
                                             <td align="center"><a type="button" href="/owner/edit-show/{{this._id}}"
                                                     style=" border-radius: 21px;"
                                                     class="text-white m-2 btn btn-success">EDIT</a><a
