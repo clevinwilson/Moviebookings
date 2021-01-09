@@ -6,6 +6,7 @@ var logger = require('morgan');
 var hbs = require('express-handlebars')
 var db=require('./config/connection')
 var session = require('express-session')
+
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/user');
 var OwnerRouter = require('./routes/owner')
@@ -26,8 +27,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ resave: false,  saveUninitialized: true,secret:"Key",cookie:{maxAge:60000000},store:new MongoDBStore({mongoConnection:db.connection,databaseName:"moviebooking"}),}))
+app.use(session({ resave: false, useUnifiedTopology: true, saveUninitialized: true,secret:"Key",cookie:{maxAge:60000000},store:new MongoDBStore({mongoConnection:db.connection,databaseName:"moviebooking"}),}))
 db.connect((err)=>{
+  
   if(err) console.log("Connection Error"+err);
   else console.log("Database connected to port 27017");
 })
