@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:"Key",cookie:{maxAge:60000000},store:new MongoDBStore({mongoConnection:db.connection,databaseName:"moviebooking"}),}))
+app.use(session({ resave: false,  saveUninitialized: true,secret:"Key",cookie:{maxAge:60000000},store:new MongoDBStore({mongoConnection:db.connection,databaseName:"moviebooking"}),}))
 db.connect((err)=>{
   if(err) console.log("Connection Error"+err);
   else console.log("Database connected to port 27017");
