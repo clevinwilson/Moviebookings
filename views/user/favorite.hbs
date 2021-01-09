@@ -77,9 +77,8 @@ Author URL: http://w3layouts.com
                                     
                                     </div>
                                     {{else}}
-                                    <div class="boxs col-md-12 col-lg-6">
-                                        <a class=" colorss text-success m-1 btn btn-success text-ligt">No record found</a>
-                                    </div>
+                                  
+								   <center><h1 class="m-5"> No record found</h1></center>
                                     {{/each}}
                                     <!--//set1-->
                                     </div>
@@ -142,7 +141,7 @@ Author URL: http://w3layouts.com
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function removeMovie(movieId) {
-        alert(movieId)
+       
         $.ajax({
             url: '/removeMovie',
             method: 'post',

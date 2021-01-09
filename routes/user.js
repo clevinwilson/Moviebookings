@@ -10,9 +10,9 @@ const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 const passport=require('passport')
 require('./passport-setup')
-var serviceid = "VA3543a1df020f68982834326968197063";
-var accountSid = "AC81058b7974c9c9cd6ca7ca1c87863d61";  // Your Account SID from www.twilio.com/console 
-var authToken = "58f66a5b8bce31f154b509897975f2b0"; // Your Auth Token from www.twilio.com/console
+var serviceid = "	VAb018dbdeb02c7a323cf92a3e9e4dc830";
+var accountSid = "AC339f8aff9fd35caeb2ae59401274e823";  // Your Account SID from www.twilio.com/console 
+var authToken = "65ee588b1ecdd9254c3ed2e2d488cac6"; // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -184,10 +184,9 @@ router.get('/time/:movietitle', (req, res) => {
   userHelpers.getTime(req.params.movietitle).then((timeList) => {
 
     if (timeList) {
-      console.log(timeList);
       timeList[0].longitude = req.session.longitude
       timeList[0].latitude = req.session.latitude
-
+      console.log(timeList);
       res.render('user/pick-time', { data:true,timeList, movietitle: req.params.movietitle, user: req.session.user })
     }else{
       res.render('user/pick-time',{data:false, user: req.session.user })

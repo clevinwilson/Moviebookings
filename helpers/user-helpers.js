@@ -230,7 +230,7 @@ module.exports = {
                 ]).toArray()
 
                 resolve(timeList)
-                console.log(timeList);
+                
             } else {
                 resolve(false)
             }
@@ -726,7 +726,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.FAVORITE_COLLECTION).findOne({ user: userId })
             if (user) {
-                let movie = await db.get().collection(collection.FAVORITE_COLLECTION).findOne({ movie: objectId(movieId) })
+                let movie = await db.get().collection(collection.FAVORITE_COLLECTION).findOne({ movie: objectId(movieId),user:objectId(userId) })
                 if (movie) {
                     resolve({ status: false,message:"Movie already in favorite" })
                 } else {
