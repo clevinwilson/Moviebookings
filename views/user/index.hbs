@@ -882,25 +882,14 @@ Author URL: http://w3layouts.com
 	
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
-        navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
-            enableHighAccuracy: true
-        })
+        
 
-        function successLocation(position) {
-            console.log(position)
-            setupMap([position.coords.longitude, position.coords.latitude])
-        }
-
-        function errorLocation() {
-
-        }
-
-        function setupMap(center){
+      
         var coordinates = document.getElementById('coordinates');
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: center,
+          
             zoom: 10
         });
         
@@ -940,7 +929,7 @@ Author URL: http://w3layouts.com
             });
 
             {{!-- map.addControl(directions,'top-left') --}}
-        }
+        
     </script>
 	               <div class="modal-footer">
                     
