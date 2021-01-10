@@ -50,7 +50,7 @@
         <div id="map"></div>
     <pre id="coordinates" class="coordinates"></pre>
 
-   <script>
+    <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
         
 
@@ -75,6 +75,8 @@
 			coordinates.style.display = 'block';
 			coordinates.innerHTML =
 				'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+                 longitude=lngLat.lng
+				latitude=lngLat.lat
 		}
 
 		marker.on('dragend', onDragEnd);
