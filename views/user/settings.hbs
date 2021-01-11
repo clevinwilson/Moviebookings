@@ -185,7 +185,7 @@ Author URL: http://w3layouts.com
     <div id="map"></div>
     <pre id="coordinates" class="coordinates"></pre>
 	
-     <script>
+    <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
         
 
@@ -247,51 +247,6 @@ Author URL: http://w3layouts.com
 	
 
 </body>
-
-</html>
-
-{{!-- Popup map --}}
-<script>
-	function submitLocation() {
-       
-        $.ajax({
-            url: '/location',
-            method: 'post',
-			data:{longitude:longitude,latitude:latitude,},
-            success: (response) => {
-                if (response.status) {
-                    $(document).ready(function () {
-                       $("#locationModal").modal('hide')
-                    })
-                } else {
-                     $(document).ready(function () {
-                        $("#locationModal").modal('show')
-                    })
-                }
-            }
-        })
-    }
-</script>
-<script>
-	function mapPopup(){
-		 $(document).ready(function () {
-                $("#locationModal").modal('show')
-            })
-			console.log('map')
-	}
-	
-</script>
-	               <div class="modal-footer">
-                    
-                    <a class="text-white btn btn-danger" onclick="submitLocation()" id="con">continue</a>
-                </div>
-				</div>
-			</div>
-		</div>
-		
-	
-
-</body>
 <script>
 	function submitLocation() {
         $.ajax({
@@ -322,18 +277,6 @@ Author URL: http://w3layouts.com
 			
 	}
 	
-</script>
-<script>
-	longitude=75.46718098971121
-	latitude=12.187250631184511
-	 var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+""+longitude+","+""+latitude+'.json?access_token=pk.eyJ1Ijoic2VhcmNoLW1hY2hpbmUtdXNlci0xIiwiYSI6ImNrN2Y1Nmp4YjB3aG4zZ253YnJoY21kbzkifQ.JM5ZeqwEEm-Tonrk5wOOMw&cachebuster=1609914886346&autocomplete=true&types=locality'
-                            var req = new XMLHttpRequest();
-                            req.responseType = 'json';
-                            req.open('GET', url, true);
-                            req.onload = function () {
-                                console.log(req.response.features[0].place_name,'dfs') 
-                            };
-                            req.send();
 </script>
 </html>
 
