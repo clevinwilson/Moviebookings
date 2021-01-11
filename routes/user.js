@@ -411,7 +411,7 @@ router.get('/change-password',verifyLogin,(req,res)=>{
   req.session.changePasswordError = false
 })
 
-router.post('/change-password',(req,res)=>{
+router.post('/change-password',verifyLogin,(req,res)=>{
   console.log(req.body);
   userHelpers.changePassword(req.body,req.session.user._id).then((response)=>{
     if (response.status) {
@@ -425,12 +425,12 @@ router.post('/change-password',(req,res)=>{
 })
 
 //login with google
-router.get('/google',
+router.get('/google',verifyLogin,
 
   passport.authenticate('google', { scope: ['profile','email'] })
   );
 
-router.get('/google/callback', 
+router.get('/google/callback', verifyLogin,
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     console.log(req.user)
@@ -448,20 +448,20 @@ router.get('/google/callback',
   });
 
   //add to favorite
-router.post('/addtofavorite',(req,res)=>{
+router.post('/addtofavorite',verifyLogin,(req,res)=>{
   console.log(req.body);
   userHelpers.addtofavorite(req.body.movieId,req.session.user._id).then((response)=>{
     res.json(response)
   })
 })
 
-router.get('/favoritemovies',(req,res)=>{
+router.get('/favoritemovies',verifyLogin,(req,res)=>{
   userHelpers.getFavoriteMovies(req.session.user._id).then((movies)=>{
     res.render('user/favorite',{movies,user:req.session.user})
   })
 })
 
-router.post('/removeMovie',(req,res)=>{
+router.post('/removeMovie',verifyLogin,(req,res)=>{
   userHelpers.removeMovie(req.body.movieId,req.session.user._id).then((response)=>{
     res.json(response)
   })
