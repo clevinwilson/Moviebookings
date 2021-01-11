@@ -657,7 +657,10 @@ module.exports = {
     deleteShow: (showId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SHOW_COLLECTION).removeOne({ _id: objectId(showId) }).then((response) => {
-                resolve(response)
+                db.get().collection(collection.SEAT_COLLECTION).deleteMany({showId:objectId(showId)}).then((response)=>{
+                    resolve(response)
+                })
+               
             })
         })
     },
