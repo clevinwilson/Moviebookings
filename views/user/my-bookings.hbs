@@ -9,8 +9,7 @@ Author URL: http://w3layouts.com
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ProShowz a Entertainment Category Bootstrap Responsive Website Template | Contact
-        :: W3layouts</title>
+    <title> Moviebooking | My bookings</title>
     <!-- Template CSS -->
     <link rel="stylesheet" href="/user/css/style-starter.css">
     <!-- Template CSS -->
@@ -28,7 +27,7 @@ Author URL: http://w3layouts.com
     <div class="w3l-breadcrumbs">
         <nav id="breadcrumbs" class="breadcrumbs">
             <div class="container page-wrapper">
-                <a href="index.html">Home</a> » <span class="breadcrumb_last" aria-current="page">Contact</span>
+                <a href="index.html">Home</a> » <span class="breadcrumb_last" aria-current="page">Bookings</span>
             </div>
         </nav>
     </div>
@@ -50,23 +49,23 @@ Author URL: http://w3layouts.com
                             <p>{{this.date}}</p>
                             <div class="row contact-info">
 
-                                <a href="/details/{{this.show.movieId}}">
+                                <a href="/details/{{this.movieId}}">
                                     <div>
                                         <img id="optionalstuff" style="height: 269px;width: 181px;"
-                                            src="/movie-images/{{this.show.movieId}}.jpg">
+                                            src="/movie-images/{{this.movieId}}.jpg">
                                     </div>
                                 </a>
                                 <div class="contact-details">
                                     <h4 style="color: #df0e62;">{{this.theater.theatername}}</h4>
-                                    <h5 style="color: #619bb0b5;">Movie: {{this.show.movietitle}} </h5>
+                                    <h5 style="color: #619bb0b5;">Movie: {{this.movietitle}} </h5>
                                     <hr style="background-color: var(--theme-title);">
                                     {{!-- <h5>Booked Date: {{this.date}} </h5> --}}
                                     <h3 style="float: right;">Price: {{this.price}}</h3>
 
 
-                                    <h4 class="mt-1">Date: {{this.show.date}}</h4>
+                                    <h4 class="mt-1">Date: {{this.showdate}}</h4>
 
-                                    <h4>Time: {{this.show.time}} {{this.show.timeperiod}}</h4>
+                                    <h4>Time: {{this.time}} {{this.show.timeperiod}}</h4>
 
                                     {{#if this.status}}
                                     <h4 style="float: right; color: green;">Paid</h4>
@@ -74,7 +73,7 @@ Author URL: http://w3layouts.com
                                     <h4 style="float: right; color: red;">Pending</h4>
                                     {{/if}}
 
-                                    <p>Screen: {{this.screen.screenname}} </p>
+                                    <p>Screen: {{this.screenname}} </p>
                                     <hr style="background-color: var(--theme-title);">
                                     <h4>Seat No</h4>
                                     {{#each this.seats}}

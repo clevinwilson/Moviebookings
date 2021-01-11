@@ -206,20 +206,23 @@ router.get('/time/:movietitle',async (req, res) => {
 //book seats
 router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
   let response = await userHelpers.getBookedSeat(req.params.showId, req.body)
-  
-  let details={}
-  details.user=objectId(req.session.user._id)
-  details.screen=objectId(response.show[0].screen._id)
-  details.theater=objectId(response.show[0].theater._id)
-  details.price=response.price
-  details.seats=response.seatsDetails
-  let addCheckout=await userHelpers.addCheckout(details,req.params.showId,req.session.user._id)
-  
-  
-  let date=new Date()
-
-  
   if (response.status) {
+    console.log(response,"ll");
+    let details={}
+    details.user=objectId(req.session.user._id)
+    details.screen=objectId(response.show[0].screen._id)
+    details.theater=objectId(response.show[0].theater._id)
+    details.price=response.price
+    details.seats=response.seatsDetails
+    details.movieId=response.show[0].movieId
+    details.time=response.show[0].time
+    details.showdate=response.show[0].date
+    details.screenname=response.show[0].screen.screenname
+    details.movietitle=response.show[0].movie.movietitle
+    let addCheckout=await userHelpers.addCheckout(details,req.params.showId,req.session.user._id)
+    
+    
+    let date=new Date()
     console.log(response.price);
     res.render('user/checkout',{"price":response.price,user: req.session.user,"bookedseats":req.body,"showId":req.params.showId,"tickets":response.seatsDetails,date,"movie":response.show[0]})
   } else {
@@ -336,6 +339,7 @@ router.post('/location', async (req, res) => {
 //user bookings
 router.get('/my-bookings',verifyLogin,(req,res)=>{
   userHelpers.getAllBookings(req.session.user._id).then((allbookings)=>{
+    console.log(allbookings);
     res.render('user/my-bookings',{user:req.session.user,allbookings})
   })
   
