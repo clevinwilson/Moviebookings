@@ -233,7 +233,7 @@
 		<div class="row ipad-width2">
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<div class="movie-img sticky-sb">
-					<img src="/movie-images/{{movieDetails._id}}.jpg" alt="">
+					<img src="/upcoming-movies/{{movieDetails._id}}.jpg" alt="">
 					<div class="movie-btn">	
 						<div class="btn-transform  red">
 							{{!-- <div><a style="background-color: red;" href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div> --}}
@@ -251,7 +251,7 @@
 				<div class="movie-single-ct main-content">
 					<h1 class="bd-hd">{{movieDetails.movietitle}} <span style="color: #bdbfc2;">{{movieDetails.releasedate}}</span></h1>
 					<div class="social-btn">
-						<a onclick="addtofavorite('{{movieDetails._id}}')" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						{{!-- <a onclick="addtofavorite('{{movieDetails._id}}')" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a> --}}
 						<div class="hover-bnt">
 							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
 							<div class="hvr-item">
@@ -262,7 +262,7 @@
 							</div>
 						</div>		
 					</div>
-					<div class="movie-rate">
+					{{!-- <div class="movie-rate">
 						<div class="rate">
 							<i class="ion-android-star"></i>
 							<p><span>8.1</span> /10<br>
@@ -281,21 +281,21 @@
 							<i class="ion-ios-star"></i>
 							<i class="ion-ios-star-outline"></i>
 						</div>
-					</div>
+					</div> --}}
 					<div class="movie-tabs">
 						<div class="tabs">
 							<ul class="tab-links tabs-mv">
 								<li class="active"><a href="#overview">Overview</a></li>
-								<li><a href="#reviews"> Reviews</a></li>
+								{{!-- <li><a href="#reviews"> Reviews</a></li>
 								<li><a href="#cast">  Cast & Crew </a></li>
-								<li><a href="#moviesrelated"> Related Movies</a></li>                        
+								<li><a href="#moviesrelated"> Related Movies</a></li>                         --}}
 							</ul>
 						    <div class="tab-content">
 						        <div id="overview" class="tab active">
 						            <div class="row">
 						            	<div class="col-md-8 col-sm-12 col-xs-12">
-						            		<p>{{movieDetails.about}}</p>
-						            		<div class="title-hd-sm">
+						            		<p>{{movie.about}}</p>
+						            		{{!-- <div class="title-hd-sm">
 												<h4>Videos & Photos</h4>
 												<a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
 											</div>
@@ -307,11 +307,11 @@
 													<img class="vd-img" src="/images/uploads/image4.jpg" alt="">
 													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
-											</div>
-											<div class="title-hd-sm">
+											</div> --}}
+											{{!-- <div class="title-hd-sm">
 												<h4>cast</h4>
 												<a href="#" class="time">Full Cast & Crew  <i class="ion-ios-arrow-right"></i></a>
-											</div>
+											</div> --}}
 											<!-- movie cast -->
 											<div class="mvcast-item">											
 												<div class="cast-it">
