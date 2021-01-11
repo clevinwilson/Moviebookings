@@ -494,4 +494,10 @@ router.post('/removeMovie',verifyLogin,(req,res)=>{
   })
 })
 
+router.get('/upcoming-movies-details/:id',(req,res)=>{
+  userHelpers.upcomingMovies(req.params.id).then((movie)=>{
+    res.render('user/upcomig-details',{movie})
+  })
+})
+
 module.exports = router;

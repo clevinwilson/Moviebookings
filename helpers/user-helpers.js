@@ -831,6 +831,13 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    upcomingMovies:(movieId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.UPCOMINGMOVIES_COLLECTION).findOne({_id:objectId(movieId)}).then((movie)=>{
+                resolve(movie)
+            })
+        })
     }
     
 
