@@ -180,13 +180,22 @@ router.get('/video-play', (req, res) => {
 })
 
 //pick time
-router.get('/time/:movietitle', (req, res) => {
-  userHelpers.getTime(req.params.movietitle).then((timeList) => {
-
+router.get('/time/:movietitle',async (req, res) => {
+ 
+  userHelpers.getTime(req.params.movietitle).then(async(timeList) => {
+    
     if (timeList) {
-      timeList[0].longitude = req.session.longitude
-      timeList[0].latitude = req.session.latitude
+      if(req.session.loggedIn){
+        let user=await userHelpers.gerUserDetails(req.session.user._id)
+        timeList[0].longitude=user.longitude
+        timeList[0].latitude=user.latitude
+      }else{
+        timeList[0].longitude = req.session.longitude
+        timeList[0].latitude = req.session.latitude
+        
+      }
       console.log(timeList);
+    
       res.render('user/pick-time', { data:true,timeList, movietitle: req.params.movietitle, user: req.session.user })
     }else{
       res.render('user/pick-time',{data:false, user: req.session.user })
@@ -308,12 +317,20 @@ router.get('/order-success',verifyLogin,(req,res)=>{
 
 
 //Popup map
-router.post('/location',(req,res)=>{
-  console.log(req.body,"hh");
-  req.session.location=true
-  req.session.longitude=req.body.longitude
-  req.session.latitude=req.body.latitude
-  res.json({status:true})
+router.post('/location', async (req, res) => {
+  console.log(req.body, "hh");
+  req.session.location = true
+  req.session.longitude = req.body.longitude
+  req.session.latitude = req.body.latitude
+  if (req.session.loggedIn) {
+    let userlocation = await userHelpers.updateUserLocation(req.session.user._id, req.body)
+    if (userlocation) {
+      res.json({ status: true })
+    }
+  }else{
+    res.json({ status: true })
+  }
+
 })
 
 //user bookings
@@ -399,9 +416,15 @@ router.get('/about',(req,res)=>{
 
 //settings page
 
-router.get('/settings',verifyLogin,(req,res)=>{
+router.get('/settings',verifyLogin,async(req,res)=>{
+  let user=await userHelpers.gerUserDetails(req.session.user._id)
   console.log(req.session.user);
-  res.render('user/settings',{user:req.session.user,"longitude":req.session.longitude,"latitude":req.session.latitude})
+  if(req.session.loggedIn){
+    res.render('user/settings',{user:req.session.user,"longitude":user.longitude,"latitude":user.latitude})
+  }else{
+    res.render('user/settings',{user:req.session.user,"longitude":req.session.longitude,"latitude":req.session.latitude})
+  }
+
 })
 
 //user change password

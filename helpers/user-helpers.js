@@ -808,6 +808,21 @@ module.exports = {
                 })
             
         })
+    },
+    updateUserLocation:(userId,location)=>{
+        return new Promise((resolve,reject)=>{
+            console.log(location.longitude);
+            console.log(location.latitude);
+            db.get().collection(collection.USER_COLLECTION)
+            .updateOne({_id:objectId(userId)},{
+                $set:{
+                    longitude:location.longitude,
+                    latitude:location.latitude
+                }
+            }).then((response)=>{
+                resolve(response)
+            })
+        })
     }
     
 
