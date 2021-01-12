@@ -14,8 +14,8 @@ passport.serializeUser(function(user, done) {
   
   });
 passport.use(new GoogleStrategy({
-    clientID: "1092647642534-62al50lp9fq55dj10vok781064po6icv.apps.googleusercontent.com",
-    clientSecret: "hvVpXhzOzi5WYrwtIrFvbmzC",
+    clientID: "1081598155831-5fjmd3hdbq3k3futd9pmk0547j3a8eeb.apps.googleusercontent.com",
+    clientSecret: "C8-kpCBRSMn0heG0qOazZcYG",
     callbackURL: "https://www.moviebooking.site/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {

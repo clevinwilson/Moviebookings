@@ -452,7 +452,7 @@ router.post('/change-password',verifyLogin,(req,res)=>{
 })
 
 //login with google
-router.get('/google',verifyLogin,
+router.get('/google',
 
   passport.authenticate('google', { scope: ['profile','email'] })
   );
