@@ -50,36 +50,47 @@
         <div id="map"></div>
     <pre id="coordinates" class="coordinates"></pre>
 
-    <script>
+   <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
-        
+        navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
+            enableHighAccuracy: true
+        })
 
-      
+        function successLocation(position) {
+            console.log(position)
+            setupMap([position.coords.longitude, position.coords.latitude])
+        }
+
+        function errorLocation() {
+
+        }
+
+        function setupMap(center){
         var coordinates = document.getElementById('coordinates');
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-			center:[75.71163743921323, 13.206180273089672],
-            zoom: 5
+            center: center,
+            zoom: 10
         });
         
 
         var marker = new mapboxgl.Marker({
-			draggable: true
-		})
-			.setLngLat([75.71163743921323, 13.206180273089672])
-			.addTo(map);
+            draggable: true
+        })
+            .setLngLat(center)
+            .addTo(map);
 
-		function onDragEnd() {
-			var lngLat = marker.getLngLat();
-			coordinates.style.display = 'block';
-			coordinates.innerHTML =
-				'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
-                 longitude=lngLat.lng
+        function onDragEnd() {
+            var lngLat = marker.getLngLat();
+            coordinates.style.display = 'block';
+            coordinates.innerHTML =
+                'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+				longitude=lngLat.lng
 				latitude=lngLat.lat
-		}
+        }
 
-		marker.on('dragend', onDragEnd);
+        marker.on('dragend', onDragEnd);
         map.addControl(
             new mapboxgl.GeolocateControl({
                 draggable: true,
@@ -99,7 +110,7 @@
             });
 
             {{!-- map.addControl(directions,'top-left') --}}
-        
+        }
     </script>
     <center>
         <a style="margin-top: 650px; color: white; background-color: black;" href="/owner/settings" class="btn btn-success"> Back</a>
