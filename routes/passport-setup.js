@@ -16,7 +16,7 @@ passport.serializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: "1092647642534-62al50lp9fq55dj10vok781064po6icv.apps.googleusercontent.com",
     clientSecret: "hvVpXhzOzi5WYrwtIrFvbmzC",
-    callbackURL: "https://moviebooking.site/google/callback"
+    callbackURL: "https://www.moviebooking.site/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
    
