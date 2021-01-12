@@ -23,8 +23,6 @@ Author URL: http://w3layouts.com
 <link rel="stylesheet"
     href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
     type="text/css" />
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 	<!-- Template CSS -->
 </head>
 
@@ -293,7 +291,18 @@ Author URL: http://w3layouts.com
 </script>
 </html>
 
-
+<script>
+	longitude=75.46718098971121
+	latitude=12.187250631184511
+	 var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+""+longitude+","+""+latitude+'.json?access_token=pk.eyJ1Ijoic2VhcmNoLW1hY2hpbmUtdXNlci0xIiwiYSI6ImNrN2Y1Nmp4YjB3aG4zZ253YnJoY21kbzkifQ.JM5ZeqwEEm-Tonrk5wOOMw&cachebuster=1609914886346&autocomplete=true&types=locality'
+                            var req = new XMLHttpRequest();
+                            req.responseType = 'json';
+                            req.open('GET', url, true);
+                            req.onload = function () {
+                                console.log(req.response.features[0].place_name,'dfs') 
+                            };
+                            req.send();
+</script>
 {{!-- Popup map --}}
 <!--//MENU-JS-->
 <script src="/user/js/bootstrap.min.js"></script>
