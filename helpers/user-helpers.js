@@ -838,6 +838,21 @@ module.exports = {
                 resolve(movie)
             })
         })
+    },
+    getAppDetails:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let moviecount =await db.get().collection(collection.MOVIE_COLLECTION).count()
+            let userscount =await db.get().collection(collection.USER_COLLECTION).count()
+            let bookingcount =await db.get().collection(collection.BOOKING_COLLECTION).count()
+            let showcount =await db.get().collection(collection.SHOW_COLLECTION).count()
+            details={
+                moviecount:moviecount,
+                userscount:userscount,
+                bookingcount:bookingcount,
+                showcount:showcount
+            }
+            resolve(details)
+        })
     }
     
 

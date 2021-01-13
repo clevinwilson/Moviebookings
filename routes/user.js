@@ -207,7 +207,6 @@ router.get('/time/:movietitle',async (req, res) => {
 router.post('/book-seats/:showId', verifyLogin, async (req, res) => {
   let response = await userHelpers.getBookedSeat(req.params.showId, req.body)
   if (response.status) {
-    console.log(response,"ll");
     let details={}
     details.user=objectId(req.session.user._id)
     details.screen=objectId(response.show[0].screen._id)
@@ -415,7 +414,13 @@ router.post('/edit-profile',verifyLogin,(req,res)=>{
 
 //about page
 router.get('/about',(req,res)=>{
-  res.render('user/about',{user:req.session.user})
+  userHelpers.getAppDetails().then((details)=>{
+    userHelpers.getMovies().then((movies)=>{
+      console.log(movies);
+      res.render('user/about',{user:req.session.user,details,movies})
+    })
+  })
+
 })
 
 //settings page
