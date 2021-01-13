@@ -11,8 +11,8 @@ var userHelpers = require('../helpers/user-helpers')
 const passport=require('passport')
 require('./passport-setup')
 var serviceid = "	VAb018dbdeb02c7a323cf92a3e9e4dc830";
-var accountSid = "AC339f8aff9fd35caeb2ae59401274e823";  // Your Account SID from www.twilio.com/console 
-var authToken = "53d0f7b1b4922e68167124e545c41849"; // Your Auth Token from www.twilio.com/console
+var accountSid = "AC339f8aff9fd35caeb2ae59401274e823";  // Your Account SID 
+var authToken = "53d0f7b1b4922e68167124e545c41849"; // Your Auth Token 
 
 const client = require('twilio')(accountSid, authToken)
 

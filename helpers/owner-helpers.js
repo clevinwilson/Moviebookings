@@ -813,6 +813,13 @@ module.exports = {
             console.log(userDetails);
             resolve(userDetails)
         })
+    },
+    getLocation:(owneId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(owneId)}).then((ownerdetails)=>{
+                resolve(ownerdetails)
+            })
+        })
     }
 }
 

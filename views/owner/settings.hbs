@@ -27,7 +27,7 @@
                             <a style="text-decoration: none;" href="/owner/change-username">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary"> User name</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-user" aria-hidden="true"></i> User name</h6>
                                     </div>
                                     <div class=" text-info card-body">
                                         <i class=" ml-3 fas fa-angle-right"></i>
@@ -46,7 +46,7 @@
                             <a style="text-decoration: none; " href="/owner/change-password">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary"> Password</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-key" aria-hidden="true"></i> Password</h6>
                                     </div>
                                     <div class=" text-info card-body">
                                         <i class=" ml-3 fas fa-angle-right"></i>
@@ -63,17 +63,31 @@
                             <a style="text-decoration: none; " href="/owner/map">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary"> Location</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary"><i class="  fa fa-map-marker"></i> Location</h6>
                                     </div>
-                                    <div class=" text-info card-body">
-                                        <i class=" ml-3 fas fa-angle-right"></i>
-                                        Location
+                                    <div  class=" text-info card-body">
+                                        
+                                        <P id="location">Location</P>
                                     </div>
                                     
                                 </div>
                             </a>
 
                         </div>
+                        <script>
+                            longitude={{ownerdetails.longitude}}
+	                        latitude={{ownerdetails.latitude}}
+                            var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + "" + longitude + "," + "" + latitude + '.json?access_token=pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA&cachebuster=1609914886346&autocomplete=true&types=locality'
+                            var req = new XMLHttpRequest();
+                            req.responseType = 'json';
+                            req.open('GET', url, true);
+                            req.onload = function () {
+                                console.log(req.response.features[0].place_name)
+
+                                document.getElementById('location').innerHTML = req.response.features[0].place_name
+                            };
+                            req.send();
+                        </script>
 
                     </div>
 

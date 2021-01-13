@@ -295,7 +295,10 @@ router.get('/users-activity', (req, res) => {
 //owenr settings page
 router.get('/settings', verifyLogin, (req, res) => {
     let owner = req.session.owner
-    res.render('owner/settings', { owner })
+    ownerHelper.getLocation(req.session.owner._id).then((ownerdetails)=>{
+        console.log(ownerdetails);
+        res.render('owner/settings', { owner,ownerdetails })
+    })
 })
 //Owner change password
 router.get('/change-password', verifyLogin, (req, res) => {
