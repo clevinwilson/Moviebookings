@@ -22,9 +22,10 @@ router.get('/', (req, res) => {
 
 })
 router.get('/dashboard', verifyLogin, (req, res) => {
-    ownerHelper.getDetails(req.session.owner._id).then((show,bookings,payidcount,seats)=>{
+    ownerHelper.getDetails(req.session.owner._id).then((counts)=>{
         owner = req.session.owner
-        res.render('owner/dashboard', { owner,show,bookings,payidcount,seats })
+        console.log(counts);
+        res.render('owner/dashboard', { owner,counts })
     })
 })
 //login 

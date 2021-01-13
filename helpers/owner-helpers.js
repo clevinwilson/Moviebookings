@@ -828,7 +828,13 @@ module.exports = {
             let  bookings=await db.get().collection(collection.BOOKING_COLLECTION).find({theater:objectId(ownerId)}).count()
             let payidcount=await db.get().collection(collection.BOOKING_COLLECTION).find({status:true}).count()
             let seats=await db.get().collection(collection.SEAT_COLLECTION).count()
-            resolve(show,bookings,payidcount,seats)
+            counts={
+                showcount:show,
+                bookingcount:bookings,
+                payidcount:payidcount,
+                seatcount:seats
+            }
+            resolve(counts)
         })
     }
 }
