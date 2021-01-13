@@ -820,6 +820,16 @@ module.exports = {
                 resolve(ownerdetails)
             })
         })
+    },
+    getDetails:(ownerId)=>{
+        console.log(ownerId);
+        return new Promise(async(resolve,reject)=>{
+            let show=await db.get().collection(collection.SHOW_COLLECTION).find({owner:objectId(ownerId)}).count()
+            let  bookings=await db.get().collection(collection.BOOKING_COLLECTION).find({theater:objectId(ownerId)}).count()
+            let payidcount=await db.get().collection(collection.BOOKING_COLLECTION).find({status:true}).count()
+            let seats=await db.get().collection(collection.SEAT_COLLECTION).count()
+            resolve(show,bookings,payidcount,seats)
+        })
     }
 }
 
