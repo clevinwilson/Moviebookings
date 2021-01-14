@@ -187,6 +187,7 @@ router.get('/time/:movietitle',async (req, res) => {
     if (timeList) {
       if(req.session.loggedIn){
         let user=await userHelpers.gerUserDetails(req.session.user._id)
+        
         timeList[0].longitude=user.longitude
         timeList[0].latitude=user.latitude
       }else{
@@ -196,7 +197,7 @@ router.get('/time/:movietitle',async (req, res) => {
       }
       console.log(timeList);
     
-      res.render('user/pick-time', { data:true,timeList, movietitle: req.params.movietitle, user: req.session.user })
+      res.render('user/pick-time', { data:true,timeList, movietitle: req.params.movietitle, user: req.session.user,"longitude" : req.session.longitude,"latitude":req.session.latitude })
     }else{
       res.render('user/pick-time',{data:false, user: req.session.user })
     }
@@ -503,6 +504,13 @@ router.get('/upcoming-movies-details/:id',(req,res)=>{
   userHelpers.upcomingMovies(req.params.id).then((movieDetails)=>{
     res.render('user/upcomig-details',{movieDetails,user:req.session.user})
   })
+})
+
+
+router.get('/language/:type',(req,res)=>{
+    userHelpers.movieLanguages(req.params.type).then((movies)=>{
+      res.render('user/movie-language',{movies})
+    })
 })
 
 module.exports = router;

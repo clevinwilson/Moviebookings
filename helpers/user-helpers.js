@@ -853,6 +853,20 @@ module.exports = {
             }
             resolve(details)
         })
+    },
+    movieLanguages:(type)=>{
+        return new Promise(async(resolve,reject)=>{
+            if(type == 1){
+            let malayalamMovies=await db.get().collection(collection.MOVIE_COLLECTION).find({language:'Malayalam'}).toArray()
+            resolve(malayalamMovies)
+            }else if(type == 2){
+                let englishMovies =await db.get().collection(collection.MOVIE_COLLECTION).find({language:'English'}).toArray()
+                resolve(englishMovies)
+            }else{
+                let  hindiMovies =await db.get().collection(collection.MOVIE_COLLECTION).find({language:'Hindi'}).toArray()
+                resolve(hindiMovies)
+            }
+        })
     }
     
 
