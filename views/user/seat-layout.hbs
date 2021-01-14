@@ -35,11 +35,15 @@
 {{>user-header}}
 
 <body onload="onLoadderFunc()">
-    <h1>Movie Seat Selection</h1>
+    <h1 style="    margin: 50px;" class="mt-1">Movie Seat Selection</h1>
+    <h3 style="color: var(--theme-title);" class="text-center">{{theaterDetails.theatername}}</h3>
+    <center><p class="col-md-6" style="color: var(--theme-title);" id="distance"></p></center>
+    
     <div class="container">
-
-        <div style=" background-color: var(--theme-lite);" class="w3ls-reg">
-           
+        <div style=" background-color: var(--theme-lite);" class=" w3ls-reg">
+          
+             
+          
             <!-- seat availabilty list -->
             <ul class="seat_w3ls">
                 <li style="color: var(--theme-title);"  class="smallBox greenBox">Selected Seat</li>
@@ -48,6 +52,45 @@
 
                 <li style="color: var(--theme-title);"  class="smallBox emptyBox">Empty Seat</li>
             </ul>
+            <script>
+                        mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
+                        // make a directions request
+                        var a=""+{{longitude}}+","
+                        var b=""+{{latitude}}+";"
+                        var c=""+{{theaterDetails.longitude}}+","
+                        var d=""+{{theaterDetails.latitude}}
+                            var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + a+b+c+d
+                                + '?geometries=geojson&steps=true&access_token=' + mapboxgl.accessToken;
+                            var req = new XMLHttpRequest();
+                            req.responseType = 'json';
+                            req.open('GET', url, true);
+                            req.onload = function () {
+                                var jsonResponse = req.response;
+                                var distance = jsonResponse.routes[0].distance * 0.001;
+                                var duration = jsonResponse.routes[0].duration / 60;
+                                var steps = jsonResponse.routes[0].legs[0].steps;
+                                var coords = jsonResponse.routes[0].geometry;
+                                //  console.log(steps);
+                                console.log(coords);
+                                document.getElementById('distance').innerHTML = "Distance: "+parseInt(distance)+" km"
+                                document.getElementById('duration').innerHTML = "Duration: "+parseInt(duration)+" minutes"
+                                console.log(distance);
+                                // console.log(duration);
+
+                                // get route directions on load map
+                                steps.forEach(function (step) {
+                                    instructions.insertAdjacentHTML('beforeend', '<p>' + step.maneuver.instruction + '</p>');
+                                });
+                                // get distance and duration
+                                instructions.insertAdjacentHTML('beforeend', '<p>' + 'Distance: ' + distance.toFixed(2) + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes' + '</p>');
+                                // add the route to the map
+                                addRoute(coords);
+                                //  console.log(coordinates);
+
+                            };
+                            req.send();
+                    
+                    </script>
             <!-- seat availabilty list -->
             <!-- seat layout -->
             <div class="seatStructure txt-center" style="overflow-x:auto;">

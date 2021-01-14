@@ -117,6 +117,13 @@ module.exports = {
             })
         })
     },
+    gertheaterDetails:(ownerId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.OWNER_COLLECTION).findOne({_id:objectId(ownerId)}).then((response)=>{
+                resolve(response)
+            })
+        })
+    },
     getBookedSeat: (showId, details) => {
         var price = 0
         var seatsDetails = []
