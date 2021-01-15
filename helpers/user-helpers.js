@@ -613,9 +613,10 @@ module.exports = {
     },
     getAllBookings:(userId)=>{
         return new Promise(async(resolve,reject)=>{
+            var date = new Date();
             let bookings =await db.get().collection(collection.BOOKING_COLLECTION).aggregate([
                 {
-                    $match: {user: objectId(userId) }
+                    $match: {user: objectId(userId),"showdate":{$gte:date.toISOString().substr(0,10)} }
                 },
                 {
                     $lookup: {
@@ -652,6 +653,50 @@ module.exports = {
 
             ]).sort({_id:-1}).toArray()
             resolve(bookings)
+        })
+    },
+    getBookingHistory:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            var date = new Date();
+            let bookinghistory =await db.get().collection(collection.BOOKING_COLLECTION).aggregate([
+                {
+                    $match: {user: objectId(userId),"showdate":{$lt:date.toISOString().substr(0,10)} }
+                },
+                {
+                    $lookup: {
+                        from: collection.OWNER_COLLECTION,
+                        localField: 'theater',
+                        foreignField: '_id',
+                        as: 'theater'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.SCREEN_COLLECTION,
+                        localField: 'screen',
+                        foreignField: '_id',
+                        as: 'screen'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.SHOW_COLLECTION,
+                        localField: 'showId',
+                        foreignField: '_id',
+                        as: 'show'
+                    }
+                },
+                
+                {
+                    $project: {
+
+                        _id: 1,status:1,movieId:1,time:1,showdate:1,screenname:1, movietitle: 1, seats: 1, date: 1, screenId: 1,price:1, hours: 1, minutes: 1,show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                    }
+                }
+
+
+            ]).sort({_id:-1}).toArray()
+            resolve(bookinghistory)
         })
     },
     getBookingDetails:(orderId)=>{

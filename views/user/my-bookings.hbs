@@ -40,7 +40,8 @@ Author URL: http://w3layouts.com
 
                     <h3 class="hny-title mb-0">All bookings</h3>
 
-                </div>
+                </div> 
+                <h4 class="ml-3 m-2 text-center">Upcoming</h4>
                 <div class="contact-view mt-lg-5 mt-4">
                     <div class="conhny-form-section">
 
@@ -86,6 +87,54 @@ Author URL: http://w3layouts.com
                                     <a style="float: right;     background-color: #2781f1;border-color: #2781f1;color: white;"
                                         class="btn btn-primary" type="button" onclick="a('{{this._id}}')">Pay</a>
                                     {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+
+
+                    </div>
+                    <h4 class="ml-3 m-5 text-center">Booking history</h4>
+                    <div class="conhny-form-section">
+
+                        {{#each bookinghistory}}
+                        <div class="form-input mt-4">
+                            <p>{{this.date}}</p>
+                            <div class="row contact-info">
+
+                                <a href="/details/{{this.movieId}}">
+                                    <div>
+                                        <img id="optionalstuff" style="height: 269px;width: 181px;"
+                                            src="/movie-images/{{this.movieId}}.jpg">
+                                    </div>
+                                </a>
+                                <div class="contact-details">
+                                    <h4 style="color: #df0e62;">{{this.theater.theatername}}</h4>
+                                    <h5 style="color: #619bb0b5;">Movie: {{this.movietitle}} </h5>
+                                    <hr style="background-color: var(--theme-title);">
+                                    {{!-- <h5>Booked Date: {{this.date}} </h5> --}}
+                                    <h3 style="float: right;">Price: {{this.price}}</h3>
+
+
+                                    <h4 class="mt-1">Date: {{this.showdate}}</h4>
+
+                                    <h4>Time: {{this.time}} {{this.show.timeperiod}}</h4>
+
+                                    {{#if this.status}}
+                                    <h4 style="float: right; color: green;">Paid</h4>
+                                    {{else}}
+                                    <h4 style="float: right; color: red;">Not Paid</h4>
+                                    {{/if}}
+
+                                    <p>Screen: {{this.screenname}} </p>
+                                    <hr style="background-color: var(--theme-title);">
+                                    <h4>Seat No</h4>
+                                    {{#each this.seats}}
+
+                                    <h3 style="float: left;">{{this.seatName}},</h3>
+
+                                    {{/each}}
+                                    
                                 </div>
                             </div>
                         </div>

@@ -340,11 +340,11 @@ router.post('/location', async (req, res) => {
 })
 
 //user bookings
-router.get('/my-bookings',verifyLogin,(req,res)=>{
-  userHelpers.getAllBookings(req.session.user._id).then((allbookings)=>{
-    console.log(allbookings);
-    res.render('user/my-bookings',{user:req.session.user,allbookings})
-  })
+router.get('/my-bookings',verifyLogin,async(req,res)=>{
+   let allbookings=await userHelpers.getAllBookings (req.session.user._id)
+    let bookinghistory =await userHelpers.getBookingHistory(req.session.user._id)
+    res.render('user/my-bookings',{user:req.session.user,allbookings,bookinghistory})
+  
   
 })
 
