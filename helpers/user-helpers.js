@@ -35,6 +35,7 @@ module.exports = {
             details.latitude=latitude
             details.signupwithphone = true
             details.signupwithgoogle = false
+            details.joindate=new Date();
             details.password = await bcrypt.hash(details.password, 10)
             db.get().collection(collection.USER_COLLECTION).insertOne(details).then((response) => {
                 resolve(response.ops[0])
@@ -773,6 +774,7 @@ module.exports = {
                 userdetails.phonenumber = ""
                 userdetails.longitude = ""
                 userdetails.latitude = ""
+                userdetails.joindate=new Date();
                 userdetails.signupwithphone = false
                 userdetails.signupwithgoogle = true
                 db.get().collection(collection.USER_COLLECTION).insertOne(userdetails).then((response) => [

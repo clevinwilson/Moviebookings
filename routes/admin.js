@@ -18,10 +18,11 @@ router.get("/", function (req, res, next) {
 });
 
 //dashboard 
-router.get("/dashboard", verifyLogin, (req, res) => {
+router.get("/dashboard", verifyLogin,async (req, res) => {
   let admin = req.session.admin;
+  let details = await  adminHelpers.getDetails()
   adminHelpers.getTheaterCount().then((theaterCount)=>{
-    res.render("admin/dashboard", { admin,theaterCount });
+    res.render("admin/dashboard", { admin,theaterCount,details });
   })
 });
 

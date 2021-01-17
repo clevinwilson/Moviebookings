@@ -500,5 +500,16 @@ module.exports={
                 resolve(false)
             }
         })
+    },
+    getDetails:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let user=await db.get().collection(collection.USER_COLLECTION).count()
+            let  theater=await db.get().collection(collection.OWNER_COLLECTION).count()
+            counts={
+                usercount:user,
+                theatercount:theater
+            }
+            resolve(counts)
+        })
     }
 }
