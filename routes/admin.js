@@ -107,7 +107,10 @@ router.get("/user-management", verifyLogin, (req, res) => {
 
 router.get("/users-activity", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/users-activity", { admin });
+  adminHelpers.getUserDetails().then((details)=>{
+    res.render("admin/users-activity", { details,admin:req.session.admin });
+})
+  
 });
 
 router.post("/login", (req, res) => {

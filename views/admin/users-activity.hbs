@@ -33,10 +33,12 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                             <th>Id</th>
                                             <th> Name</th>
-                                            <th>Join date</th>
-                                            <th>Last book</th>
+                                            <th>Screen</th>
+                                            <th>Seat</th>
+                                            <th>Show Date</th>
+                                            <th>Time</th>
                                             <th>Status</th>
                                             <th>Amount</th>
                                         </tr>
@@ -45,37 +47,36 @@
                                         <tr>
                                             <th>Id</th>
                                             <th> Name</th>
-                                            <th>Join date</th>
-                                            <th>Last book</th>
+                                            <th>Screen</th>
+                                            <th>Seat</th>
+                                            <th>Show Date</th>
+                                            <th>Time</th>
                                             <th>Status</th>
                                             <th>Amount</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        {{#each details}}
                                         <tr>
-                                            <td>1</td>
-                                            <td>Arun</td>
-                                            <td>10-11-2020</td>
-                                            <td>1-12-2020</td>
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.user.fullname}}</td>
+                                             <td>{{this.screen.screenname}}</td>
+                                            <td>
+                                            {{#each seats}}
+                                            {{this.seatName}}
+                                            {{/each}}
+                                            </td>
+                                            <td>{{this.show.date}}</td>
+                                            <td>{{this.show.time}} {{this.show.timeprtiod}}</td>
+                                            {{#if this.status}}
                                             <td class="text-success">paid</td>
-                                            <td>1980</td>
+                                            {{else}}
+                                            <td class="text-danger">Pending</td>
+                                            {{/if}}
+                                             <td>{{this.price}}</td>
                                         </tr>
-                                        <tr>
-                                             <td>1</td>
-                                            <td>Arun</td>
-                                            <td>10-11-2020</td>
-                                            <td>1-12-2020</td>
-                                            <td class="text-success">paid</td>
-                                            <td>3500</td>
-                                        </tr>
-                                        <tr>
-                                             <td>1</td>
-                                            <td>Arun</td>
-                                            <td>10-11-2020</td>
-                                            <td>1-12-2020</td>
-                                            <td class="text-success">paid</td>
-                                            <td>3280</td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
