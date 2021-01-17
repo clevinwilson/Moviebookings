@@ -458,8 +458,7 @@ router.get('/seats/:id,:showid',(req,res)=>{
 })
 
 router.post('/add-seats/:id,:showId',(req,res)=>{
-    console.log(req.params.id);
-    ownerHelper.addSeats(req.params.id,req.params.showId,req.body).then((response)=>{
+    ownerHelper.addSeats(req.params.id,req.params.showId,req.body,req.session.owner._id).then((response)=>{
         if(response){
             res.redirect('/owner/dashboard')
         }

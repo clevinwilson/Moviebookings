@@ -709,7 +709,7 @@ module.exports = {
             }
         })
     },
-    addSeats: (screenId, showId, seats) => {
+    addSeats: (screenId, showId, seats,theater) => {
         return new Promise(async(resolve, reject) => {
             let show = await db.get().collection(collection.SHOW_COLLECTION).findOne({ _id: objectId(showId) })
             if (show) {
@@ -724,6 +724,7 @@ module.exports = {
                         details.screenId = objectId(screenId)
                         details.showId = objectId(showId)
                         details.seatName = i
+                        details.theater=theater
                         details.price = seats[i]
                         db.get().collection(collection.SEAT_COLLECTION).insertOne(details).then((response) => {
                             resolve(response)
@@ -826,8 +827,8 @@ module.exports = {
         return new Promise(async(resolve,reject)=>{
             let show=await db.get().collection(collection.SHOW_COLLECTION).find({owner:objectId(ownerId)}).count()
             let  bookings=await db.get().collection(collection.BOOKING_COLLECTION).find({theater:objectId(ownerId)}).count()
-            let payidcount=await db.get().collection(collection.BOOKING_COLLECTION).find({status:true}).count()
-            let seats=await db.get().collection(collection.SEAT_COLLECTION).count()
+            let payidcount=await db.get().collection(collection.BOOKING_COLLECTION).find({status:true,theater:objectId(ownerId)}).count()
+            let seats=await db.get().collection(collection.SEAT_COLLECTION).find({theater:objectId(ownerId)}).count()
             counts={
                 showcount:show,
                 bookingcount:bookings,
