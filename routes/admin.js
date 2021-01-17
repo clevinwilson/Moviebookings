@@ -102,12 +102,15 @@ router.post("/add-owner", (req, res) => {
 
 router.get("/user-management", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  res.render("admin/users-management", { admin });
+  adminHelpers.getUserDetails().then((usersList)=>{
+    res.render("admin/users-management", { admin ,usersList});
+  })
+ 
 });
 
 router.get("/users-activity", verifyLogin, (req, res) => {
   let admin = req.session.admin;
-  adminHelpers.getUserDetails().then((details)=>{
+  adminHelpers.getUserBookingDetails().then((details)=>{
     res.render("admin/users-activity", { details,admin:req.session.admin });
 })
   
@@ -230,6 +233,17 @@ router.get('/isemailexist/:email',verifyLogin,(req,res)=>{
   console.log(req.params.email);
   adminHelpers.isEmailExist(req.params.email).then((response)=>{
     res.json(response.status)
+  })
+})
+
+//delete user
+router.get('/delete-user/:id',(req,res)=>{
+  adminHelpers.deleteUser(req.params.id).then((response)=>{
+    if(response){
+      res.json({status:true})
+    }else{
+      res.json({status:false})
+    }
   })
 })
 

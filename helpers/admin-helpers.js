@@ -430,7 +430,7 @@ module.exports={
             })
         })
     },
-    getUserDetails(){
+    getUserBookingDetails(){
         return new Promise(async(resolve,reject)=>{
             var date = new Date();
             var today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -481,6 +481,24 @@ module.exports={
             ]).sort({_id:-1}).toArray()
             console.log(userDetails);
             resolve(userDetails)
+        })
+    },
+    getUserDetails:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let users =await db.get().collection(collection.USER_COLLECTION).find().toArray()
+            resolve(users)
+        })
+    },
+    deleteUser:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user =await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)})
+            if(user){
+                db.get().collection(collection.USER_COLLECTION).removeOne({_id:objectId(userId)}).then((response)=>{
+                    resolve(response)
+                })
+            }else{
+                resolve(false)
+            }
         })
     }
 }

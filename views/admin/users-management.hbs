@@ -50,27 +50,16 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        {{#each usersList}}
                                         <tr>
-                                            <td>1</td>
-                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">  System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <td>{{this._id}}</td>
+                                            <td><img src="/user-photo/{{this._id}}.jpg" style="height: 60px;width: 60px;border-radius: 30px;"> {{this.fullname}}</td>
+                                            <td>{{this.email}}</td>
                                             <td>1-12-2020</td>
-                                            <td align="center"><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger">DELETE</a><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">BLOCK</a></td>
+                                            <td align="center"><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger"  onclick=" confirmDelete('{{this._id}}')">DELETE</a><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">BLOCK</a></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">  Accountant</td>
-                                            <td>Tokyo</td>
-                                             <td>1-12-2020</tb>
-                                            <td align="center"><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger">DELETE</a><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">BLOCK</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><img src="/images/adminbanner.jpg" style="height: 60px;width: 60px;border-radius: 30px;">  Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                             <td>1-12-2020</tb>
-                                            <td align="center"><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger">DELETE</a><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">BLOCK</a></td>
-                                        </tr>
+                                        {{/each}}
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -115,6 +104,26 @@
         </div>
     </div>
 
+    <!-- Delete Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div style="    margin-top: 242px;" class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Confirm to delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete ?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="#" onclick="deleteTheater()">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </body>
@@ -126,3 +135,29 @@
 
     }
 </style>
+<script>
+    function confirmDelete(theaterId) {
+        id = theaterId
+        $(document).ready(function () {
+            $("#deleteModal").modal('show')
+        })
+
+    }
+    function deleteTheater() {
+        $(document).ready(function () {
+            $("#deleteModal").modal('hide')
+        })
+        $.ajax({
+            url: '/admin/delete-user/' + id,
+            method: 'get',
+            success: (response) => {
+                if (response.status) {
+                    window.location.reload()
+                    document.getElementById("success").style.display="block"
+                } else {
+                    document.getElementById("error").style.display="block"
+                }
+            }
+        })
+    }
+</script>
