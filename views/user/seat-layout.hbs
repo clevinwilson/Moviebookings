@@ -1,9 +1,4 @@
-<!--
-	Author: W3layouts
-	Author URL: http://w3layouts.com
-	License: Creative Commons Attribution 3.0 Unported
-	License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -217,7 +212,7 @@
            
             <button type="submit" style="    height: 52px;position: fixed;bottom: 0px;right: 0px;z-index: 99;font-size: 15px;border: none;outline: none;
             width: 100%;cursor: pointer;color: #fff;background-color: #0288D1;display: none;padding: 0;line-height: 42px;transition: 0.5s ease-out;" 
-            id="submitbtn"  class="block fa fa-arrow-up  btn btn-success">Pay</button>
+            id="submitbtn"  class="block   btn btn-success">Pay</button>
                 </form>
                 
         
@@ -258,9 +253,13 @@
 
     {{!-- show button when checkbox checked --}}
     <script>
+        price =0
         function showButton() {
             if ($("#formID input:checkbox:checked").length > 0) {
                 // any one is checked
+                var checkedValue = $("#formID input:checkbox:checked").val();
+                {{!-- price=price+  parseInt(checkedValue)
+                var x = document.getElementById("submitbtn").innerHTML=price --}}
                 var x = document.getElementById("submitbtn");
                 x.style.display = "block";
             }
@@ -290,8 +289,7 @@
             } else {
                 $(".inputForm *").prop("disabled", true);
                 $(".seatStructure *").prop("disabled", false);
-                document.getElementById("notification").innerHTML =
-                    "<b style='margin-bottom:0px;background:#ff9800;letter-spacing:1px;'>Please Select your Seats NOW!</b>";
+               
             }
             $(".inputForm *").prop("disabled", true);
             $(".seatStructure *").prop("disabled", false);
@@ -371,5 +369,13 @@
                     </script>
 {{/each}}
 
+ 
+
+
+
+</script>
+<!--//MENU-JS-->
+
+<script src="/user/js/bootstrap.min.js"></script>
                                     
 </html>
