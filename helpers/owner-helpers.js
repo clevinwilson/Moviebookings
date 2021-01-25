@@ -805,7 +805,7 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1,seats:1,date:1,status:1,price:1,show: { $arrayElemAt: ['$show', 0]},user: { $arrayElemAt: ['$user', 0]},screen: { $arrayElemAt: ['$screen', 0] },theater: { $arrayElemAt: ['$theater', 0]}
+                        _id: 1,seats:1,time:1,showdate:1,date:1,status:1,price:1,show: { $arrayElemAt: ['$show', 0]},user: { $arrayElemAt: ['$user', 0]},screen: { $arrayElemAt: ['$screen', 0] },theater: { $arrayElemAt: ['$theater', 0]}
                     }
                 }
 

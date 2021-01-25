@@ -239,7 +239,7 @@ router.get('/isemailexist/:email',verifyLogin,(req,res)=>{
 
 //delete user
 router.get('/delete-user/:id',(req,res)=>{
-  adminHelpers.deleteUser(req.params.id).then((response)=>{
+  adminHelpers.deleteOwner(req.params.id).then((response)=>{
     if(response){
       res.json({status:true})
     }else{

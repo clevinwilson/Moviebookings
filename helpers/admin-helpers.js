@@ -485,15 +485,15 @@ module.exports={
     },
     getUserDetails:()=>{
         return new Promise(async(resolve,reject)=>{
-            let users =await db.get().collection(collection.USER_COLLECTION).find().toArray()
+            let users =await db.get().collection(collection.OWNER_COLLECTION).find().toArray()
             resolve(users)
         })
     },
-    deleteUser:(userId)=>{
+    deleteOwner:(ownerId)=>{
         return new Promise(async(resolve,reject)=>{
-            let user =await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)})
+            let user =await db.get().collection(collection.OWNER_COLLECTION).findOne({_id:ObjectId(ownerId)})
             if(user){
-                db.get().collection(collection.USER_COLLECTION).removeOne({_id:objectId(userId)}).then((response)=>{
+                db.get().collection(collection.OWNER_COLLECTION).removeOne({_id:objectId(ownerId)}).then((response)=>{
                     resolve(response)
                 })
             }else{
