@@ -14,12 +14,18 @@ require('./passport-setup')
 
 
 
+var serviceid = "	VAb018dbdeb02c7a323cf92a3e9e4dc830";
+var accountSid = "AC339f8aff9fd35caeb2ae59401274e823";  // Your Account SID 
+var authToken = "698d73164ee3fb788684650411a8cf50"; // Your Auth Token 
 
 const client = require('twilio')(accountSid, authToken)
 
 
-
-
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'Ac8sM23Byt944JvVNBaZpIpU16nhgK2Ytz5wbdFkllpvuMl3IK_0X4z5fnS7Uhv81AXe3ckkSilQJNl7',
+  'client_secret': 'EASJHFNR6Vh9_syXp9M4KL66ORScvyY4z4vAA-9lbHn-3KPHU0exb8gR5B0RCOZz62GpBaOAS2C0Tf31'
+});
 
 
 
