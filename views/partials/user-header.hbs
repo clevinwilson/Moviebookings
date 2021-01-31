@@ -1,3 +1,8 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
 <!-- Template CSS -->
 <link rel="icon" href="/images/icon.png" type="image/gif" sizes="16x16">
 <link rel="stylesheet" href="/user/css/style-starter.css">
@@ -24,16 +29,32 @@
 			<div class="profiel">
 				{{#if user}}
 				<div class="icon">
-					<img onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="30px" width="30px"
+					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="30px" width="30px"
 						style="border-radius: 50%;">
 				</div>
 				{{else}}
 				<div class="icon">
-					<img onclick="openNav()" src="/user-photo/proicon.png" height="30px" width="30px"
+					<img id="propic" onclick="openNav()" src="/user-photo/proicon.png" height="30px" width="30px"
 						style="border-radius: 50%;">
 				</div>
 				{{/if}}
 			</div>
+			<style>
+				
+				@media (min-width:990px) {
+					img#userpropic {
+						display: none;
+					}
+					
+				}
+				@media (min-width:990px) {
+					img#propic {
+						display: none;
+					}
+					
+				}
+				
+			</style>
 			<div id="mySidenav" class="sidenav">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				{{#if user}}
@@ -252,7 +273,7 @@
 	.sidenav a {
 		padding: 8px 8px 8px 32px;
 		text-decoration: none;
-		font-size: 20px;
+		font-size: 17px;
 		color: #818181;
 		display: block;
 		transition: 0.3s;
