@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7 no-js" lang="en-US">
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8 no-js" lang="en-US">
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en" class="no-js">
 
-<!-- moviesingle07:38-->
 <head>
 	<!-- Basic need -->
 	<title>view details</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="author" content="">
 	<link rel="profile" href="#">
 
@@ -57,19 +50,35 @@
 						<a class="navbar-brand" href="#index.html">
 							<img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
 						</a> -->
-				<div class="profiel">
+			<div class="profiel">
 				{{#if user}}
 				<div class="icon">
-					<img onclick="openNav()"  src="/user-photo/{{user._id}}.jpg"
-						style="border-radius: 50%; height: 35px; width: 35px; ">
+					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg"
+						style="border-radius: 50%; width: 37px; height: 37px; ">
 				</div>
 				{{else}}
 				<div class="icon">
-					<img onclick="openNav()" src="/user-photo/proicon.png" height="30px" width="30px"
-						style="border-radius: 50%;">
+					<img id="propic" onclick="openNav()" src="/user-photo/proicon.png" 
+						style="border-radius: 50%; width: 37px; height: 37px;">
 				</div>
 				{{/if}}
 			</div>
+			<style>
+				
+				@media (min-width:990px) {
+					img#userpropic {
+						display: none;
+					}
+					
+				}
+				@media (min-width:990px) {
+					img#propic {
+						display: none;
+					}
+					
+				}
+				
+			</style>
 			<div id="mySidenav" class="sidenav">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				{{#if user}}
@@ -279,7 +288,9 @@
 				<div class="movie-single-ct main-content">
 					<h1 class="bd-hd">{{movieDetails.movietitle}} <span style="color: #bdbfc2;">{{movieDetails.releasedate}}</span></h1>
 					<div class="social-btn">
+						{{#if user}}
 						<a onclick="addtofavorite('{{movieDetails._id}}')" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						{{/if}}
 						<div class="hover-bnt">
 							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
 							<div class="hvr-item">
@@ -1039,7 +1050,7 @@
 	.sidenav a {
 		padding: 8px 8px 8px 32px;
 		text-decoration: none;
-		font-size: 20px;
+		font-size: 17px;
 		color: #818181;
 		display: block;
 		transition: 0.3s;
