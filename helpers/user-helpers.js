@@ -347,7 +347,7 @@ module.exports = {
                 requireTLS: true,
                 auth: {
                     user: "www.myappsa2z@gmail.com",
-                    pass: "fmejzqxsrtfogxzg",
+                    pass: "weqrwereqrewwwe",
                 },
             });
 
