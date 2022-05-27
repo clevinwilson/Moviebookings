@@ -39,96 +39,124 @@
 
 <!-- header -->
 
-	<header  style="    background-color: black;" id="site-header" class="w3l-header fixed-top">
-		<!--/nav-->
-		<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
-			<div class="container">
-				<h1><a style="font-size: 27px; color: white; margin-left: -41px;"  class="navbar-brand mt-4" href="/"><span class="icon-log"
-							aria-hidden="true"></span>
-						Movie booking </a></h1>
-				<!-- if logo is image enable this   
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<!-- Template CSS -->
+<link rel="icon" href="/images/icon.png" type="image/gif" sizes="16x16">
+<link rel="stylesheet" href="/user/css/style-starter.css">
+<!-- Template CSS -->
+
+<!-- header -->
+<header style="height: 84px;" id="site-header" class="w3l-header fixed-top">
+	<!--/nav-->
+	<nav class="mt-4 navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+		<div class="container">
+			<h1><a class="navbar-brand mt-4" href="/"><span class="icon-log" aria-hidden="true"></span>
+					Movie booking </a></h1>
+			<!-- if logo is image enable this   
 						<a class="navbar-brand" href="#index.html">
 							<img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
 						</a> -->
+			{{!-- <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<!-- <span class="navbar-toggler-icon"></span> -->
+				<span class="fa icon-expand fa-bars"></span>
+				<span class="fa icon-close fa-times"></span>
+			</button> --}}
 			<div class="profiel">
 				{{#if user}}
 				<div class="icon">
-					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg"
-						style="border-radius: 50%; width: 37px; height: 37px; ">
+					<img id="userpropic"  style="    margin-left: 100px; border-radius: 50%;   height: 50px; width: 50px;" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px"
+						width="40px" >
 				</div>
 				{{else}}
 				<div class="icon">
-					<img id="propic" onclick="openNav()" src="/user-photo/proicon.png" 
-						style="border-radius: 50%; width: 37px; height: 37px;">
+					<img id="propic" onclick="openNav()" src="/user-photo/proicon.png" height="40px" width="40px"
+						style="border-radius: 50%;">
 				</div>
 				{{/if}}
 			</div>
 			<style>
-				
 				@media (min-width:990px) {
 					img#userpropic {
 						display: none;
 					}
-					
+
 				}
+
 				@media (min-width:990px) {
 					img#propic {
 						display: none;
 					}
-					
+
 				}
-				
 			</style>
 			<div id="mySidenav" class="sidenav">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				{{#if user}}
-				<a class="mt-4" href="/profile" >Hey, {{user.fullname}} <i class="ml-2 fa fa-angle-right"></i> <br><P class="ml-5" style="font-size: 12px;">Edit Profile</P></a>
-				<hr  style="  margin-left: 20px; margin-right: 20px;">
+				<a class="mt-4" href="/profile">Hey, {{user.fullname}} <i class="ml-2 fa fa-angle-right"></i> <br>
+					<P class="ml-5" style="font-size: 12px;">Edit Profile</P>
+				</a>
+				<hr style="  margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/">Home</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				{{else}}
 				<a href="/">Home</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/login">Login</a>
 				{{/if}}
 				{{#if user}}
-				
+
 				<a href="/my-bookings">My bookings</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/favoritemovies">Favorite Movies</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/settings">Settings</a>
-				<hr style="margin-left: 20px;  margin-right: 20px;">
+				<hr style="margin-left: 20px;  margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/logout">Log Out</a>
+				<hr style="margin-left: 20px;  margin-right: 20px; border-top: 1px solid var(--theme-title);">
+				
 				{{/if}}
 			</div>
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active">
-							<a style="color: gray;" class="mt-4  nav-link" href="/">Home</a>
-						</li>
-						<li class="nav-item">
-						<div class="mt-4  dropdown">
-							<button style="color: gray;" class="nav-link dropbtn">Language</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a style="    color: var(--theme-title);" class="nav-link " href="/">Home</a>
+					</li>
+					<li class="nav-item">
+						<div class="dropdown">
+							<button class="nav-link dropbtn">Language</button>
 							<div class="dropdown-content">
-								<a href="#">Malayalam</a>
-								<a href="#">English</a>
-								<a href="#">Hindi</a>
+								<a href="/language/1">Malayalam</a>
+								<a href="/language/2">English</a>
+								<a href="/language/3">Hindi</a>
 							</div>
 						</div>
 					</li>
-				       {{!-- <li class="nav-item">
-								<a class="text-white nav-link" href="genre.html">Genre</a>
-							</li>
+					<li class="nav-item active mt-2">
+						<i  style=" font-size: 19px; color: var(--theme-title);" class="ml-2 fas fa-search"></i>
+					</li>
 
-						<li class="nav-item">
-							<a class="text-white nav-link" href="contact.html">Contact</a>
-						</li> --}}
-                       {{#if user}}
+
+
+
+					{{!-- <li class="nav-item">
+						<a class="nav-link" href="contact.html">Contact</a>
+					</li> --}}
+					{{!-- <li class="nav-item">
+						<a style=" border-radius: 21px;" type="button" href="#" data-toggle="modal"
+							data-target="#locationModal" class="text-white ml-2 btn btn-danger">Map</a>
+					</li> --}}
+
+					{{!-- {{#if user}}
 					<li>
-						<div class="dropdown mt-2">
-							<button style=" border-color: red;  background-color: red;  margin-top: 12px;font-size: 16px;margin: 9px; " class="text-white btn btn-secondary dropdown-toggle"
+						<div class="dropdown">
+							<button style="background-color: red;" class="text-white btn btn-secondary dropdown-toggle"
 								type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Hey,{{user.fullname}}
@@ -142,112 +170,306 @@
 							</div>
 						</div>
 					</li>
+				</ul>
 				{{else}}
 				<li class="nav-item">
-					<a class="mt-4 text-white nav-link" href="/login">Login</a>
+					<a class="nav-link" href="/login">Login</a>
 				</li>
-				{{/if}}
-					</ul>
-					<style>
-						/* Style The Dropdown Button */
-						.dropbtn {
-							background-color: #0c0f0a;
-							color: white;
-							padding: 16px;
-							font-size: 16px;
-							border: none;
-							cursor: pointer;
-						}
-					
-						/* The container <div> - needed to position the dropdown content */
-						.dropdown {
-							position: relative;
-							display: inline-block;
-						}
-					
-						/* Dropdown Content (Hidden by Default) */
-						.dropdown-content {
-							display: none;
-							position: absolute;
-							background-color: #f9f9f9;
-							min-width: 160px;
-							box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-							z-index: 1;
-						}
-					
-						/* Links inside the dropdown */
-						.dropdown-content a {
-							color: black;
-							padding: 12px 16px;
-							text-decoration: none;
-							display: block;
-						}
-					
-						/* Change color of dropdown links on hover */
-						.dropdown-content a:hover {
-							background-color: #f1f1f1
-						}
-					
-						/* Show the dropdown menu on hover */
-						.dropdown:hover .dropdown-content {
-							display: block;
-						}
-					
-						/* Change the background color of the dropdown button when the dropdown content is shown */
-						.dropdown:hover .dropbtn {
-							background-color: #0c0f0a;
-						}
-					</style>
+				{{/if}} --}}
 
-					<!--/search-right-->
-					<!--/search-right-->
-					{{!-- <div class="search-right">
-						<a href="#search" class="btn search-hny mr-lg-3 mt-lg-0 mt-4" title="search">Search <span
-								class="fa fa-search ml-3" aria-hidden="true"></span></a>
-						<!-- search popup -->
-						<div id="search" class="pop-overlay">
-							<div class="popup">
-								<form action="#" method="post" class="search-box">
-									<input type="search" placeholder="Search your Keyword" name="search"
-										required="required" autofocus="">
-									<button type="submit" class="btn"><span class="fa fa-search"
-											aria-hidden="true"></span></button>
-								</form>
-								<div class="browse-items">
-									<h3 class="hny-title two mt-md-5 mt-4">Browse all:</h3>
-									<ul class="search-items">
-										<li><a href="genre.html">Action</a></li>
-										<li><a href="genre.html">Drama</a></li>
-										<li><a href="genre.html">Family</a></li>
-										<li><a href="genre.html">Thriller</a></li>
-										<li><a href="genre.html">Commedy</a></li>
-										<li><a href="genre.html">Romantic</a></li>
-										<li><a href="genre.html">Tv-Series</a></li>
-										<li><a href="genre.html">Horror</a></li>
-										<li><a href="genre.html">Action</a></li>
-										<li><a href="genre.html">Drama</a></li>
-										<li><a href="genre.html">Family</a></li>
-										<li><a href="genre.html">Thriller</a></li>
-										<li><a href="genre.html">Commedy</a></li>
-										<li><a href="genre.html">Romantic</a></li>
-										<li><a href="genre.html">Tv-Series</a></li>
-										<li><a href="genre.html">Horror</a></li>
-									</ul>
-								</div>
+
+				<!--/search-right-->
+				<!--/search-right-->
+				{{!-- <div class="search-right">
+					<a href="#search" class="btn search-hny mr-lg-3 mt-lg-0 mt-4" title="search">Search <span
+							class="fa fa-search ml-3" aria-hidden="true"></span></a>
+					<!-- search popup -->
+					<div id="search" class="pop-overlay">
+						<div class="popup">
+							<form action="#" method="post" class="search-box">
+								<input type="search" placeholder="Search your Keyword" name="search" required="required"
+									autofocus="">
+								<button type="submit" class="btn"><span class="fa fa-search"
+										aria-hidden="true"></span></button>
+							</form>
+							<div class="browse-items">
+								<h3 class="hny-title two mt-md-5 mt-4">Browse all:</h3>
+								<ul class="search-items">
+									<li><a href="genre.html">Action</a></li>
+									<li><a href="genre.html">Drama</a></li>
+									<li><a href="genre.html">Family</a></li>
+									<li><a href="genre.html">Thriller</a></li>
+									<li><a href="genre.html">Commedy</a></li>
+									<li><a href="genre.html">Romantic</a></li>
+									<li><a href="genre.html">Tv-Series</a></li>
+									<li><a href="genre.html">Horror</a></li>
+									<li><a href="genre.html">Action</a></li>
+									<li><a href="genre.html">Drama</a></li>
+									<li><a href="genre.html">Family</a></li>
+									<li><a href="genre.html">Thriller</a></li>
+									<li><a href="genre.html">Commedy</a></li>
+									<li><a href="genre.html">Romantic</a></li>
+									<li><a href="genre.html">Tv-Series</a></li>
+									<li><a href="genre.html">Horror</a></li>
+								</ul>
 							</div>
-							<a class="close" href="#close">×</a>
-						</div> --}}
-						<!-- /search popup -->
-						<!--/search-right-->
-					</div>
-
-
+						</div>
+						<a class="close" href="#close">×</a>
+					</div> --}}
+					<!-- /search popup -->
+					<!--/search-right-->
 				</div>
-				
+
+
 			</div>
-		</nav>
-		<!--//nav-->
-	</header>
+			<div class="profiem mr-5">
+				{{#if user}}
+				<div class="icon">
+					<img id="userpic" style=" border-radius: 50%;   height: 50px; width: 50px;" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px" width="40px"
+						>
+				</div>
+				{{else}}
+				<div class="nav-item">
+					<a style="font-weight: 600;" class="text-danger nav-link  login-btn   mr-5" href="/login">Login</a>
+				</div>
+				{{/if}}
+			</div>
+
+		</div>
+	</nav>
+	<!--//nav-->
+</header>
+
+<style>
+	/* Style The Dropdown Button */
+	.dropbtn {
+		background-color: #0c0f0a;
+		color: white;
+		padding: 16px;
+		font-size: 16px;
+		border: none;
+		cursor: pointer;
+	}
+
+	/* The container <div> - needed to position the dropdown content */
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Dropdown Content (Hidden by Default) */
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f9f9f9;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	/* Links inside the dropdown */
+	.dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+
+	/* Change color of dropdown links on hover */
+	.dropdown-content a:hover {
+		background-color: #f1f1f1
+	}
+
+	/* Show the dropdown menu on hover */
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+
+	/* Change the background color of the dropdown button when the dropdown content is shown */
+	.dropdown:hover .dropbtn {
+		background-color: #0c0f0a;
+	}
+</style>
+
+{{!-- hamberger menu style --}}
+<style>
+	.sidenav {
+		height: 100%;
+		/* 100% Full-height */
+		width: 0;
+		/* 0 width - change this with JavaScript */
+		position: fixed;
+		/* Stay in place */
+		z-index: 1;
+		/* Stay on top */
+		top: 0;
+		/* Stay at the top */
+		right: 0;
+		background-color: var(--theme-hd-bg);
+		/* Black*/
+		overflow-x: hidden;
+		/* Disable horizontal scroll */
+		padding-top: 60px;
+		/* Place content 60px from the top */
+		transition: 0.5s;
+		/* 0.5 second transition effect to slide in the sidenav */
+	}
+
+	/* The navigation menu links */
+	.sidenav a {
+		padding: 8px 8px 8px 32px;
+		text-decoration: none;
+		font-size: 17px;
+		color: #818181;
+		display: block;
+		transition: 0.3s;
+	}
+
+	/* When you mouse over the navigation links, change their color */
+	.sidenav a:hover {
+		color: #f1f1f1;
+	}
+
+	/* Position and style the close button (top right corner) */
+	.sidenav .closebtn {
+		position: absolute;
+		top: 0;
+		right: 25px;
+		font-size: 36px;
+		margin-left: 50px;
+	}
+
+	/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+	#main {
+		transition: margin-left .5s;
+		padding: 20px;
+	}
+
+	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+	@media screen and (max-height: 450px) {
+		.sidenav {
+			padding-top: 15px;
+		}
+
+		.sidenav a {
+			font-size: 18px;
+		}
+	}
+
+	@media screen and (max-width:992px) {
+		.login-btn {
+			display: none !important;
+		}
+
+		.profiem {
+			display: none !important;
+		}
+
+	}
+</style>
+
+{{!-- login btn style --}}
+<style>
+
+</style>
+
+
+
+
+<!-- /move top -->
+<!-- hamburger menu -->
+<script>
+	function openNav() {
+		document.getElementById("mySidenav").style.width = "250px";
+	}
+
+	/* Set the width of the side navigation to 0 */
+	function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+	}
+
+</script>
+
+{{!-- toggle switch --}}
+<style>
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 60px;
+		height: 34px;
+	}
+
+	.switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	input:checked+.slider {
+		background-color: #2196F3;
+	}
+
+	input:focus+.slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
+
+	input:checked+.slider:before {
+		-webkit-transform: translateX(26px);
+		-ms-transform: translateX(26px);
+		transform: translateX(26px);
+	}
+
+	/* Rounded sliders */
+	.slider.round {
+		border-radius: 34px;
+	}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
+</style>
+
+
+<script src="/user/js/easyResponsiveTabs.js"></script>
+
+<!-- //responsive tabs -->
+<!--/theme-change-->
+<script src="/user/js/theme-change.js"></script>
+<!-- //theme-change-->
+<script src="/user/js/owl.carousel.js"></script>
+<!-- script for banner slider-->
+
+
+
+
+</script>
+<!--//MENU-JS-->
+
+<script src="user/js/bootstrap.min.js"></script>
 	
 	<!-- //header -->
 <!-- END | Header -->

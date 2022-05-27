@@ -12,9 +12,9 @@ const passport=require('passport')
 require('./passport-setup')
 require('dotenv').config()
 
-var serviceid = "	VA56c35f1097182384984c8f9f1c2210bf";
-var accountSid = "ACa4e953acea6132b41cf15e4aad9c0570";  // Your Account SID 
-var authToken = "3c674567c4ac13e9cbdd52f11eb78676"; // Your Auth Token 
+var serviceid = "	VA56c35f10971829f1c2210bf";
+var accountSid = "ACa4e953acea6132b410";  // Your Account SID 
+var authToken = "3c674567c41eb78676"; // Your Auth Token 
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -120,7 +120,7 @@ router.post('/login', (req, res) => {
       req.session.userDetails = response.user;
       client
         .verify
-        .services("VA56c35f1097182384984c8f9f1c2210bf")
+        .services(serviceid)
         .verifications
         .create({
           to: `+91${req.body.phonenumber}`,
