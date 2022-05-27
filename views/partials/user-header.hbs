@@ -29,12 +29,12 @@
 			<div class="profiel">
 				{{#if user}}
 				<div class="icon">
-					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="30px" width="30px"
+					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px" width="40px"
 						style="border-radius: 50%;">
 				</div>
 				{{else}}
 				<div class="icon">
-					<img id="propic" onclick="openNav()" src="/user-photo/proicon.png" height="30px" width="30px"
+					<img id="propic" onclick="openNav()" src="/user-photo/proicon.png" height="40px" width="40px"
 						style="border-radius: 50%;">
 				</div>
 				{{/if}}
@@ -59,24 +59,24 @@
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				{{#if user}}
 				<a class="mt-4" href="/profile" >Hey, {{user.fullname}} <i class="ml-2 fa fa-angle-right"></i> <br><P class="ml-5" style="font-size: 12px;">Edit Profile</P></a>
-				<hr  style="  margin-left: 20px; margin-right: 20px;">
+				<hr  style="  margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/">Home</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				{{else}}
 				<a href="/">Home</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/login">Login</a>
 				{{/if}}
 				{{#if user}}
 				
 				<a href="/my-bookings">My bookings</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/favoritemovies">Favorite Movies</a>
-				<hr style="margin-left: 20px; margin-right: 20px;">
+				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/settings">Settings</a>
-				<hr style="margin-left: 20px;  margin-right: 20px;">
+				<hr style="margin-left: 20px;  margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/logout">Log Out</a>
-
+				<hr style="margin-left: 20px;  margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<!-- toggle switch for light and dark theme -->
 				<div class=" p-3 mt-4">
 					<nav class="navigation mr-5">
