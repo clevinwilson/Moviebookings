@@ -12,9 +12,9 @@ const passport=require('passport')
 require('./passport-setup')
 require('dotenv').config()
 
-var serviceid = "	VA56c35f1097182384984c8f9f1c2210bf";
-var accountSid = "ACa4e953acea6132b41cf15e4aad9c0570";  // Your Account SID 
-var authToken = "3c674567c4ac13e9cbdd52f11eb78676"; // Your Auth Token 
+var serviceid = "	";
+var accountSid = "";  // Your Account SID 
+var authToken = ""; // Your Auth Token 
 
 const client = require('twilio')(accountSid, authToken)
 
