@@ -10,9 +10,20 @@ const mapboxgl = require('mapbox-gl');
 var userHelpers = require('../helpers/user-helpers')
 const passport=require('passport')
 require('./passport-setup')
+require('dotenv').config()
+
+var serviceid = "	VA56c35f1097182384984c8f9f1c2210bf";
+var accountSid = "ACa4e953acea6132b41cf15e4aad9c0570";  // Your Account SID 
+var authToken = "3c674567c4ac13e9cbdd52f11eb78676"; // Your Auth Token 
+
+const client = require('twilio')(accountSid, authToken)
 
 
-
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'Ac8sM23Byt944JvVNBaZpIpU16nhgK2Ytz5wbdFkllpvuMl3IK_0X4z5fnS7Uhv81AXe3ckkSilQJNl7',
+  'client_secret': 'EASJHFNR6Vh9_syXp9M4KL66ORScvyY4z4vAA-9lbHn-3KPHU0exb8gR5B0RCOZz62GpBaOAS2C0Tf31'
+});
 
 
 
@@ -109,7 +120,7 @@ router.post('/login', (req, res) => {
       req.session.userDetails = response.user;
       client
         .verify
-        .services(serviceid)
+        .services("VA56c35f1097182384984c8f9f1c2210bf")
         .verifications
         .create({
           to: `+91${req.body.phonenumber}`,
