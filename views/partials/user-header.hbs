@@ -9,7 +9,7 @@
 <!-- Template CSS -->
 
 <!-- header -->
-<header id="site-header" class="w3l-header fixed-top">
+<header style="height: 84px;"  id="site-header" class="w3l-header fixed-top">
 	<!--/nav-->
 	<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
 		<div class="container">
@@ -76,13 +76,27 @@
 				<a href="/settings">Settings</a>
 				<hr style="margin-left: 20px;  margin-right: 20px;">
 				<a href="/logout">Log Out</a>
+
+				<!-- toggle switch for light and dark theme -->
+				<div class=" p-3 mt-4">
+					<nav class="navigation mr-5">
+						<p class="mr-4" style="font-size: 17px;">Theme</p>
+						<div class="theme-switch-wrapper ml-3">
+							<label class="switch theme-switch " >
+								<input type="checkbox" id="checkbox">
+								<span class="slider round"></span>
+							</label>
+						</div>
+					</nav>
+				</div>
+				<!-- //toggle switch for light and dark theme -->
 				{{/if}}
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active">
-						<a class="nav-link" href="/">Home</a>
+						<a style="    color: var(--theme-title);" class="nav-link " href="/">Home</a>
 					</li>
 					<li class="nav-item">
 						<div class="dropdown">
@@ -93,6 +107,9 @@
 								<a href="/language/3">Hindi</a>
 							</div>
 						</div>
+					</li>
+					<li class="nav-item active">
+								<i style="color: var(--theme-title);" class="ml-2 fas fa-search"></i>
 					</li>
 
 
@@ -106,7 +123,7 @@
 							data-target="#locationModal" class="text-white ml-2 btn btn-danger">Map</a>
 					</li> --}}
 
-					{{#if user}}
+					{{!-- {{#if user}}
 					<li>
 						<div class="dropdown">
 							<button style="background-color: red;" class="text-white btn btn-secondary dropdown-toggle"
@@ -128,7 +145,8 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/login">Login</a>
 				</li>
-				{{/if}}
+				{{/if}} --}}
+				
 
 				<!--/search-right-->
 				<!--/search-right-->
@@ -174,21 +192,19 @@
 
 
 			</div>
-			<!-- toggle switch for light and dark theme -->
-			<div class="mobile-position">
-				<nav class="navigation">
-					<div class="theme-switch-wrapper">
-						<label class="theme-switch" for="checkbox">
-							<input type="checkbox" id="checkbox">
-							<div class="mode-container">
-								<i class="gg-sun"></i>
-								<i class="gg-moon"></i>
-							</div>
-						</label>
-					</div>
-				</nav>
+			<div class="profiem mr-5">
+				{{#if user}}
+				<div class="icon">
+					<img id="userpic"  onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px" width="40px"
+						style="border-radius: 50%;">
+				</div>
+				{{else}}
+				<div class="nav-item">
+					<a style="font-weight: 600;" class="text-danger nav-link  login-btn   mr-5" href="/login">Login</a>
+				</div>
+				{{/if}}
 			</div>
-			<!-- //toggle switch for light and dark theme -->
+			
 		</div>
 	</nav>
 	<!--//nav-->
@@ -309,6 +325,21 @@
 			font-size: 18px;
 		}
 	}
+
+	@media screen and (max-width:992px) {
+		.login-btn{
+			display: none !important;
+		}
+		.profiem{
+			display: none !important;
+		}
+		
+	}
+</style>
+
+{{!-- login btn style --}}
+<style>
+
 </style>
 
 
@@ -327,6 +358,69 @@
 	}
 
 </script>
+
+{{!-- toggle switch --}}
+<style>
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 60px;
+		height: 34px;
+	}
+
+	.switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	input:checked+.slider {
+		background-color: #2196F3;
+	}
+
+	input:focus+.slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
+
+	input:checked+.slider:before {
+		-webkit-transform: translateX(26px);
+		-ms-transform: translateX(26px);
+		transform: translateX(26px);
+	}
+
+	/* Rounded sliders */
+	.slider.round {
+		border-radius: 34px;
+	}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
+</style>
 
 
 <script src="/user/js/easyResponsiveTabs.js"></script>
