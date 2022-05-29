@@ -136,7 +136,7 @@ Author URL: http://w3layouts.com
 	<section>
 		<div class="container">
 			<div class="row mt-5">
-				<div class="col-md-3 col-6  footer-img mb-lg-0 mb-4">
+				<div class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
 					<video autoplay="" loop="" playsinline="" id="myVideo">
 						<source src="user/videos/1564674844-disney.mp4" type="video/mp4">
 					</video>
@@ -144,21 +144,21 @@ Author URL: http://w3layouts.com
 							alt=""></a>
 
 				</div>
-				<div class="col-md-3 col-6  footer-img mb-lg-0 mb-4">
+				<div class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
 					<video autoplay="" loop="" playsinline="" id="myVideo">
 						<source src="user/videos/1564676714-pixar.mp4" type="video/mp4">
 					</video>
 					<a href="/all-movies"><img class="banner-box img-fluid" src="user/images/viewers-pixar.png"
 							alt=""></a>
 				</div>
-				<div class="col-md-3 col-6  footer-img mb-lg-0 mb-4">
+				<div class="col-md-3 col-6  logo-box mb-lg-0 mb-4">
 					<video autoplay="" loop="" playsinline="" id="myVideo">
 						<source src="user/videos/1564676115-marvel.mp4" type="video/mp4">
 					</video>
 					<a href="/all-movies"><img class="banner-box img-fluid" src="user/images/viewers-marvel.png"
 							alt=""></a>
 				</div>
-				<div class="col-md-3 col-6  footer-img mb-lg-0 mb-4">
+				<div class="col-md-3 col-6  logo-box mb-lg-0 mb-4">
 					<video autoplay="" loop="" playsinline="" id="myVideo">
 						<source src="user/videos/1608229455-star-wars.mp4" type="video/mp4">
 					</video>
@@ -171,15 +171,10 @@ Author URL: http://w3layouts.com
 	</section>
 
 	<style>
-		{
-				{
-				 !-- background-color: #161825;
-				--
-			}
-		}
+	
 
 		.banner-box {
-
+			background-color: #161825;
 			border-radius: 10px;
 			box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
 			cursor: pointer;
@@ -190,13 +185,18 @@ Author URL: http://w3layouts.com
 		}
 
 		video {
-			width: 90%;
+			width: 89%;
 			height: 100%;
 			position: absolute;
 			/* top: 0px; */
 			/* opacity: 0; */
 			z-index: 0;
 			border-radius: 11px;
+		}
+
+		.logo-box :hover{
+			    transform: scale(1.05) !important;
+				 z-index: 1;
 		}
 	</style>
 
