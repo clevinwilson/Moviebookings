@@ -136,11 +136,11 @@ Author URL: http://w3layouts.com
 	<section>
 		<div class="container">
 			<div class="row mt-5">
-				<div class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
-					<video autoplay="" loop="" playsinline="" id="myVideo">
+				<div onmouseover=showVideo("disney") class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
+					<video autoplay="" loop="" playsinline="" id="disneyVid">
 						<source src="user/videos/1564674844-disney.mp4" type="video/mp4">
 					</video>
-					<a href="/all-movies"><img class="banner-box img-fluid" src="user/images/viewers-disney.png"
+					<a href="/all-movies"><img id="disney" class="banner-box img-fluid" src="user/images/viewers-disney.png"
 							alt=""></a>
 
 				</div>
@@ -191,14 +191,16 @@ Author URL: http://w3layouts.com
 			/* top: 0px; */
 			/* opacity: 0; */
 			z-index: 0;
-			border-radius: 11px;
+			border-radius: 10px;
 		}
 
 		.logo-box :hover{
-			    transform: scale(1.05) !important;
-				 z-index: 1;
+			    transform: scale(1.04) !important;
+				z-index: 1;
+				background-color: transparent;
 		}
 	</style>
+
 
 	<!--grids-sec1-->
 	<section class="w3l-grids">
