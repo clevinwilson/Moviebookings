@@ -374,30 +374,24 @@ Author URL: http://w3layouts.com
 				<div class="col-lg-12 mx-auto">
 					<!--Horizontal Tab-->
 					<div id="parentHorizontalTab">
+	<div class="albums-content">
+		<div class="row">
+			<!--/set1-->
+			{{#each UpComingMoviesList}}
+			<div class="col-lg-4 new-relise-gd mt-lg-0 m-4">
+				<div style="    background-image: url(/upcoming-movies/{{this._id}}.jpg);" class=" footer-image-box ">
+					<div class="img-circle">
 	
-						<div class="resp-tabs-container hor_1">
-							<div class="albums-content">
-								<div class="row">
-									<!--/set1-->
-									{{#each UpComingMoviesList}}
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div style="    background-image: url(/upcoming-movies/{{this._id}}.jpg);"
-											class=" footer-image-box ">
-											<div class="img-circle">
+					</div>
 	
-											</div>
+				</div>
 	
-										</div>
+			</div>
+			{{/each}}
 	
-									</div>
-									{{/each}}
-	
-									<!--//set1-->
-								</div>
-							</div>
-	
-	
-						</div>
+			<!--//set1-->
+		</div>
+	</div>
 					</div>
 				</div>
 			</div>
