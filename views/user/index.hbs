@@ -131,6 +131,69 @@ Author URL: http://w3layouts.com
 	</section>
 	<!-- //banner-slider-->
 	<!-- main-slider -->
+		<section>
+			<div class="container">
+				<div class="row mt-5">
+					<div onmouseover=showVideo("disney") class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
+						<video autoplay="" muted loop="" playsinline="" id="disneyVid">
+							<source src="user/videos/1564674844-disney.mp4" type="video/mp4">
+						</video>
+						<a href="/all-movies"><img id="disney" class="banner-box img-fluid" src="user/images/viewers-disney.png"
+								alt=""></a>
+		
+					</div>
+					<div class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
+						<video autoplay="" muted loop="" playsinline="" id="myVideo">
+							<source src="user/videos/1564676714-pixar.mp4" type="video/mp4">
+						</video>
+						<a href="/all-movies"><img class="banner-box img-fluid" src="user/images/viewers-pixar.png" alt=""></a>
+					</div>
+					<div class="col-md-3 col-6  logo-box mb-lg-0 mb-4">
+						<video autoplay="" muted loop="" playsinline="" id="myVideo">
+							<source src="user/videos/1564676115-marvel.mp4" type="video/mp4">
+						</video>
+						<a href="/all-movies"><img class="banner-box img-fluid" src="user/images/viewers-marvel.png" alt=""></a>
+					</div>
+					<div class="col-md-3 col-6  logo-box mb-lg-0 mb-4">
+						<video autoplay="" muted loop="" playsinline="" id="myVideo">
+							<source src="user/videos/1608229455-star-wars.mp4" type="video/mp4">
+						</video>
+						<a href="/all-movies"><img class="banner-box img-fluid" src="user/images/viewers-starwars.png"
+								alt=""></a>
+					</div>
+		
+				</div>
+			</div>
+		</section>
+		
+		<style>
+			.banner-box {
+				background-color: #161825;
+				border-radius: 10px;
+				box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+				cursor: pointer;
+				overflow: hidden;
+				position: relative;
+				transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+				border: 3px solid rgba(249, 249, 249, 0.1);
+			}
+		
+			video {
+				width: 89%;
+				height: 100%;
+				position: absolute;
+				/* top: 0px; */
+				/* opacity: 0; */
+				z-index: 0;
+				border-radius: 10px;
+			}
+		
+			.logo-box :hover {
+				transform: scale(1.04) !important;
+				z-index: 1;
+				background-color: transparent;
+			}
+		</style>
 	<!--grids-sec1-->
 	<section class="w3l-grids">
 		<div class="grids-main py-5">
@@ -296,6 +359,7 @@ Author URL: http://w3layouts.com
 		</div>
 	</section>
 	<!-- //mid-slider-->
+	
 	<!--/tabs-->
 	<section class="w3l-albums py-5" id="projects">
 		<div class="container py-lg-4">
@@ -303,553 +367,51 @@ Author URL: http://w3layouts.com
 				<div class="col-lg-12 mx-auto">
 					<!--Horizontal Tab-->
 					<div id="parentHorizontalTab">
-						<ul class="resp-tabs-list hor_1">
-							<li>Upcoming Movies</li>
-							<li>Recent Movies</li>
-							<li>Trend Movies</li>
-							<div class="clear"></div>
-						</ul>
+	
 						<div class="resp-tabs-container hor_1">
 							<div class="albums-content">
 								<div class="row">
 									<!--/set1-->
 									{{#each UpComingMoviesList}}
 									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
+										<div style="    background-image: url(/upcoming-movies/{{this._id}}.jpg);"
+											class=" footer-image-box ">
 											<div class="img-circle">
-												<a href="/upcoming-movies-details/{{this._id}}">
-
-													<img style="height:215px"  src="/upcoming-movies/{{this._id}}.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
+	
 											</div>
-											<div class="message">
-												<p>{{this.language}}</p>
-												<a class="author-book-title" href="#">{{this.type}}</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span>
-														{{this.hour}} Hr {{this.minute}} min
-
-													</span>
-
-													<span class="post  text-right"></span>
-												</h4>
-											</div>
+	
 										</div>
-
+	
 									</div>
 									{{/each}}
-									{{!--
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m5.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Jumanji</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m4.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Little Women</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<!--//set1-->
-									<!--/set1-->
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m1.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Rocketman</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m2.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Doctor Sleep</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m3.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Knives Out</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div> --}}
-									<!--//set1-->
-									<!--/set1-->
-									{{!-- <div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/n1.jpg" class="img-fluid"
-														alt="author image">
-													<span class="fa fa-play video-icon" aria-hidden="true"></span>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">No Time to Die</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/n2.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Mulan</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/n3.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Free Guy</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div> --}}
+	
 									<!--//set1-->
 								</div>
 							</div>
-							<div class="albums-content">
-								<div class="row">
-									{{!--
-									<!--/set1--> Upcoming movies --}}
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m1.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Rocketman</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m2.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Doctor Sleep</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m3.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Knives Out</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<!--//set1-->
-									<!--/set2-->
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m7.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Frozen 2</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m8.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Toy Story 4</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m9.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Joker</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<!--//set2-->
-								</div>
-							</div>
-							<div class="albums-content">
-								<div class="row">
-									<!--/set3-->
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m7.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Frozen 2</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m8.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Toy Story 4</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m9.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="user.html">Joker</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<!--//set3-->
-									<!--/set3-->
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m10.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">Alita</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m11.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">The Lego</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-lg-4 new-relise-gd mt-lg-0 mt-0">
-										<div class="slider-info">
-											<div class="img-circle">
-												<a href="#"><img src="user/images/m12.jpg" class="img-fluid"
-														alt="author image">
-													<div class="overlay-icon">
-
-														<span class="fa fa-play video-icon" aria-hidden="true"></span>
-													</div>
-												</a>
-											</div>
-											<div class="message">
-												<p>English</p>
-												<a class="author-book-title" href="#">The Hustle</a>
-												<h4> <span class="post"><span class="fa fa-clock-o"> </span> 2 Hr 4min
-
-													</span>
-
-													<span class="post fa fa-heart text-right"></span>
-												</h4>
-											</div>
-										</div>
-
-									</div>
-									<!--//set3-->
-								</div>
-							</div>
+	
+	
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	<style>
+		.footer-image-box {
+			padding-top: 54%;
+			border-radius: 10px;
+			box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+			cursor: pointer;
+			overflow: hidden;
+			position: relative;
+			transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+	
+		}
+	
+		.new-relise-gd :hover {
+			transform: scale(1.05) !important;
+		}
+	</style>
 	<!-- //tabs-->
 	<!-- footer-66 -->
 	{{>user-footer}}
