@@ -135,7 +135,7 @@ Author URL: http://w3layouts.com
 			<div class="container">
 				<div class="row mt-5">
 					<div onmouseover=showVideo("disney") class="col-md-3 col-6 logo-box mb-lg-0 mb-4">
-						<video autoplay="" muted loop="" playsinline="" id="disneyVid">
+						<video class="video" autoplay="" muted loop="" playsinline="" id="disneyVid">
 							<source src="user/videos/1564674844-disney.mp4" type="video/mp4">
 						</video>
 						<a href="/all-movies"><img id="disney" class="banner-box img-fluid" src="user/images/viewers-disney.png"
@@ -186,6 +186,13 @@ Author URL: http://w3layouts.com
 				/* opacity: 0; */
 				z-index: 0;
 				border-radius: 10px;
+			}
+
+			@media screen and (max-width:555px) {
+				video{
+					    width: 84% !important;
+				}
+				
 			}
 		
 			.logo-box :hover {
@@ -287,7 +294,7 @@ Author URL: http://w3layouts.com
 								<span class="fa fa-play video-icon" aria-hidden="true"></span>
 							</a>
 						</div>
-						<h3> <a class="title-gd" href="">{{this.movietitle}}</a></h3>
+						<h3> <a style="font-size: 16px;" class="title-gd" href="">{{this.movietitle}}</a></h3>
 						{{!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
 						<div class="button-center text-center mt-4">
 							<a href="#" style="color: var(--theme-title);" class="btn watch-button">Watch
@@ -309,7 +316,7 @@ Author URL: http://w3layouts.com
 			<div class="owl-mid owl-carousel owl-theme">
 				<div class="item">
 					<li>
-						<div class="slider-info mid-view bg bg2">
+						<div style="position: inherit;"  class="slider-info mid-view bg bg2">
 							<div class="container">
 								<div class="mid-info">
 									<span class="sub-text">Comedy</span>
