@@ -518,9 +518,9 @@
 				</div>
 				<div class="col-md-8 col-sm-12 col-xs-12">
 					<div class="movie-single-ct main-content">
-						<h1 class="bd-hd">{{movieDetails.movietitle}} <span
+						<h1 style="    font-size: 43px;" class="bd-hd">{{movieDetails.movietitle}} <span
 								style="color: #bdbfc2;">{{movieDetails.releasedate}}</span></h1>
-						<div class="containers mt-4">
+						<div class="containers mt-5">
 							<div class="movie-rate row">
 								<div style="justify-content: center;" class="rate col-md-1 col-3">
 									<i class="fa-solid fa-thumbs-up"></i>
@@ -533,24 +533,56 @@
 								</div>
 							</div>
 						</div>
-						
-						<div class="ml-1 mb-4 row">
-							<p>English</p>
+						<div class=" row mb-4">
+							<div class="col-md-2 col-12 mt-2">
+								<p class="banner-innertext">English</p>
+							</div>
+							<div class="col-md-2 col-4 mt-2">
+								<div>
+
+									{{#if user}}
+									<a onclick="addtofavorite('{{movieDetails._id}}')" class="parent-btn"><i
+											style="font-size: 26px;color: #ff1717;" class="fa-solid fa-heart"></i> </a>
+									{{/if}}
+								</div>
+							</div>
+							<div style="    display: inline-flex;" class=" share-btn col-md-2 col-5 mt-2 ">
+								<i style="font-size: 26px;color: white;" class="text-dark fa-solid fa-share-nodes"></i>
+
+								<p class="ml-5 text-dark">Share</p>
+							</div>
 						</div>
-						<div class="ml-1 row mb-4">
-							<p>2h 30m
-								•
-								Action
-								,
-								Adventure
-								,
-								Sci-Fi
-								,
-								Thriller
-								•
-								UA</p>
+
+						<style>
+							.share-btn {
+								display: inline-flex;
+								display: flex;
+								height: 40px;
+								width: 122px;
+								background-color: rgb(255 255 255 / 100%);
+								opacity: 0.8;
+								padding: 0px 16px;
+								cursor: pointer;
+								padding: 9px !important;
+								margin-top: -5px;
+								border-radius: 4px;
+							}
+
+								.banner-innertext{
+								font-size: 16px;
+								font-weight: 700;
+								line-height: 24px;
+								letter-spacing: 0.2px;
+								color: rgb(255, 255, 255);
+								margin-right: 0px;
+							}
+						</style>
+
+
+						<div class="ml-1 row mt-2 mb-4">
+							<p class="banner-innertext">2h 30m • Action , Adventure , Sci-Fi , Thriller • UA</p>
 						</div>
-						<div class="rows  movie-release-details-box  mb-4">
+						<div class="rows  movie-release-details-box mt-5 mb-4">
 							<div class="col-md-6 col-6">
 								<div>
 									<h1 class="movie-release-box-title">Releasing on </h1>
@@ -563,7 +595,7 @@
 								<button class="movie-release-box-btn"><span>I'm interested</span></button>
 							</div>
 						</div>
-						<div class="social-btn">
+						{{!-- <div class="social-btn">
 							{{#if user}}
 							<a onclick="addtofavorite('{{movieDetails._id}}')" class="parent-btn"><i
 									class="ion-heart"></i> </a>
@@ -577,7 +609,7 @@
 									<a href="#" class="hvr-grow"><i class="ion-social-youtube"></i></a>
 								</div>
 							</div>
-						</div>
+						</div> --}}
 
 						<div class="movie-tabs">
 							<div class="tabs">
@@ -1241,7 +1273,8 @@
 														learn to fight as a team if they are to stop the mischievous
 														Loki and his alien army from enslaving humanity...</p>
 													<p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .
-														<span>Release: 1 May 2015</span></p>
+														<span>Release: 1 May 2015</span>
+													</p>
 													<p>Director: <a href="#">Joss Whedon</a></p>
 													<p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris
 															Evans,</a> <a href="#"> Chris Hemsworth</a></p>
@@ -1257,7 +1290,8 @@
 														the modern world, he teams up with a fellow Avenger and
 														S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
 													<p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .
-														<span>Release: 1 May 2015</span></p>
+														<span>Release: 1 May 2015</span>
+													</p>
 													<p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a>
 													</p>
 													<p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L.
@@ -1274,7 +1308,8 @@
 														ability to shrink in scale but increase in strength, cat burglar
 														Scott Lang must embrace his inner hero and help...</p>
 													<p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .
-														<span>Release: 1 May 2015</span></p>
+														<span>Release: 1 May 2015</span>
+													</p>
 													<p>Director: <a href="#">Peyton Reed</a></p>
 													<p>Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael
 															Douglas</a></p>
@@ -1290,7 +1325,8 @@
 														formidable terrorist called the Mandarin, he starts an odyssey
 														of rebuilding and retribution.</p>
 													<p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .
-														<span>Release: 1 May 2015</span></p>
+														<span>Release: 1 May 2015</span>
+													</p>
 													<p>Director: <a href="#">Shane Black</a></p>
 													<p>Stars: <a href="#">Robert Downey Jr., </a> <a href="#"> Guy
 															Pearce,</a><a href="#">Don Cheadle</a></p>
@@ -1306,7 +1342,8 @@
 														formidable terrorist called the Mandarin, he starts an odyssey
 														of rebuilding and retribution.</p>
 													<p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .
-														<span>Release: 1 May 2015</span></p>
+														<span>Release: 1 May 2015</span>
+													</p>
 													<p>Director: <a href="#">Alan Taylor</a></p>
 													<p>Stars: <a href="#">Chris Hemsworth, </a> <a href="#"> Natalie
 															Portman,</a><a href="#">Tom Hiddleston</a></p>
