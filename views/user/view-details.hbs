@@ -498,18 +498,18 @@
 				<div style="    margin-top: -205px !important;" class="col-md-4 col-sm-12 col-xs-12">
 					<div class="movie-img sticky-sb">
 						<img src="/movie-images/{{movieDetails._id}}.jpg" alt="">
-						<div style="border-radius: 0px 0px 9px 9px; background-color: var(--theme-hd-bg);"
+						<div style="border-top-color: black; border-radius: 0px 0px 9px 9px; background-color: var(--theme-hd-bg);"
 							class="movie-btn">
 							<div class="btn-transform  red">
 								{{!-- <div><a style="background-color: red;" href="#" class="item item-1 redbtn"> <i
 											class="ion-play"></i> Watch Trailer</a></div> --}}
 
-								<div><a style="background-color: red;" href="{{movieDetails.trailerlink}}"
-										class="item item-2 redbtn fancybox-media "></i> Watch Trailer</a></div>
+								<div><a style="background-color: #6d6d6d;" href="{{movieDetails.trailerlink}}"
+										class="item item-2 redbtn fancybox-media "><i class="fa-solid fa-play"></i></a></div>
 							</div>
 							<div class="btn-transform ">
-								<div><a style="background-color: #25b5ae;" href="/time/{{movieDetails.movietitle}}"
-										class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
+								<div><a style="color: white; background-color: rgb(248 68 100);border-radius: 7px;padding: 11px;" href="/time/{{movieDetails.movietitle}}"
+										class="item item-1 yellowbtn">Book tickets</a></div>
 								{{!-- <div><a href="/time/{{movieDetails.movietitle}}"></a>class="item item-2
 									yellowbtn"><i class="ion-card"></i></a></div> --}}
 							</div>
@@ -535,9 +535,9 @@
 						</div>
 						<div class=" row mb-4">
 							<div class="col-md-2 col-12 mt-2">
-								<p class="banner-innertext">English</p>
+								<p class="banner-innertext">{{movieDetails.language}}</p>
 							</div>
-							<div class="col-md-2 col-4 mt-2">
+							<div style="text-align:center ;" class="col-md-2 col-5 mt-2">
 								<div>
 
 									{{#if user}}
@@ -580,15 +580,15 @@
 
 
 						<div class="ml-1 row mt-2 mb-4">
-							<p class="banner-innertext">2h 30m • Action , Adventure , Sci-Fi , Thriller • UA</p>
+							<p class="banner-innertext">{{movieDetails.hour}}h {{movieDetails.minute}}m • {{movieDetails.type}} , Adventure , Sci-Fi , Thriller • UA</p>
 						</div>
 						<div class="rows  movie-release-details-box mt-5 mb-4">
 							<div class="col-md-6 col-6">
 								<div>
-									<h1 class="movie-release-box-title">Releasing on </h1>
+									<h1 class="movie-release-box-title">Release Date </h1>
 								</div>
 								<div>
-									<p class="movie-release-box-description">10 Jun, 2022</p>
+									<p class="movie-release-box-description">{{movieDetails.releasedate}}</p>
 								</div>
 							</div>
 							<div class="col-md-4 col-5">
