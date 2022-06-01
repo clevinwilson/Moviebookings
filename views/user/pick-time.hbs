@@ -32,7 +32,7 @@ Author URL: http://w3layouts.com
     <!--/breadcrumbs -->
     <div class="w3l-breadcrumbs">
         <nav id="breadcrumbs" class="breadcrumbs">
-            <div class="container page-wrapper">
+            <div class=" mt-2 container page-wrapper">
                 <a href="/">Home</a> » <span class="breadcrumb_last" aria-current="page">Time</span>
             </div>
         </nav>
@@ -48,9 +48,9 @@ Author URL: http://w3layouts.com
                     {{#each timeList}}
                     <div class="col-md-12 contact-info">
                         <div class="contact-details">
-                            <h4>Theater Name: {{this.theater.theatername}} </h4>
-                             <p style="float: right;"> Date :{{this.date}}</p>
-                            <p>Screen : {{this.screen.screenname}}  </p>
+                            <h4 class="time-theater-name">Theater Name: {{this.theater.theatername}} </h4>
+                             <p class="time-movie-date ml-3" style="float: right;"> Date :{{this.date}}</p>
+                            <p style="display:flex ;" class="time-movie-screen">Screen : {{this.screen.screenname}}  </p>
                            
                             
                         </div>
@@ -58,12 +58,12 @@ Author URL: http://w3layouts.com
 
                         <div class="row p-2">
                             {{#if this.status}}
-                            <div class="boxs col-md-12 col-lg-6">
+                            <div style="display:contents ;" class="boxs col-md-12 col-lg-6">
                                 <a href="/seat-layout/{{this.screenId}},{{this._id}}"
                                     class=" colorss text-success m-1 btn btn-success text-ligt">{{this.time}} {{this.timeperiod}}</a>
                             </div>
                             {{else}}
-                            <div class="boxs col-md-12 col-lg-6">
+                            <div style="display:contents ;" class="boxs col-md-12 col-lg-6">
                                 <a 
                                     class=" colorss text-success m-1 btn btn-success text-ligt">Coming Soon</a>
                             </div>
@@ -82,14 +82,25 @@ Author URL: http://w3layouts.com
                         </div>
                         <hr>
                         <div class="row">
-                        <div class="distance ml-4">
-                            <p style="color: #1782ce;" >Distance: <span id="distance"></span> km</p>
+                        <div  class="distance  ml-2">
+                            <p class="time-bottom-text" style="color: #1782ce;" >Distance: <span id="distance"></span> km</p>
                         </div>
-                        <div class="duration ml-3">
-                            <p style="color: #1782ce;" >Duration: <span id="duration"></span> minutes</p>
+                        <div class="duration  ml-3">
+                            <p class="time-bottom-text" style="color: #1782ce;" > <span id="duration"></span> minutes</p>
                         </div>
                         </div>
                     </div>
+                    <style>
+                        @media screen and (max-width:992px) {
+                            .time-theater-name{
+                                   font-size: 15px !important ;
+                            }
+                            .time-movie-date,.time-movie-screen,.time-bottom-text{
+                                font-size: 13px !important;
+                            }
+                            
+                        }
+                    </style>
                     <script>
                         mapboxgl.accessToken = 'pk.eyJ1IjoiY2xldmlubSIsImEiOiJja2o5d3VuamIxYnRtMnVtdDE0bGZpMmMyIn0.e-nFCYz07lSLxudc3VPbwA';
                         // make a directions request
