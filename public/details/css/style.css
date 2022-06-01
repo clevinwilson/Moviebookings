@@ -5747,7 +5747,7 @@ ul {
 
 .tabs ul.tabs-mv li.active a,
 .tabs ul.tabs-mv li:hover a {
-  border-bottom: 3px solid #dcf836;
+  border-bottom: 3px solid  var(--theme-title);
 }
 
 .tabs ul.tabs-series li {
