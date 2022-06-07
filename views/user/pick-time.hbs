@@ -48,17 +48,17 @@ Author URL: http://w3layouts.com
             <div class="time-picker-box">
                 <div class="row m-3">
         {{#each timeList}}
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-3 mt-3">
                         <div class="cards p-3">
                             <div class="theater-name-box">
                                 <h5 class="theater-name">{{this.theater.theatername}}</h5>
                             </div>
                             <div class="film-details mt-3">
                                 <div class="screen-name-box">
-                                    <p class="screen-info">Screen : {{this.screen.screenname}}</p>
+                                    <p class="screen-info">Screen : <span class="theater-info-text" >{{this.screen.screenname}}</span></p>
                                 </div>
                                 <div class="date-box">
-                                    <p class="date-info">Date :{{this.date}}</p>
+                                    <p class="date-info">Date : <span class="theater-info-text">{{this.date}}</span></p>
                                 </div>
                             </div>
 
@@ -77,13 +77,13 @@ Author URL: http://w3layouts.com
                             </div>
                             {{/if}}
         
-                            <div class="distanceinfo-box mt-3">
+                            <div class="distanceinfo-box mt-5">
                                 <div class="distance-box">
-                                    <p class="distance"><i class="text-white fa-solid fa-road"></i><span class="ml-1" id="distance"></span> km</p>
+                                    <p class="distance"><i style="color: var(--theme-title);" class=" fa-solid fa-road"></i><span class="ml-1" id="distance"></span> km</p>
                                 </div>
                                 <div class="time-box">
                                     <p class="time ">
-                                        <span class="text-white">
+                                        <span style="color: var(--theme-title);">
                                             <svg style="    margin-top: -4px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                                 class="bi bi-alarm" viewBox="0 0 16 16">
                                                 <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z" />
@@ -151,9 +151,7 @@ Author URL: http://w3layouts.com
     {{>user-footer}}
     <!-- copyright -->
     <!-- move top -->
-    <button onclick="topFunction()" id="movetop" title="Go to top">
-        <span class="fa fa-arrow-up" aria-hidden="true"></span>
-    </button>
+    
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
@@ -245,7 +243,7 @@ Author URL: http://w3layouts.com
         }
     
         .theater-name {
-            color: white;
+            color: var(--theme-title);
         }
     
         .film-details {
@@ -284,15 +282,23 @@ Author URL: http://w3layouts.com
         }
     
         .cards {
-            background-color: #222222;
+            background-color:  var(--theme-lite);
             border-radius: 4px;
         }
     
         .time-btn {
-            background: black !important;
+            background: var(--theme-border) !important;
             color: green !important;
-            border-color: white !important;
+            border-color: #b8b8b8 !important;
             border-style: solid !important;
             font-weight: 600 !important;
+        }
+        .time-btn:hover {
+            background: green !important;
+            color: white !important;
+            border-color: green !important;
+        }
+        .film-details .theater-info-text{
+            font-size: 12px;
         }
     </style>
