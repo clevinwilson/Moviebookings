@@ -1,7 +1,7 @@
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <!-- Template CSS -->
 <link rel="icon" href="/images/icon.png" type="image/gif" sizes="16x16">
@@ -9,7 +9,7 @@
 <!-- Template CSS -->
 
 <!-- header -->
-<header style="height: 84px;"  id="site-header" class="w3l-header fixed-top">
+<header style="height: 84px;" id="site-header" class="w3l-header fixed-top">
 	<!--/nav-->
 	<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
 		<div class="container">
@@ -29,8 +29,8 @@
 			<div class="profiel">
 				{{#if user}}
 				<div class="icon">
-					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px" width="40px"
-						style="border-radius: 50%;">
+					<img id="userpropic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px"
+						width="40px" style="border-radius: 50%;">
 				</div>
 				{{else}}
 				<div class="icon">
@@ -40,26 +40,27 @@
 				{{/if}}
 			</div>
 			<style>
-				
 				@media (min-width:990px) {
 					img#userpropic {
 						display: none;
 					}
-					
+
 				}
+
 				@media (min-width:990px) {
 					img#propic {
 						display: none;
 					}
-					
+
 				}
-				
 			</style>
 			<div id="mySidenav" class="sidenav">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				{{#if user}}
-				<a class="mt-4" href="/profile" >Hey, {{user.fullname}} <i class="ml-2 fa fa-angle-right"></i> <br><P class="ml-5" style="font-size: 12px;">Edit Profile</P></a>
-				<hr  style="  margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
+				<a class="mt-4" href="/profile">Hey, {{user.fullname}} <i class="ml-2 fa fa-angle-right"></i> <br>
+					<P class="ml-5" style="font-size: 12px;">Edit Profile</P>
+				</a>
+				<hr style="  margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/">Home</a>
 				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				{{else}}
@@ -68,7 +69,7 @@
 				<a href="/login">Login</a>
 				{{/if}}
 				{{#if user}}
-				
+
 				<a href="/my-bookings">My bookings</a>
 				<hr style="margin-left: 20px; margin-right: 20px; border-top: 1px solid var(--theme-title);">
 				<a href="/favoritemovies">Favorite Movies</a>
@@ -82,7 +83,7 @@
 					<nav class="navigation mr-5">
 						<p class="mr-4" style="font-size: 17px;">Theme</p>
 						<div class="theme-switch-wrapper ml-3">
-							<label class="switch theme-switch " >
+							<label class="switch theme-switch ">
 								<input type="checkbox" id="checkbox">
 								<span class="slider round"></span>
 							</label>
@@ -109,7 +110,7 @@
 						</div>
 					</li>
 					<li class="nav-item active">
-								<i style="color: var(--theme-title);" class="ml-2 fas fa-search"></i>
+						<i style="color: var(--theme-title);" class="ml-2 fas fa-search"></i>
 					</li>
 
 
@@ -146,7 +147,7 @@
 					<a class="nav-link" href="/login">Login</a>
 				</li>
 				{{/if}} --}}
-				
+
 
 				<!--/search-right-->
 				<!--/search-right-->
@@ -195,7 +196,7 @@
 			<div class="profiem mr-5">
 				{{#if user}}
 				<div class="icon">
-					<img id="userpic"  onclick="openNav()" src="/user-photo/{{user._id}}.jpg" height="40px" width="40px"
+					<img id="userpic" onclick="openNav()" src="/user-photo/{{user._id}}.jpg"  height="40px" width="40px"
 						style="border-radius: 50%;">
 				</div>
 				{{else}}
@@ -204,13 +205,24 @@
 				</div>
 				{{/if}}
 			</div>
-			
+
 		</div>
 	</nav>
 	<!--//nav-->
 </header>
 
 <style>
+	img::before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		background-size: cover;
+		background-image: url("/user/images/images.png");
+	}
+
 	/* Style The Dropdown Button */
 	.dropbtn {
 		background-color: #0c0f0a;
@@ -327,13 +339,14 @@
 	}
 
 	@media screen and (max-width:992px) {
-		.login-btn{
+		.login-btn {
 			display: none !important;
 		}
-		.profiem{
+
+		.profiem {
 			display: none !important;
 		}
-		
+
 	}
 </style>
 
