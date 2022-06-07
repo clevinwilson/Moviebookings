@@ -53,7 +53,7 @@
                                         {{#each usersList}}
                                         <tr>
                                             <td>{{this._id}}</td>
-                                            <td><img src="/owner-photo/{{this._id}}.jpg" style="height: 60px;width: 60px;border-radius: 30px;"> {{this.theatername}}</td>
+                                            <td><img src="/owner-photo/{{this._id}}.jpg" style="object-fit: cover; height: 60px;width: 60px;border-radius: 30px;"> {{this.theatername}}</td>
                                             <td>{{this.email}}</td>
                                             <td>{{this.createDate}}</td>
                                             <td align="center"><a style=" border-radius: 21px;" type="button"  class="text-white ml-2 btn btn-danger"  onclick=" confirmDelete('{{this._id}}')">DELETE</a><a type="button" style=" border-radius: 21px;"  class="text-white m-2 btn btn-primary">BLOCK</a></td>
