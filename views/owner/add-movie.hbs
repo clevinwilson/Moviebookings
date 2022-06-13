@@ -49,29 +49,91 @@
                                 <form action="/owner/add-movie" id="submit-form" method="post"
                                     enctype="multipart/form-data">
                                     <div class="card-body">
-                                        <div class="form-group mt-3 col-md-10">
+                                        <div class="movie-box form-group mt-3 col-md-10">
                                             <label for="movietitle">Movie Title</label>
-                                            <input style="border-color:#b4e3eb;" type="text"
+                                            <input style="border-color:#b4e3eb;" type="text" onkeyup="getMoviesList()"
                                                 class="form-control col-md-12 mt-2" id="movietitle" name="movietitle"
                                                 required>
-                                        </div>
-                                         <span style="margin-left: 13px; color: green;" id="check_availability_movie" style="font-size:12px;"></span>
-                                        <span style="margin-left: 13px; color:red;" id="check_not_movie" style="font-size:12px;"></span>
+                                            <div style="display:none ;" class="autocomplete " id="autocomplete">
+                                                <div class="text-center m-2 text-dark">
+                                                    No Movies
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                        <span style="margin-left: 13px; color: green;" id="check_availability_movie"
+                                            style="font-size:12px;"></span>
+                                        <span style="margin-left: 13px; color:red;" id="check_not_movie"
+                                            style="font-size:12px;"></span>
+                                        <script>
+                                            function getMoviesList() {
+                                                let autocomplete = document.getElementById('autocomplete');
+                                                let moviename = document.getElementById('movietitle').value;
+                                                if (moviename.length > 0) {
+
+
+                                                    autocomplete.innerHTML = "";
+                                                    autocomplete.style.display = 'block';
+
+
+                                                    fetch(`https://api.themoviedb.org/3/search/movie?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US&query=${moviename}&page=1&include_adult=false`)
+                                                        .then((response) => {
+                                                            return response.json();
+                                                        })
+                                                        .then((data) => {
+                                                            console.log(data.results)
+                                                            let movies = data.results;
+                                                            movies.forEach((movie) => {
+                                                                createElement(movie);
+                                                            })
+                                                        })
+                                                }else{
+                                                    autocomplete.style.display = 'none';
+                                                }
+
+                                                function createElement(movie) {
+                                                    const div = document.createElement('div');
+                                                    div.innerHTML = movie.original_title;
+                                                    div.id = movie.id;
+                                                    div.className = 'mt-2 pl-2 movies-list text-dark';
+                                                    autocomplete.append(div);
+                                                }
+                                            }
+                                        </script>
+                                        <style>
+                                            .autocomplete {
+                                                border-radius: 5px;
+                                                padding: 16px;
+                                                padding-left: 10px;
+                                                box-shadow: 2px 2px 9px #b3b3b3;
+                                                height: 280px;
+                                                display: block;
+                                                overflow: scroll;
+
+                                            }
+
+                                            .autocomplete::-webkit-scrollbar {
+                                                display: none;
+                                            }
+
+                                            .movies-list:hover {
+                                                background-color: #efefef;
+                                            }
+                                        </style>
                                         <div class="row m-1" id="cast">
                                             <div class="form-group mt-1 col-md-5">
                                                 <label for="Cast">Cast</label>
-                                                  <a class="text-white m-1 btn btn-danger" id="remove"
+                                                <a class="text-white m-1 btn btn-danger" id="remove"
                                                     onblur="removeElement()">-</a>
                                                 <a class="text-white m-1 btn btn-success" id="add"
-                                                    onclick="addElement()">+</a>        
+                                                    onclick="addElement()">+</a>
                                                 <input style="border-color:#b4e3eb;" type="text"
                                                     class="form-control col-md-12 mt-2" id="cast" name="cast" required>
                                             </div>
                                             <div class="form-group mt-5 col-md-5">
                                                 <input style="border-color:#b4e3eb;" type="text"
                                                     class="form-control col-md-12 mt-2" id="castas" name="castas"
-                                                     required>
+                                                    required>
                                             </div>
                                         </div>
 
@@ -158,30 +220,33 @@
         </div>
 
 </body>
+<script>
+
+</script>
 
 <script>
-    function checkMovieAvailability(){
-        let movietitle= $("#movietitle").val();
-     
+    function checkMovieAvailability() {
+        let movietitle = $("#movietitle").val();
+
         $.ajax({
-                url:'/owner/movie-avilability/'+movietitle,
-                method:'get',
-               success:(response)=>{
-                    
-                    if(response.status){
-                        document.getElementById('check_availability_movie').innerHTML=' '
-                        document.getElementById('submit').disabled = true
-                        document.getElementById('check_not_movie').innerHTML=' Movie already exists'
-                      
-                       
-                        
-                    }else{
-                        document.getElementById('check_not_movie').innerHTML=''
-                        document.getElementById('submit').disabled = false
-                        document.getElementById('check_availability_movie').innerHTML='  Available '
-                    }
-                    
+            url: '/owner/movie-avilability/' + movietitle,
+            method: 'get',
+            success: (response) => {
+
+                if (response.status) {
+                    document.getElementById('check_availability_movie').innerHTML = ' '
+                    document.getElementById('submit').disabled = true
+                    document.getElementById('check_not_movie').innerHTML = ' Movie already exists'
+
+
+
+                } else {
+                    document.getElementById('check_not_movie').innerHTML = ''
+                    document.getElementById('submit').disabled = false
+                    document.getElementById('check_availability_movie').innerHTML = '  Available '
                 }
+
+            }
         })
     }
 
