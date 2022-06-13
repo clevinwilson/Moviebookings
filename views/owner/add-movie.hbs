@@ -56,7 +56,7 @@
                                                 required>
                                             <div style="display:none ;" class="autocomplete " id="autocomplete">
                                                 <div class="text-center m-2 text-dark">
-                                                    No Movies
+                                                     Movie not found
                                                 </div>
 
                                             </div>
@@ -70,8 +70,6 @@
                                                 let autocomplete = document.getElementById('autocomplete');
                                                 let moviename = document.getElementById('movietitle').value;
                                                 if (moviename.length > 0) {
-
-
                                                     autocomplete.innerHTML = "";
                                                     autocomplete.style.display = 'block';
 
@@ -87,8 +85,11 @@
                                                                 createElement(movie);
                                                             })
                                                         })
+                                                        .catch(()=>{
+                                                            hideAutoComplete()
+                                                        })
                                                 }else{
-                                                    autocomplete.style.display = 'none';
+                                                    hideAutoComplete();
                                                 }
 
                                                 function createElement(movie) {
@@ -97,6 +98,11 @@
                                                     div.id = movie.id;
                                                     div.className = 'mt-2 pl-2 movies-list text-dark';
                                                     autocomplete.append(div);
+                                                }
+
+                                                
+                                                function hideAutoComplete(){
+                                                    autocomplete.style.display = 'none';
                                                 }
                                             }
                                         </script>
