@@ -54,7 +54,8 @@
                                             <input style="border-color:#b4e3eb;" type="text" onkeyup="getMoviesList()"
                                                 class="form-control col-md-12 mt-2" id="movietitle" name="movietitle"
                                                 required>
-                                            <div style="display:none ; cursor: pointer;" class="autocomplete " id="autocomplete">
+                                            <div style="display:none ; cursor: pointer;" class="autocomplete "
+                                                id="autocomplete">
                                                 <div class="text-center m-2 text-dark">
                                                     Movie not found
                                                 </div>
@@ -69,6 +70,8 @@
                                             function getMoviesList() {
                                                 let autocomplete = document.getElementById('autocomplete');
                                                 let moviename = document.getElementById('movietitle').value;
+                                                let castDetails;
+                                                let movietrailer;
                                                 if (moviename.length > 0) {
                                                     autocomplete.innerHTML = "";
                                                     autocomplete.style.display = 'block';
@@ -79,9 +82,7 @@
                                                             return response.json();
                                                         })
                                                         .then((data) => {
-                                                            console.log(data.results)
                                                             let movies = data.results;
-                                                            console.log(movies.length)
                                                             if (movies.length > 0) {
                                                                 movies.forEach((movie) => {
                                                                     createElement(movie);
@@ -102,7 +103,7 @@
                                                     const div = document.createElement('div');
                                                     div.innerHTML = movie.original_title;
                                                     div.id = movie.id;
-                                                    div.onclick = getMovieDetails;
+                                                    div.onclick = getMovieId;
                                                     div.className = 'mt-2 pl-2 movies-list text-dark';
                                                     autocomplete.append(div);
                                                 }
@@ -116,51 +117,81 @@
                                                 function hideAutoComplete() {
                                                     autocomplete.style.display = 'none';
                                                 }
-                                                function getMovieDetails(event) {
+                                                function getMovieId(event) {
                                                     console.log(event.target.id)
-                                                    const movieid=event.target.id;
+                                                    const movieid = event.target.id;
                                                     fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US`)
-                                                     .then((response) => {
+                                                        .then((response) => {
                                                             return response.json();
                                                         })
-                                                      .then((data)=>{
-                                                        setData(data);
-                                                      })
-                                                    
-                                                }
-                                                function getCastDetails(){
+                                                        .then((data) => {
+                                                            getMovieDetails(data);
+
+                                                        })
 
                                                 }
-                                                async function setData(data){
-                                                    console.log(data)
+                                                async function getMovieDetails(data) {
+                                                    let castDetails = await getCastDetails(data.imdb_id);
+                                                    console.log(castDetails);
+
+                                                    let movieTrailer = await getMovieTrailer(data.imdb_id);
+                                                    console.log(movieTrailer);
+
+                                                    setData(data, castDetails, movieTrailer);
+                                                }
+                                                function getCastDetails(imdbid) {
+                                                    return new Promise((resolve, rejects) => {
+                                                        fetch(`https://imdb-api.com/API/FullCast/k_abyie476/${imdbid}`)
+                                                            .then((response) => {
+                                                                return response.json();
+                                                            })
+                                                            .then((data) => {
+                                                                resolve(data)
+                                                            })
+                                                    })
+                                                }
+                                                function getMovieTrailer(imdbid) {
+                                                    return new Promise((resolve, rejects) => {
+                                                        fetch(`https://imdb-api.com/API/YouTubeTrailer/k_abyie476/tt11651550`)
+                                                            .then((response) => {
+                                                                return response.json();
+                                                            })
+                                                            .then((data) => {
+                                                                resolve(data)
+                                                            })
+                                                    })
+                                                }
+                                                async function setData(data, castDetails, movieTrailer) {
                                                     hideAutoComplete();
-                                                   let movieDetails= document.getElementById('movie-details');
-                                                   let movieTitle=document.getElementById('movietitle');
-                                                   let director=document.getElementById('director');
-                                                   let releasedate=document.getElementById('releasedate');
-                                                   let hour =document.getElementById('hour');
-                                                   let minute = document.getElementById('minute');
-                                                   let language=document.getElementById('language');
-                                                   let type=document.getElementById('type');
-                                                   let about=document.getElementById('about');
-                                                   const moviePoster= document.getElementById("imgView");
-                                                   const posterfile=document.getElementById('posterfile');
-                                                   const bannerImg=document.getElementById('bannerImg');
+                                                    let movieDetails = document.getElementById('movie-details');
+                                                    let movieTitle = document.getElementById('movietitle');
+                                                    let director = document.getElementById('director');
+                                                    let releasedate = document.getElementById('releasedate');
+                                                    let hour = document.getElementById('hour');
+                                                    let minute = document.getElementById('minute');
+                                                    let language = document.getElementById('language');
+                                                    let type = document.getElementById('type');
+                                                    let about = document.getElementById('about');
+                                                    const moviePoster = document.getElementById("imgView");
+                                                    const posterfile = document.getElementById('posterfile');
+                                                    const bannerImg = document.getElementById('bannerImg');
+                                                    const trailerlink=document.getElementById('trailerlink');
 
 
-                                                    movieTitle.value =data.title;
-                                                    movieDetails.style.display='block';
-                                                    director.value ='';
-                                                    releasedate.value=data.release_date;
+                                                    movieTitle.value = data.title;
+                                                    movieDetails.style.display = 'block';
+                                                    director.value = castDetails.directors.items[0].name;
+                                                    releasedate.value = data.release_date;
                                                     runTime = await timeConvert(data.runtime);
-                                                    hour.value=runTime.rhours;
-                                                    minute.value=runTime.rminutes;
-                                                    language.value =data.original_language;
-                                                    type.value =data.genres[0].name;
-                                                    about.value =data.overview;
-                                                    moviePoster.src= `https://image.tmdb.org/t/p/original/${data.poster_path}`;
-                                                    bannerImg.src= `https://image.tmdb.org/t/p/original/${data.backdrop_path}`
-                                                    posterfile.files = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                                                    hour.value = runTime.rhours;
+                                                    minute.value = runTime.rminutes;
+                                                    language.value = data.original_language;
+                                                    type.value = data.genres[0].name;
+                                                    about.value = data.overview;
+                                                    trailerlink.value=`<iframe width="560" height="315" src="${movieTrailer.videoUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+                                                    moviePoster.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                                                    bannerImg.src = `https://image.tmdb.org/t/p/original/${data.backdrop_path}`;
+
 
 
 
@@ -171,102 +202,100 @@
                                                     var rhours = Math.floor(hours);
                                                     var minutes = (hours - rhours) * 60;
                                                     var rminutes = Math.round(minutes);
-                                                    return { rhours , rminutes };
+                                                    return { rhours, rminutes };
                                                 }
                                             }
                                         </script>
-                                        <style>
-                                            .autocomplete {
-                                                border-radius: 5px;
-                                                padding: 16px;
-                                                padding-left: 10px;
-                                                box-shadow: 2px 2px 9px #b3b3b3;
-                                                height: 100%;
-                                                max-height: 280px;
-                                                display: block;
-                                                overflow: scroll;
 
-                                            }
-
-                                            .autocomplete::-webkit-scrollbar {
-                                                display: none;
-                                            }
-
-                                            .movies-list:hover {
-                                                background-color: #efefef;
-                                            }
-                                        </style>
                                         <div style="display:none ;" id="movie-details" class="movie-details">
                                             <div class="row m-1" id="cast">
                                                 <div class="form-group mt-1 col-md-5">
                                                     <label for="Cast">Cast</label>
-                                                    <a class="text-white m-1 btn btn-danger" id="remove" onclick="removeElement()">-</a>
-                                                    <a class="text-white m-1 btn btn-success" id="add" onclick="addElement()">+</a>
-                                                    <input style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="cast" name="cast"
+                                                    <a class="text-white m-1 btn btn-danger" id="remove"
+                                                        onclick="removeElement()">-</a>
+                                                    <a class="text-white m-1 btn btn-success" id="add"
+                                                        onclick="addElement()">+</a>
+                                                    <input style="border-color:#b4e3eb;" type="text"
+                                                        class="form-control col-md-12 mt-2" id="cast" name="cast"
                                                         required>
                                                 </div>
                                                 <div class="form-group mt-5 col-md-5">
-                                                    <input style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="castas" name="castas"
+                                                    <input style="border-color:#b4e3eb;" type="text"
+                                                        class="form-control col-md-12 mt-2" id="castas" name="castas"
                                                         required>
                                                 </div>
                                             </div>
-                                            
-                                            
+
+
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Director">Director</label>
-                                                <input style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="director" name="director"
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="director" name="director"
                                                     required>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Release Date">Release Date</label>
-                                                <input style="border-color:#b4e3eb;" type="date" class="form-control col-md-12 mt-2" id="releasedate"
+                                                <input style="border-color:#b4e3eb;" type="date"
+                                                    class="form-control col-md-12 mt-2" id="releasedate"
                                                     name="releasedate" required>
                                             </div>
                                             <div class="row m-1">
                                                 <div class="form-group mt-3 col-md-5">
                                                     <label for="Run Time">Run Time</label>
-                                                    <input style="border-color:#b4e3eb;" type="number" class="form-control col-md-12 mt-2" id="hour" name="hour"
+                                                    <input style="border-color:#b4e3eb;" type="number"
+                                                        class="form-control col-md-12 mt-2" id="hour" name="hour"
                                                         placeholder="Hour" required>
                                                 </div>
                                                 <div class="form-group mt-5 col-md-5">
-                                                    <input style="border-color:#b4e3eb;" type="number" class="form-control col-md-12 mt-2" id="minute" name="minute"
+                                                    <input style="border-color:#b4e3eb;" type="number"
+                                                        class="form-control col-md-12 mt-2" id="minute" name="minute"
                                                         placeholder="Minute" required>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Language">Language</label>
-                                                <input style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="language" name="language"
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="language" name="language"
                                                     required>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Type">Type</label>
-                                                <input style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="type" name="type" required>
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="type" name="type" required>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Type">About the movie</label>
-                                                <textarea style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="about" name="about"
+                                                <textarea style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="about" name="about"
                                                     required> </textarea>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Trailer Link">Trailer Link</label>
-                                                <input style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="trailerlink"
+                                                <input style="border-color:#b4e3eb;" type="text"
+                                                    class="form-control col-md-12 mt-2" id="trailerlink"
                                                     name="trailerlink" required>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Trailer Link">Movie Poster</label>
-                                                <img src="" id="imgView" height="250px" width="150px" style=" object-fit: cover;">
-                                                <input style="border-color:#b4e3eb;"  type="file" id="posterfile" class="form-control col-md-12 mt-2" name="Image"
+                                                <img src="" id="imgView" height="250px" width="150px"
+                                                    style=" object-fit: cover;">
+                                                <input style="border-color:#b4e3eb;" type="file" id="posterfile"
+                                                    class="form-control col-md-12 mt-2" name="Image"
                                                     onchange="viewImage(event)" required>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Trailer Link">Banner </label>
-                                                <img src="" id="bannerImg" height="200px" width="400px" style=" object-fit: cover;">
-                                                <input style="border-color:#b4e3eb;" type="file" id="banner" class="form-control col-md-12 mt-2" name="Image2"
+                                                <img src="" id="bannerImg" height="200px" width="400px"
+                                                    style=" object-fit: cover;">
+                                                <input style="border-color:#b4e3eb;" type="file" id="banner"
+                                                    class="form-control col-md-12 mt-2" name="Image2"
                                                     onchange="banner(event)" required>
                                             </div>
                                             <center>
-                                                <a href="/owner/movie-management" class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
-                                                <button type="submit" id="submit" class="btn btn-success  mt-3">Submit</button>
+                                                <a href="/owner/movie-management"
+                                                    class="btn btn-danger  mt-3 mr-2 ">Cancel</a>
+                                                <button type="submit" id="submit"
+                                                    class="btn btn-success  mt-3">Submit</button>
                                             </center>
                                         </div>
                                     </div>
@@ -283,9 +312,29 @@
         </div>
 
 </body>
-<script>
 
-</script>
+{{!-- autocomplete --}}
+<style>
+    .autocomplete {
+        border-radius: 5px;
+        padding: 16px;
+        padding-left: 10px;
+        box-shadow: 2px 2px 9px #b3b3b3;
+        height: 100%;
+        max-height: 280px;
+        display: block;
+        overflow: scroll;
+
+    }
+
+    .autocomplete::-webkit-scrollbar {
+        display: none;
+    }
+
+    .movies-list:hover {
+        background-color: #efefef;
+    }
+</style>
 
 <script>
     function checkMovieAvailability() {
@@ -338,9 +387,6 @@
         x.setAttribute("class", "form-group mt-5 col-md-5");
         x.setAttribute("id", f);
         document.getElementById("cast").appendChild(x);
-
-
-
 
         var label = document.createElement("LABEL");
         label.setAttribute("id", "cast" + f);
