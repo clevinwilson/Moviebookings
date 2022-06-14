@@ -54,7 +54,7 @@
                                             <input style="border-color:#b4e3eb;" type="text" onkeyup="getMoviesList()"
                                                 class="form-control col-md-12 mt-2" id="movietitle" name="movietitle"
                                                 required>
-                                            <div style="display:none ;" class="autocomplete " id="autocomplete">
+                                            <div style="display:none ; cursor: pointer;" class="autocomplete " id="autocomplete">
                                                 <div class="text-center m-2 text-dark">
                                                     Movie not found
                                                 </div>
@@ -128,10 +128,50 @@
                                                       })
                                                     
                                                 }
-                                                function setData(data){
+                                                function getCastDetails(){
+
+                                                }
+                                                async function setData(data){
                                                     console.log(data)
-                                                   let movieDetails= document.getElementById('movie-details')
+                                                    hideAutoComplete();
+                                                   let movieDetails= document.getElementById('movie-details');
+                                                   let movieTitle=document.getElementById('movietitle');
+                                                   let director=document.getElementById('director');
+                                                   let releasedate=document.getElementById('releasedate');
+                                                   let hour =document.getElementById('hour');
+                                                   let minute = document.getElementById('minute');
+                                                   let language=document.getElementById('language');
+                                                   let type=document.getElementById('type');
+                                                   let about=document.getElementById('about');
+                                                   const moviePoster= document.getElementById("imgView");
+                                                   const posterfile=document.getElementById('posterfile');
+                                                   const bannerImg=document.getElementById('bannerImg');
+
+
+                                                    movieTitle.value =data.title;
                                                     movieDetails.style.display='block';
+                                                    director.value ='';
+                                                    releasedate.value=data.release_date;
+                                                    runTime = await timeConvert(data.runtime);
+                                                    hour.value=runTime.rhours;
+                                                    minute.value=runTime.rminutes;
+                                                    language.value =data.original_language;
+                                                    type.value =data.genres[0].name;
+                                                    about.value =data.overview;
+                                                    moviePoster.src= `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                                                    bannerImg.src= `https://image.tmdb.org/t/p/original/${data.backdrop_path}`
+                                                    posterfile.files = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+
+
+
+                                                }
+                                                function timeConvert(min) {
+                                                    var num = min;
+                                                    var hours = (num / 60);
+                                                    var rhours = Math.floor(hours);
+                                                    var minutes = (hours - rhours) * 60;
+                                                    var rminutes = Math.round(minutes);
+                                                    return { rhours , rminutes };
                                                 }
                                             }
                                         </script>
@@ -204,7 +244,7 @@
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Type">About the movie</label>
-                                                <textarea style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="type" name="about"
+                                                <textarea style="border-color:#b4e3eb;" type="text" class="form-control col-md-12 mt-2" id="about" name="about"
                                                     required> </textarea>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
@@ -214,14 +254,14 @@
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Trailer Link">Movie Poster</label>
-                                                <img src="" id="imgView" height="250px" width="150px">
-                                                <input style="border-color:#b4e3eb;" type="file" class="form-control col-md-12 mt-2" name="Image"
+                                                <img src="" id="imgView" height="250px" width="150px" style=" object-fit: cover;">
+                                                <input style="border-color:#b4e3eb;"  type="file" id="posterfile" class="form-control col-md-12 mt-2" name="Image"
                                                     onchange="viewImage(event)" required>
                                             </div>
                                             <div class="form-group mt-3 col-md-10">
                                                 <label for="Trailer Link">Banner </label>
-                                                <img src="" id="bannerImg" height="200px" width="400px">
-                                                <input style="border-color:#b4e3eb;" type="file" class="form-control col-md-12 mt-2" name="Image2"
+                                                <img src="" id="bannerImg" height="200px" width="400px" style=" object-fit: cover;">
+                                                <input style="border-color:#b4e3eb;" type="file" id="banner" class="form-control col-md-12 mt-2" name="Image2"
                                                     onchange="banner(event)" required>
                                             </div>
                                             <center>
