@@ -167,7 +167,7 @@ router.post('/verify-login/:phone', (req, res) => {
 
 router.get('/details/:id', (req, res) => {
   userHelpers.viewDetails(req.params.id).then((movieDetails) => {
-    console.log(movieDetails);
+    movieDetails.actors = movieDetails.actors.slice(0, 10)
     res.render('user/view-details', { movieDetails ,user: req.session.user})
   })
 })
