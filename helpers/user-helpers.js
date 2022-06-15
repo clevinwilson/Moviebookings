@@ -629,6 +629,14 @@ module.exports = {
                 },
                 {
                     $lookup: {
+                        from: collection.MOVIE_COLLECTION,
+                        localField: 'movieId',
+                        foreignField: '_id',
+                        as: 'movie'
+                    }
+                },
+                {
+                    $lookup: {
                         from: collection.SCREEN_COLLECTION,
                         localField: 'screen',
                         foreignField: '_id',
@@ -647,7 +655,7 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1,status:1,movieId:1,time:1,showdate:1,screenname:1, movietitle: 1, seats: 1, date: 1, screenId: 1,price:1, hours: 1, minutes: 1,show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        _id: 1, status: 1, movieId: 1, time: 1, showdate: 1, screenname: 1, movietitle: 1, seats: 1, date: 1, screenId: 1, price: 1, hours: 1, minutes: 1, show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }, movie: { $arrayElemAt: ['$movie', 0] }
                     }
                 }
 
@@ -681,6 +689,14 @@ module.exports = {
                 },
                 {
                     $lookup: {
+                        from: collection.MOVIE_COLLECTION,
+                        localField: 'movieId',
+                        foreignField: '_id',
+                        as: 'movie'
+                    }
+                },
+                {
+                    $lookup: {
                         from: collection.SHOW_COLLECTION,
                         localField: 'showId',
                         foreignField: '_id',
@@ -691,7 +707,7 @@ module.exports = {
                 {
                     $project: {
 
-                        _id: 1,status:1,movieId:1,time:1,showdate:1,screenname:1, movietitle: 1, seats: 1, date: 1, screenId: 1,price:1, hours: 1, minutes: 1,show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }
+                        _id: 1, status: 1, movieId: 1, time: 1, showdate: 1, screenname: 1, movietitle: 1, seats: 1, date: 1, screenId: 1, price: 1, hours: 1, minutes: 1, show: { $arrayElemAt: ['$show', 0] }, screen: { $arrayElemAt: ['$screen', 0] }, theater: { $arrayElemAt: ['$theater', 0] }, movie: { $arrayElemAt: ['$movie', 0] }
                     }
                 }
 
