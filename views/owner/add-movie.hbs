@@ -66,188 +66,7 @@
                                             style="font-size:12px;"></span>
                                         <span style="margin-left: 13px; color:red;" id="check_not_movie"
                                             style="font-size:12px;"></span>
-                                        <script>
-                                            function getMoviesList() {
-                                                let autocomplete = document.getElementById('autocomplete');
-                                                let moviename = document.getElementById('movietitle').value;
-                                                let castDetails;
-                                                let movietrailer;
-                                                if (moviename.length > 0) {
-                                                    autocomplete.innerHTML = "";
-                                                    autocomplete.style.display = 'block';
 
-
-                                                    fetch(`https://api.themoviedb.org/3/search/movie?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US&query=${moviename}&page=1&include_adult=false`)
-                                                        .then((response) => {
-                                                            return response.json();
-                                                        })
-                                                        .then((data) => {
-                                                            let movies = data.results;
-                                                            if (movies.length > 0) {
-                                                                movies.forEach((movie) => {
-                                                                    createElement(movie);
-                                                                })
-                                                            } else {
-                                                                errorElement();
-                                                            }
-
-                                                        })
-                                                        .catch(() => {
-                                                            hideAutoComplete()
-                                                        })
-                                                } else {
-                                                    hideAutoComplete();
-                                                }
-
-                                                function createElement(movie) {
-                                                    const div = document.createElement('div');
-                                                    div.innerHTML = movie.original_title;
-                                                    div.id = movie.id;
-                                                    div.onclick = getMovieId;
-                                                    div.className = 'mt-2 pl-2 movies-list text-dark';
-                                                    autocomplete.append(div);
-                                                }
-                                                function errorElement() {
-                                                    const div = document.createElement('div');
-                                                    div.innerHTML = "Movie not found"
-                                                    div.className = 'mt-2 pl-2 movies-list text-center text-dark';
-                                                    autocomplete.append(div);
-                                                }
-
-                                                function hideAutoComplete() {
-                                                    autocomplete.style.display = 'none';
-                                                }
-                                                function getMovieId(event) {
-                                                    console.log(event.target.id)
-                                                    const movieid = event.target.id;
-                                                    fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US`)
-                                                        .then((response) => {
-                                                            return response.json();
-                                                        })
-                                                        .then((data) => {
-                                                            getMovieDetails(data);
-
-                                                        })
-
-                                                }
-                                                async function getMovieDetails(data) {
-                                                    let castDetails = await getCastDetails(data.imdb_id);
-                                                    console.log(castDetails);
-
-                                                    let movieTrailer = await getMovieTrailer(data.imdb_id);
-                                                    console.log(movieTrailer);
-
-                                                    setData(data, castDetails, movieTrailer);
-                                                    addElement(castDetails);
-                                                }
-                                                function getCastDetails(imdbid) {
-                                                    return new Promise((resolve, rejects) => {
-                                                        fetch(`https://imdb-api.com/API/FullCast/k_iu0fhi2q/${imdbid}`)
-                                                            .then((response) => {
-                                                                return response.json();
-                                                            })
-                                                            .then((data) => {
-                                                                resolve(data)
-                                                            })
-                                                    })
-                                                }
-                                                function getMovieTrailer(imdbid) {
-                                                    return new Promise((resolve, rejects) => {
-                                                        fetch(`https://imdb-api.com/API/YouTubeTrailer/k_iu0fhi2q/tt11651550`)
-                                                            .then((response) => {
-                                                                return response.json();
-                                                            })
-                                                            .then((data) => {
-                                                                resolve(data)
-                                                            })
-                                                    })
-                                                }
-                                                async function setData(data, castDetails, movieTrailer) {
-                                                    hideAutoComplete();
-                                                    let movieDetails = document.getElementById('movie-details');
-                                                    let movieTitle = document.getElementById('movietitle');
-                                                    let director = document.getElementById('director');
-                                                    let releasedate = document.getElementById('releasedate');
-                                                    let hour = document.getElementById('hour');
-                                                    let minute = document.getElementById('minute');
-                                                    let language = document.getElementById('language');
-                                                    let type = document.getElementById('type');
-                                                    let about = document.getElementById('about');
-                                                    const moviePoster = document.getElementById("imgView");
-                                                    const posterfile = document.getElementById('posterfile');
-                                                    const bannerImg = document.getElementById('bannerImg');
-                                                    const trailerlink = document.getElementById('trailerlink');
-
-
-                                                    movieTitle.value = data.title;
-                                                    movieDetails.style.display = 'block';
-                                                    director.value = castDetails.directors.items[0].name;
-                                                    releasedate.value = data.release_date;
-                                                    runTime = await timeConvert(data.runtime);
-                                                    hour.value = runTime.rhours;
-                                                    minute.value = runTime.rminutes;
-                                                    language.value = data.original_language;
-                                                    type.value = data.genres[0].name;
-                                                    about.value = data.overview;
-                                                    trailerlink.value = `<iframe width="560" height="315" src="${movieTrailer.videoUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-                                                    moviePoster.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
-                                                    bannerImg.src = `https://image.tmdb.org/t/p/original/${data.backdrop_path}`;
-
-
-
-
-                                                }
-                                                function timeConvert(min) {
-                                                    var num = min;
-                                                    var hours = (num / 60);
-                                                    var rhours = Math.floor(hours);
-                                                    var minutes = (hours - rhours) * 60;
-                                                    var rminutes = Math.round(minutes);
-                                                    return { rhours, rminutes };
-                                                }
-                                                function addElement(castDetails) {
-                                                    let conunt = 0;
-                                                    document.getElementById("cast").innerHTML = "";
-                                                    castDetails.actors.forEach((data) => {
-                                                        console.log(data)
-
-                                                        conunt = conunt + 1
-
-                                                        var x = document.createElement("DIV");
-                                                        x.setAttribute("class", "form-group mt-5 col-md-5");
-                                                        x.setAttribute("id", conunt);
-                                                        document.getElementById("cast").appendChild(x);
-
-                                                        let castImage = document.createElement("img");
-                                                        castImage.src = data.image;
-                                                        castImage.setAttribute('class', 'castimage')
-                                                        x.appendChild(castImage);
-
-
-
-                                                        var label = document.createElement("LABEL");
-                                                        label.setAttribute("id", "cast" + conunt);
-                                                        document.getElementById(conunt).appendChild(label)
-                                                        document.getElementById('cast' + conunt).innerHTML = "Cast" + conunt
-
-                                                        var input = document.createElement("INPUT");
-                                                        input.setAttribute("type", "text");
-                                                        input.setAttribute("name", "cast" + conunt);
-                                                        input.value = data.name;
-                                                        input.setAttribute("class", "form-control col-md-12 mt-2");
-                                                        document.getElementById(conunt).appendChild(input)
-
-                                                        var input = document.createElement("INPUT");
-                                                        input.setAttribute("type", "text");
-                                                        input.setAttribute("name", "castas" + conunt);
-                                                        input.value = data.asCharacter;
-                                                        input.setAttribute("class", "form-control col-md-12 mt-2");
-                                                        document.getElementById(conunt).appendChild(input)
-                                                    })
-
-                                                }
-                                            }
-                                        </script>
 
 
                                         <div style="display:none ;" id="movie-details"
@@ -384,7 +203,7 @@
 
     .castimage {
         height: 150px;
-        border-radius:50%;
+        border-radius: 50%;
         width: 150px;
         object-fit: cover;
         object-position: top;
@@ -432,6 +251,189 @@
         document.getElementById('bannerImg').src = URL.createObjectURL(event.target.files[0])
     }
 </script>
+
+<script>
+    function getMoviesList() {
+        let autocomplete = document.getElementById('autocomplete');
+        let moviename = document.getElementById('movietitle').value;
+        let castDetails;
+        let movietrailer;
+        if (moviename.length > 0) {
+            autocomplete.innerHTML = "";
+            autocomplete.style.display = 'block';
+
+
+            fetch(`https://api.themoviedb.org/3/search/movie?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US&query=${moviename}&page=1&include_adult=false`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    let movies = data.results;
+                    if (movies.length > 0) {
+                        movies.forEach((movie) => {
+                            createElement(movie);
+                        })
+                    } else {
+                        errorElement();
+                    }
+
+                })
+                .catch(() => {
+                    hideAutoComplete()
+                })
+        } else {
+            hideAutoComplete();
+        }
+
+        function createElement(movie) {
+            const div = document.createElement('div');
+            div.innerHTML = movie.original_title;
+            div.id = movie.id;
+            div.onclick = getMovieId;
+            div.className = 'mt-2 pl-2 movies-list text-dark';
+            autocomplete.append(div);
+        }
+        function errorElement() {
+            const div = document.createElement('div');
+            div.innerHTML = "Movie not found"
+            div.className = 'mt-2 pl-2 movies-list text-center text-dark';
+            autocomplete.append(div);
+        }
+
+        function hideAutoComplete() {
+            autocomplete.style.display = 'none';
+        }
+        function getMovieId(event) {
+            console.log(event.target.id)
+            const movieid = event.target.id;
+            fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    getMovieDetails(data);
+
+                })
+
+        }
+        async function getMovieDetails(data) {
+            let castDetails = await getCastDetails(data.imdb_id);
+            console.log(castDetails);
+
+            let movieTrailer = await getMovieTrailer(data.imdb_id);
+            console.log(movieTrailer);
+
+            setData(data, castDetails, movieTrailer);
+            addElement(castDetails);
+        }
+        function getCastDetails(imdbid) {
+            return new Promise((resolve, rejects) => {
+                fetch(`https://imdb-api.com/API/FullCast/k_iu0fhi2q/${imdbid}`)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        resolve(data)
+                    })
+            })
+        }
+        function getMovieTrailer(imdbid) {
+            return new Promise((resolve, rejects) => {
+                fetch(`https://imdb-api.com/API/YouTubeTrailer/k_iu0fhi2q/tt11651550`)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        resolve(data)
+                    })
+            })
+        }
+        async function setData(data, castDetails, movieTrailer) {
+            hideAutoComplete();
+            let movieDetails = document.getElementById('movie-details');
+            let movieTitle = document.getElementById('movietitle');
+            let director = document.getElementById('director');
+            let releasedate = document.getElementById('releasedate');
+            let hour = document.getElementById('hour');
+            let minute = document.getElementById('minute');
+            let language = document.getElementById('language');
+            let type = document.getElementById('type');
+            let about = document.getElementById('about');
+            const moviePoster = document.getElementById("imgView");
+            const posterfile = document.getElementById('posterfile');
+            const bannerImg = document.getElementById('bannerImg');
+            const trailerlink = document.getElementById('trailerlink');
+
+
+            movieTitle.value = data.title;
+            movieDetails.style.display = 'block';
+            director.value = castDetails.directors.items[0].name;
+            releasedate.value = data.release_date;
+            runTime = await timeConvert(data.runtime);
+            hour.value = runTime.rhours;
+            minute.value = runTime.rminutes;
+            language.value = data.original_language;
+            type.value = data.genres[0].name;
+            about.value = data.overview;
+            trailerlink.value = `<iframe width="560" height="315" src="${movieTrailer.videoUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+            moviePoster.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+            bannerImg.src = `https://image.tmdb.org/t/p/original/${data.backdrop_path}`;
+
+
+
+
+        }
+        function timeConvert(min) {
+            var num = min;
+            var hours = (num / 60);
+            var rhours = Math.floor(hours);
+            var minutes = (hours - rhours) * 60;
+            var rminutes = Math.round(minutes);
+            return { rhours, rminutes };
+        }
+        function addElement(castDetails) {
+            let conunt = 0;
+            document.getElementById("cast").innerHTML = "";
+            castDetails.actors.forEach((data) => {
+                console.log(data)
+
+                conunt = conunt + 1
+
+                var x = document.createElement("DIV");
+                x.setAttribute("class", "form-group mt-5 col-md-5");
+                x.setAttribute("id", conunt);
+                document.getElementById("cast").appendChild(x);
+
+                let castImage = document.createElement("img");
+                castImage.src = data.image;
+                castImage.setAttribute('class', 'castimage')
+                x.appendChild(castImage);
+
+
+
+                var label = document.createElement("LABEL");
+                label.setAttribute("id", "cast" + conunt);
+                document.getElementById(conunt).appendChild(label)
+                document.getElementById('cast' + conunt).innerHTML = "Cast" + conunt
+
+                var input = document.createElement("INPUT");
+                input.setAttribute("type", "text");
+                input.value = data.name;
+                input.setAttribute("class", "form-control col-md-12 mt-2");
+                document.getElementById(conunt).appendChild(input)
+
+                var input = document.createElement("INPUT");
+                input.setAttribute("type", "text");
+                input.value = data.asCharacter;
+                input.setAttribute("class", "form-control col-md-12 mt-2");
+                document.getElementById(conunt).appendChild(input)
+            })
+
+        }
+    }
+</script>
+
+
 <script>
     f = 1
     function addElement() {
