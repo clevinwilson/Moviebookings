@@ -145,6 +145,7 @@
                                                 <label for="Trailer Link">Movie Poster</label>
                                                 <img src="" id="imgView" height="250px" width="150px"
                                                     style=" object-fit: cover;">
+                                                <input type="text" name="posterlink" id="posterlink" style="display: none;">
                                                 {{!-- <input style="border-color:#b4e3eb;" type="file" id="posterfile"
                                                     class="form-control col-md-12 mt-2" name="Image"
                                                     onchange="viewImage(event)" required> --}}
@@ -153,6 +154,7 @@
                                                 <label for="Trailer Link">Banner </label>
                                                 <img src="" id="bannerImg" height="200px" width="400px"
                                                     style=" object-fit: cover;">
+                                                <input type="text" name="bannerlink" id="bannerlink" style="display: none;">
                                                 {{!-- <input style="border-color:#b4e3eb;" type="file" id="banner"
                                                     class="form-control col-md-12 mt-2" name="Image2"
                                                     onchange="banner(event)" required> --}}
@@ -329,7 +331,7 @@
         }
         function getCastDetails(imdbid) {
             return new Promise((resolve, rejects) => {
-                fetch(`https://imdb-api.com/API/FullCast/k_iu0fhi2q/${imdbid}`)
+                fetch(`https://imdb-api.com/API/FullCast/k_4g078qeh/${imdbid}`)
                     .then((response) => {
                         return response.json();
                     })
@@ -340,7 +342,7 @@
         }
         function getMovieTrailer(imdbid) {
             return new Promise((resolve, rejects) => {
-                fetch(`https://imdb-api.com/API/YouTubeTrailer/k_iu0fhi2q/tt11651550`)
+                fetch(`https://imdb-api.com/API/YouTubeTrailer/k_4g078qeh/tt11651550`)
                     .then((response) => {
                         return response.json();
                     })
@@ -350,6 +352,7 @@
             })
         }
         async function setData(data, castDetails, movieTrailer) {
+            console.log(data,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
             hideAutoComplete();
             let movieDetails = document.getElementById('movie-details');
             let movieTitle = document.getElementById('movietitle');
@@ -365,6 +368,8 @@
             const bannerImg = document.getElementById('bannerImg');
             const trailerlink = document.getElementById('trailerlink');
              document.getElementById('imdbid').value = data.imdb_id;
+            const posterlink=document.getElementById('posterlink');
+            const bannerlink=document.getElementById('bannerlink');
 
 
             movieTitle.value = data.title;
@@ -377,6 +382,8 @@
             language.value = data.original_language;
             type.value = data.genres[0].name;
             about.value = data.overview;
+            posterlink.value=data.poster_path;
+            bannerlink.value=data.backdrop_path;
             trailerlink.value = `<iframe width="560" height="315" src="${movieTrailer.videoUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
             moviePoster.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
             bannerImg.src = `https://image.tmdb.org/t/p/original/${data.backdrop_path}`;
