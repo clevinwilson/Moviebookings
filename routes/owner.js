@@ -189,23 +189,34 @@ router.get('/add-movie', verifyLogin, (req, res) => {
 
 router.post('/add-movie', verifyLogin, (req, res) => {
     ownerHelper.addMovie(req.body, req.session.owner._id).then((id) => {
-        let image = req.files.Image
-        let banner = req.files.Image2
-        image.mv('./public/movie-images/' + id + '.jpg', (err, done) => {
-            banner.mv('./public/movie-banner/' + id + '.jpg', (err) => {
-                if (!err) {
+                if (id) {
                     req.session.addMovieSucc = "Movie added Successfully"
                     res.redirect('/owner/add-movie')
                 } else {
                     req.session.addMovieErr = "Something went wrong try again"
                     res.redirect('/owner/add-movie')
                 }
-            })
-            
-        })
-
-
     })
+
+
+    // ownerHelper.addMovie(req.body, req.session.owner._id).then((id) => {
+    //     let image = req.files.Image
+    //     let banner = req.files.Image2
+    //     image.mv('./public/movie-images/' + id + '.jpg', (err, done) => {
+    //         banner.mv('./public/movie-banner/' + id + '.jpg', (err) => {
+    //             if (!err) {
+    //                 req.session.addMovieSucc = "Movie added Successfully"
+    //                 res.redirect('/owner/add-movie')
+    //             } else {
+    //                 req.session.addMovieErr = "Something went wrong try again"
+    //                 res.redirect('/owner/add-movie')
+    //             }
+    //         })
+            
+    //     })
+
+
+    // })
 })
 
 
