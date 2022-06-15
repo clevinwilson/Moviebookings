@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^3.2.0",
     "connect-mongodb-session": "^2.4.1",
@@ -25,6 +26,7 @@
     "mongoose": "^5.11.0",
     "morgan": "~1.9.1",
     "nocache": "^2.1.0",
+    "node-fetch": "^3.2.6",
     "nodemailer": "^6.7.5",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",

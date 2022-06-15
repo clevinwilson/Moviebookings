@@ -187,7 +187,10 @@ router.get('/add-movie', verifyLogin, (req, res) => {
     req.session.addMovieErr = false
 })
 
-router.post('/add-movie', verifyLogin, (req, res) => {
+router.post('/add-movie', verifyLogin,async (req, res) => {
+    console.log(req.body);
+    let movieActorsDetails = await ownerHelper.getImdbMovieActorsDetails(req.body.imdbid)
+    req.body.actors = movieActorsDetails;
     ownerHelper.addMovie(req.body, req.session.owner._id).then((id) => {
                 if (id) {
                     req.session.addMovieSucc = "Movie added Successfully"

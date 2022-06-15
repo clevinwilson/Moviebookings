@@ -8,6 +8,7 @@ var nodemailer = require('nodemailer');
 var generator = require('generate-password');
 const { template } = require("handlebars")
 const { UPCOMINGMOVIES_COLLECTION } = require("../config/collection")
+const axios = require('axios').default;
 
 module.exports = {
     doLogin: (details) => {
@@ -108,6 +109,14 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let movies = await db.get().collection(collection.MOVIE_COLLECTION).find({ owner: objectId(ownerId) }).toArray()
             resolve(movies)
+        })
+    },
+    getImdbMovieActorsDetails: (imdbid)=>{
+        return new Promise((resolve,reject)=>{
+            axios.get(`https://imdb-api.com/API/FullCast/k_4g078qeh/${imdbid}`)
+                .then(function (response) {
+                    resolve(response.data.actors)
+                })
         })
     },
     getMovieDetails: (id) => {
