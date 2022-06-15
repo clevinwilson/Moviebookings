@@ -580,7 +580,7 @@
 
 
 						<div class="ml-1 row mt-2 mb-4">
-							<p class="banner-innertext">{{movieDetails.hour}}h {{movieDetails.minute}}m • {{movieDetails.type}} , Adventure , Sci-Fi , Thriller • UA</p>
+							<p class="banner-innertext">{{movieDetails.hour}}h {{movieDetails.minute}}m • {{movieDetails.type}} , Sci-Fi  UA</p>
 						</div>
 						<div class="rows  movie-release-details-box mt-5 mb-4">
 							<div class="col-md-6 col-6">
@@ -652,65 +652,17 @@
 															class="ion-ios-arrow-right"></i></a>
 												</div>
 												<!-- movie cast -->
-												<div class="mvcast-item">
+												<div style="overflow-x: hidden;height: 526px;" class="mvcast-item">
+													{{#each movieDetails.actors}}
 													<div class="cast-it">
 														<div class="cast-left">
-															<img style="    height: 56px;width: 58px;"
-																src="/images/uploads/proicon.png" alt="">
-															<a href="#">{{movieDetails.cast}}</a>
+															<img style="object-position: top; border-radius: 50%;object-fit: cover;height: 56px;width: 58px;" src="{{this.image}}" alt="">
+															<a href="#">{{this.name}}</a>
 														</div>
-														<p>... {{movieDetails.castas}}.</p>
+														<p>... {{this.asCharacter}}.</p>
 													</div>
-													{{#if movieDetails.cast2}}
-													<div class="cast-it">
-														<div class="cast-left">
-															<img style="    height: 56px;width: 58px;"
-																src="/images/uploads/proicon.png" alt="">
-															<a href="#">{{movieDetails.cast2}}</a>
-														</div>
-														<p>... {{movieDetails.castas2}}</p>
-													</div>
-													{{/if}}
-													{{#if movieDetails.cast3}}
-													<div class="cast-it">
-														<div class="cast-left">
-															<img style="    height: 56px;width: 58px;"
-																src="/images/uploads/proicon.png" alt="">
-															<a href="#">{{movieDetails.cast3}}</a>
-														</div>
-														<p>... {{movieDetails.castas3}}</p>
-													</div>
-													{{/if}}
-													{{#if movieDetails.cast4}}
-													<div class="cast-it">
-														<div class="cast-left">
-															<img style="    height: 56px;width: 58px;"
-																src="/images/uploads/proicon.png" alt="">
-															<a href="#">{{movieDetails.cast4}}</a>
-														</div>
-														<p>... {{movieDetails.castas4}}</p>
-													</div>
-													{{/if}}
-													{{#if movieDetails.cast5}}
-													<div class="cast-it">
-														<div class="cast-left">
-															<img style="    height: 56px;width: 58px;"
-																src="/images/uploads/proicon.png" alt="">
-															<a href="#">{{movieDetails.cast5}}</a>
-														</div>
-														<p>... {{movieDetails.castas5}}</p>
-													</div>
-													{{/if}}
-													{{#if movieDetails.cast6}}
-													<div class="cast-it">
-														<div class="cast-left">
-															<img style="    height: 56px;width: 58px;"
-																src="/images/uploads/proicon.png" alt="">
-															<a href="#">{{movieDetails.cast6}}</a>
-														</div>
-														<p>... {{movieDetails.castas6}}</p>
-													</div>
-													{{/if}}
+													{{/each}}
+													
 												</div>
 												{{!-- <div class="title-hd-sm">
 													<h4>User reviews</h4>
