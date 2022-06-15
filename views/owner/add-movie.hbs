@@ -342,7 +342,7 @@
         }
         function getMovieTrailer(imdbid) {
             return new Promise((resolve, rejects) => {
-                fetch(`https://imdb-api.com/API/YouTubeTrailer/k_4g078qeh/tt11651550`)
+                fetch(`https://imdb-api.com/API/YouTubeTrailer/k_4g078qeh/${imdbid}`)
                     .then((response) => {
                         return response.json();
                     })
@@ -352,7 +352,6 @@
             })
         }
         async function setData(data, castDetails, movieTrailer) {
-            console.log(data,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
             hideAutoComplete();
             let movieDetails = document.getElementById('movie-details');
             let movieTitle = document.getElementById('movietitle');
