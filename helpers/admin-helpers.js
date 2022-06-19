@@ -94,7 +94,7 @@ module.exports={
                       requireTLS: true,
                       auth: {
                         user: "www.myappsa2z@gmail.com",
-                        pass: "fmejzqxsrtfogxzg",
+                          pass: "nbkbeaxahwlzmoog",
                       },
                     });
               
@@ -339,7 +339,7 @@ module.exports={
                     transporter.sendMail(mailOptions, function (error, info) {
                       if (error) {
                         console.log(error);
-                        resolve({message:"Email not send please try again "})
+                        // resolve({message:"Email not send please try again "})
                       } else {
                         console.log("Email sent: " + info.response);
                         resolve({status:true})
