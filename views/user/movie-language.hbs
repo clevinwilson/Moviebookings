@@ -34,7 +34,7 @@ Author URL: http://w3layouts.com
 	<!--//breadcrumbs -->
 	<!--/genre -->
 	<!--grids-sec1-->
-	<section class="w3l-grids">
+	{{!-- <section class="w3l-grids">
 		<div class="grids-main py-4">
 			<div class="container py-lg-4">
 				<div class="headerhny-title">
@@ -154,7 +154,7 @@ Author URL: http://w3layouts.com
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 	<!--//grids-sec1-->
 	<!--grids-sec1-->
 	<section class="w3l-grids">
@@ -176,7 +176,7 @@ Author URL: http://w3layouts.com
 						<a href="/details/{{this._id}}">
 							<div class="box16">
 								<figure>
-									<img style=" height: 391px; object-fit: cover;"class="img-fluid" src="/movie-images/{{this._id}}.jpg" alt="">
+									<img style=" height: 391px; object-fit: cover;"class="img-fluid" src="https://image.tmdb.org/t/p/original{{this.posterlink}}" alt="">
 								</figure>
 								<div class="box-content">
 									<h3 class="title">{{this.movietitle}}</h3>

@@ -307,7 +307,6 @@
             autocomplete.style.display = 'none';
         }
         function getMovieId(event) {
-            console.log(event.target.id)
             const movieid = event.target.id;
             fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=00a55f69b6879e4f888721dcec3ad3c7&language=en-US`)
                 .then((response) => {
@@ -336,6 +335,7 @@
                         return response.json();
                     })
                     .then((data) => {
+                        console.log(data)
                         resolve(data)
                     })
             })
@@ -378,7 +378,7 @@
             runTime = await timeConvert(data.runtime);
             hour.value = runTime.rhours;
             minute.value = runTime.rminutes;
-            language.value = data.original_language;
+            language.value = data.spoken_languages[0].english_name;
             type.value = data.genres[0].name;
             about.value = data.overview;
             posterlink.value=data.poster_path;
