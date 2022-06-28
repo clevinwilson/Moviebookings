@@ -14,9 +14,9 @@ require('dotenv').config()
 
 
 
-var serviceid = "	VAb0";
-var accountSid = "AC";  // Your Account SID 
-var authToken = "c5"; // Your Auth Token 
+var serviceid = "	VAb018dbdeb02c7a323cf92a3e9e4dc830";
+var accountSid = "AC339f8aff9fd35caeb2ae59401274e823";  // Your Account SID 
+var authToken = "c54a325c3945db094cd6de7d55591e47"; // Your Auth Token 
 
 
 
